@@ -1,0 +1,77 @@
+/* Main theme layout */
+body { color:#2A3A49;}
+
+.top-nav{ color: #fff; padding: 5px; font-size:11px; font-weight: bold; }
+.top-nav a { color:#fff }
+.top-nav a:hover{ text-decoration: none }
+
+.top-left-nav li{ font-size:11px; font-weight: bold; padding-left: 10px }
+.top-left-nav li a { padding:0px }
+.top-left-nav li a:hover { color:#fff }
+
+#top-footer{ background-color: #EDEFF1 }
+#bottom-footer{ min-height: 50px; padding-top:10px;background-color: #E3E3E3 }
+#bottom-footer a { color: #2A3A49; font-size: 12px}
+#bottom-footer a:hover { text-decoration: none }
+#bottom-footer .bf-left { text-align: left }
+#bottom-footer .bf-right { text-align: right }
+
+.shop{ width: 500px !important; }
+.adtext{ font-size: 18px; color: #fff; background-color: #34373B; padding: 20px }
+.adtext a { font-size:11px; font-weight:bold; color:#E57606 }
+
+
+
+/* Home Page */
+.slide-content h1 a { color: #2A3A49 }
+.slide-content h1 a:hover { text-decoration: none }
+
+
+
+/* CAROUSEL*/
+#myCarousel { height:400px; background-color:#fff; }
+.slide-content { margin-left: 10%; margin-right: 10% }
+.slide-content h1 { font-size: 24px; font-weight:bold }
+.slide-content p { margin-top: 10px }
+.slide-content span { display:block; font-size:24px; font-weight: bold; margin-top: 10px }
+.slide-content a { margin-top: 10px }
+.slide-content .btn { font-size: 24px; border: 2px solid #2A3A49}
+.carousel-control.left { background-image: none; }
+.carousel-control.right { background-image: none; }
+.icon-prev { color:black; }
+.icon-next { color:black; }
+.carousel-indicators li { border: none; background-color: #B8C6C1; width: 12px; height: 12px }
+.carousel-indicators .active { background-color: #869791; }
+
+
+
+/* Product Page */
+#product-detail #price{ font-size: 22px }
+
+.items {
+   border: 1px solid #ccc;
+   text-align: center;
+   padding: 15px;
+   margin: 0  0 30px 0;
+}
+.items h4 { min-height: 80px; font-size: 16px}
+.items h4 a { color: #2A3A49 }
+
+.items p { min-height: 100px }
+.items button a { color: #FFF}
+
+.product-tab { padding: 10px 10px 30px 10px }
+
+/*Category Page*/
+#show_cat .panel-heading { font-weight: bold; text-align: center }
+#show_cat .panel-body { text-align: center }
+#show_cat .badge { padding: 8px; margin: 10px; font-size: 18px}
+#show_cat #title { min-height: 80px}
+
+.footer { margin-top: 8px }
+.footer a { color: #666; font-size: 12px }
+
+.all-products { margin-bottom: 20px; }
+.all-products h3{ font-size:20px; margin: 0px; padding: 0px}
+.all-products #footer-content { font-size: 11px }
+
