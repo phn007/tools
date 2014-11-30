@@ -82,18 +82,6 @@ class SiteController extends webtools\Controller
             exit( 0 );
          }
 
-         /*
-          * Setup site structure for xip.io
-          * -------------------------------------------------------------------
-         */
-         if ( 'createxip' == $function['name'] )
-         {
-            $xpi = $this->model( 'createxip' );
-            $xpi->sub_function = $function['sub'];
-            $xpi->create( $conf );
-            exit( 0 );
-         }
-
 
          /*
           * เก็บข้อมูลสินค้า
