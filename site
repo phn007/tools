@@ -94,9 +94,21 @@ try {
         );
 
     $options = Console_Getoptplus::getoptplus($config, 'short2long', true);
-    //print_r($options);
+   //print_r($options);
+   //include 'site.php';
 
-   include 'site.php';
+
+   
+   include 'libs/options.php';
+   $controller = 'site';
+   $action = 'createsite';
+
+   $opt = new Options();
+   $options = $opt->get( $controller, $action, $options );
+
+   include 'appindex.php';
+
+
 }
 catch(Console_GetoptPlus_Exception $e) {
     $error = array($e->getCode(), $e->getMessage());
