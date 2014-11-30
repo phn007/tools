@@ -39,7 +39,7 @@ class xipController extends webtools\Controller
          */
          if ( 'create' == $function['name'] )
          {
-            $xpi = $this->model( 'createxip' );
+            $xpi = $this->model( 'xip' );
             $xpi->sub_function = $function['sub'];
             $xpi->create( $conf );
             exit( 0 );
