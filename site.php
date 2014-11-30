@@ -1,29 +1,10 @@
 <?php
+include 'libs/options.php';
 
-class Option
-{
-   function main( $options )
-   {
-      if ( ! isset( $options[1][1] ) )
-         $options[1][1] = null;
+$controller = 'site';
+$action = 'createsite';
 
-      $controller = 'site';
-      $action = 'createsite';
-      $params = array(
-         'function' => $options[1][0],
-         'arg' => $options[1][1],
-      );
-
-      return array(
-         'controller' => $controller,
-         'action' => $action,
-         'param' => $params,
-         'option' => $options[0]
-      );
-   }
-}
-
-$opt = new Option();
-$options = $opt->main( $options );
+$opt = new Options();
+$options = $opt->get( $controller, $action, $options );
 
 include 'appindex.php';
