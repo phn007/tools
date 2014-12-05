@@ -2,7 +2,6 @@
 namespace webtools;
 class AppComponent
 {
-
    public function component( $component )
    {
       $path = WT_APP_PATH . 'components/' . $component . '_component.php';

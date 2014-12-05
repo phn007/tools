@@ -1,5 +1,8 @@
 <?php
-class ConfigModel extends webtools\AppComponent
+use webtools\AppComponent;
+    
+class ConfigModel extends AppComponent
+
 {
    /*
     * CONFIG SECTION
@@ -7,6 +10,11 @@ class ConfigModel extends webtools\AppComponent
    */
    function setupConfig( $opt )
    {
+       
+       echo "Setup Config";
+       die();
+       
+       
       //ตรวจสอบชื่อโฟลเดอร์ที่ user ส่งเข้ามา
       //ถ้า user ไม่ได้ส่งชื่อโฟล์เดอร์ของไฟล์ config เข้ามาให้ไปใช้โฟลเดอร์ default แทน
       if ( 'file' == $opt['conf_dir_type'] )
@@ -336,6 +344,10 @@ class ConfigModel extends webtools\AppComponent
          echo "\n";
 
       }
-
    }
+    
+    function addNumber( $x, $y )
+    {
+        return $x + $y;
+    }
 }

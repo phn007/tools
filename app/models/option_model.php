@@ -1,5 +1,7 @@
 <?php
-class optionModel extends webtools\AppComponent
+use webtools\AppComponent;
+
+class optionModel extends AppComponent
 {
    function xip( $params, $options )
    {

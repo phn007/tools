@@ -1,0 +1,10 @@
+{
+    "autoload":{
+		"classmap":[
+            "_console",
+			"app",
+            "libs",
+            "appindex.php" 
+		]
+	}
+}
