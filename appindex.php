@@ -25,7 +25,7 @@ define( 'SITE_CREATOR_PATH', WT_BASE_PATH . 'sitecreator/');
 define( 'TEXTDB_PATH', '../textdb/' );
 define( 'TEXTSITE_PATH', '../textsite/' );
 //define( 'HTMLSITE_PATH', '../htmlsite/' );
-define( 'CONFIG_PATH', '../configs/' );
+define( 'CONFIG_PATH', 'configs/' );
 
 //TextSpinner
 define( 'TEXTSPIN_PATH', FILES_PATH . 'textspinner/');
