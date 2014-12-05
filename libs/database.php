@@ -4,7 +4,8 @@ class database
 {
    function connectDatabase()
    {
-      $hostname = 'localhost';
+      //$hostname = 'localhost';
+      $hostname = '127.0.0.1';
       $username = 'root';
       $password = 'p2h5a1n1';
 
