@@ -9,12 +9,7 @@ class ConfigModel extends AppComponent
     * -------------------------------------------------------------------------
    */
    function setupConfig( $opt )
-   {
-       
-       echo "Setup Config";
-       die();
-       
-       
+   { 
       //ตรวจสอบชื่อโฟลเดอร์ที่ user ส่งเข้ามา
       //ถ้า user ไม่ได้ส่งชื่อโฟล์เดอร์ของไฟล์ config เข้ามาให้ไปใช้โฟลเดอร์ default แทน
       if ( 'file' == $opt['conf_dir_type'] )
