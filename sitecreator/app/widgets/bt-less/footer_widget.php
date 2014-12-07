@@ -31,7 +31,7 @@ class Footer
    public static function copyright()
    {
       ?>
-      <a href="<?php echo HOME_LINK ?>">© <?php echo SITE_NAME ?> <?php echo date("Y"); ?> All right reserved </a>
+      <a href="<?php echo HOME_LINK ?>">© <?php echo SITE_NAME ?> <?php echo "2014" //echo date("Y"); ?> All right reserved </a>
       <?php
    }
 }

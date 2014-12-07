@@ -1,5 +1,5 @@
 <?php
-
+namespace webtools\app\extensions;
 class TextSpinner
 {
    //Excute Function

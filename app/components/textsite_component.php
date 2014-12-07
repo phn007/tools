@@ -1,4 +1,5 @@
 <?php
+use webtools\libs\Helper;
 
 class TextsiteComponent
 {
@@ -20,7 +21,7 @@ class TextsiteComponent
    function copydir_exclude( $source, $destination, $exclude )
    {
       //สร้างโฟลเดอร์
-      webtools\Helper::make_dir( $destination );
+      Helper::make_dir( $destination );
 
       if ( ! is_dir( $destination ) )
       {
@@ -59,7 +60,7 @@ class TextsiteComponent
    function copydir_exclude_only( $source, $destination, $exclude )
    {
       //สร้างโฟลเดอร์
-      webtools\Helper::make_dir( $destination );
+      Helper::make_dir( $destination );
 
       if ( ! is_dir( $destination ) )
       {
@@ -93,7 +94,7 @@ class TextsiteComponent
    function copydir_include( $source, $destination, $include )
    {
       //สร้างโฟลเดอร์
-      webtools\Helper::make_dir( $destination );
+      Helper::make_dir( $destination );
 
       if ( ! is_dir( $destination ) )
       {
@@ -126,7 +127,7 @@ class TextsiteComponent
    function copydir( $source, $destination )
    {
       //สร้างโฟลเดอร์
-      webtools\Helper::make_dir( $destination );
+      Helper::make_dir( $destination );
 
       if ( ! is_dir( $destination ) )
       {
@@ -186,7 +187,7 @@ class TextsiteComponent
 
 
 
-      webtools\Helper::make_dir( $dest );
+      Helper::make_dir( $dest );
       $fh = fopen( $dest . '/.htaccess', 'w' );
       fwrite( $fh, $hta );
       fclose( $fh );
@@ -220,7 +221,7 @@ class TextsiteComponent
       $priority = "0.5";
 
       //สร้างโฟลเดอร์สำหรับเก็บไฟล์ sitemap
-      webtools\Helper::make_dir( $sitemap_dir );
+      Helper::make_dir( $sitemap_dir );
 
       //สร้างตัวนับลูปของ textdatabase ไฟล์ ( categories )
       $count_file = 1;
@@ -320,7 +321,7 @@ class TextsiteComponent
                 * กำหนดตัวแปรที่ต้องใช้ในการสร้าง url ของสินค้า
                 * -----------------------------------------------------------------
                */
-               $cat_name = webtools\Helper::clean_string( $item['category'] );
+               $cat_name = Helper::clean_string( $item['category'] );
                $lastmod = date ( "Y-m-d" );
                $product_file = str_replace( '.txt', '', $filename );
 
@@ -370,7 +371,7 @@ class TextsiteComponent
                 * กำหนดตัวแปรที่ต้องใช้ในการสร้าง url ของสินค้า
                 * -----------------------------------------------------------------
                */
-               $cat_name = webtools\Helper::clean_string( $item['category'] );
+               $cat_name = Helper::clean_string( $item['category'] );
                $lastmod = date ( "Y-m-d" );
                $product_file = str_replace( '.txt', '', $filename );
 
@@ -481,7 +482,7 @@ class TextsiteComponent
       $dest = rtrim( $dest, '/' );
       $domain = rtrim( $domain, '/' );
 
-      webtools\Helper::make_dir( $dest );
+      Helper::make_dir( $dest );
 
       $fh = fopen( $dest . '/robots.txt' , 'w' );
       $robot  = 'User-agent: *' . PHP_EOL;
@@ -509,7 +510,7 @@ class TextsiteComponent
       $logo_bg_color = $this->logo_bg_color;
 
 
-      webtools\Helper::make_dir( $dest );
+      Helper::make_dir( $dest );
 
       $img_size = explode( ',', '350,30' );
       $text_color = explode( ',', '255, 255, 255' );

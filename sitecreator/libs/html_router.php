@@ -1,6 +1,7 @@
 <?php
+namespace libs\html;
 
-class Map extends Object
+class Map extends \Object
 {
 	public static function dispatch( $controller, $action, $params )
 	{

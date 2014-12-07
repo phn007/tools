@@ -1,4 +1,5 @@
 <?php
+use webtools\libs\Helper;
 
 class ProspapiComponent extends Database
 {
@@ -65,7 +66,7 @@ class ProspapiComponent extends Database
    function convertToDbName( $merchant )
    {
       //แปลงชื่อ merchant ให้เป็นชื่อ database
-      $db_name = webtools\Helper::clean_string( $merchant );
+      $db_name = Helper::clean_string( $merchant );
       return 'prosp_' . str_replace( '-', '_', $db_name );
    }
 

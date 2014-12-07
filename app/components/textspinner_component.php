@@ -1,4 +1,7 @@
 <?php
+
+use webtools\app\extensions\textSpinner;
+
 include WT_APP_PATH . 'extensions/textspinner.class.php';
 
 class textspinnerComponent extends TextSpinner

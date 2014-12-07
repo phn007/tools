@@ -1,5 +1,5 @@
 <?php
-namespace webtools;
+namespace webtools\libs;
  class Router
  {
    public static function dispatch( $opts )

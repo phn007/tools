@@ -1,4 +1,5 @@
 <?php
+use webtools\libs\Helper;
 
 class HtmlSiteComponent
 {
@@ -17,7 +18,7 @@ class HtmlSiteComponent
 
    function createIndexPage()
    {
-      webtools\Helper::make_dir( $this->dest );
+      Helper::make_dir( $this->dest );
 
       echo $this->site_dir;
       echo " Created index: ";
@@ -33,7 +34,7 @@ class HtmlSiteComponent
 
    function createDefaultPage()
    {
-      webtools\Helper::make_dir( $this->dest );
+      Helper::make_dir( $this->dest );
 
       $pages = array(
          'about',
@@ -61,7 +62,7 @@ class HtmlSiteComponent
 
    function createCategoryListPage()
    {
-      webtools\Helper::make_dir( $this->dest );
+      Helper::make_dir( $this->dest );
 
       //category#category_list
       $controller = 'category';
@@ -77,7 +78,7 @@ class HtmlSiteComponent
 
    function createBrandListPage()
    {
-      webtools\Helper::make_dir( $this->dest );
+      Helper::make_dir( $this->dest );
 
       //category#category_list
       $controller = 'category';
@@ -173,7 +174,7 @@ class HtmlSiteComponent
          $dest = $this->dest . '/category/' . $cat_name . '/' ;
 
          //สร้างโฟลเดอร์ตามชื่อ cat_name
-         webtools\Helper::make_dir( $dest );
+         Helper::make_dir( $dest );
 
          //คำนวณหาว่าแต่ละ cat_name มีทั้งหมดกี่หน้า เก็บไว้ในตัวแปร array
          $pages = $this->category_pages( $cat_name, $category_path );
@@ -220,7 +221,7 @@ class HtmlSiteComponent
 
          //สร้างโฟลเดอร์ตามชื่อ cat_name
          $dest = $this->dest . '/brand/' . $brand_name . '/' ;
-         webtools\Helper::make_dir( $dest );
+         Helper::make_dir( $dest );
 
          //Loop ผ่าน $pages เพื่อกำหนด params และเรียกฟังก์ชั่น generate page ขึ้นมาทำงาน
          foreach ( $pages as $number )

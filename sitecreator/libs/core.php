@@ -36,5 +36,5 @@ elseif ( 'htmlsite' == SITE_TYPE )
    $params = array( $param1, $param2 );
 
    //เรียกใช้ Script
-   Map::dispatch( $controller, $action, $params );
+   libs\html\Map::dispatch( $controller, $action, $params );
 }

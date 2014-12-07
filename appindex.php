@@ -41,4 +41,4 @@ include 'libs/helper.php';
 include CONSOLE_PATH . 'Lite.php';
 include SITE_CREATOR_PATH . 'config/permalink.php';
 
-webtools\Router::dispatch( $options );
+webtools\libs\Router::dispatch( $options );

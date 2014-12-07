@@ -1,5 +1,7 @@
 <?php
 namespace webtools;
+
+
 class AppComponent
 {
    public function component( $component )
@@ -10,7 +12,9 @@ class AppComponent
       {
          require_once $path;
          $component_class = $component . 'Component';
-         return new $component_class();
+         $obj = new $component_class();
+		  
+		 return $obj;
       }
       else
       {

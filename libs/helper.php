@@ -1,5 +1,5 @@
 <?php
-namespace webtools;
+namespace webtools\libs;
 
 class Helper
 {

@@ -1,4 +1,5 @@
 <?php
+use webtools\libs\Helper;
 
 class TextDatabaseComponent extends Database
 {
@@ -12,7 +13,7 @@ class TextDatabaseComponent extends Database
       return $this->{$name};
    }
 
-
+	
    function parseTextSiteData( $row )
    {
       //ตรวจสอบและแทนค่าว่าง
@@ -23,21 +24,21 @@ class TextDatabaseComponent extends Database
       * Create Categories slug
       * -----------------------------------------------------------------
       */
-      $cat_name = webtools\Helper::getCategory( $row['merchant'], $row['category'] );
-      $cat_slug = webtools\Helper::clean_string( $cat_name );
+      $cat_name = Helper::getCategory( $row['merchant'], $row['category'] );
+      $cat_slug = Helper::clean_string( $cat_name );
 
       /*
       * Create Brand slug
       * -----------------------------------------------------------------
       */
       $brand_name = $row['brand'];
-      $brand_slug = webtools\Helper::clean_string( $brand_name );
+      $brand_slug = Helper::clean_string( $brand_name );
 
       /*
       * Create Keyword slug
       * -----------------------------------------------------------------
       */
-      $key_slug = webtools\Helper::clean_string( $row['keyword'] );
+      $key_slug = Helper::clean_string( $row['keyword'] );
 
 
       /*
@@ -227,21 +228,21 @@ class TextDatabaseComponent extends Database
       * Create Categories slug
       * -----------------------------------------------------------------
       */
-      $cat_name = webtools\Helper::getCategory( $row['merchant'], $row['category'] );
-      $cat_slug = webtools\Helper::clean_string( $cat_name );
+      $cat_name = Helper::getCategory( $row['merchant'], $row['category'] );
+      $cat_slug = Helper::clean_string( $cat_name );
 
       /*
       * Create Brand slug
       * -----------------------------------------------------------------
       */
       $brand_name = $row['brand'];
-      $brand_slug = webtools\Helper::clean_string( $brand_name );
+      $brand_slug = Helper::clean_string( $brand_name );
 
       /*
       * Create Keyword slug
       * -----------------------------------------------------------------
       */
-      $key_slug = webtools\Helper::clean_string( $row['keyword'] );
+      $key_slug = Helper::clean_string( $row['keyword'] );
 
       /*
       * Catalog ID
@@ -267,7 +268,7 @@ class TextDatabaseComponent extends Database
       $total = 0;
 
       $path = $project_path . $dir .'/';
-      webtools\Helper::make_dir( $path );
+      Helper::make_dir( $path );
 
       foreach( $data as $key => $cat )
       {
@@ -316,7 +317,7 @@ class TextDatabaseComponent extends Database
       $brand_data = false;
 
       $path = $folder . '/brands/';
-      webtools\Helper::make_dir( $path );
+      Helper::make_dir( $path );
 
       $files = glob( $cat_dir . '*.txt' );
 
@@ -341,7 +342,7 @@ class TextDatabaseComponent extends Database
             }
 
             $bnd[$name]['name'] = $name;
-            $name_slug = webtools\Helper::clean_string( $bnd[$name]['name'] . $bnd[$name]['num'] );
+            $name_slug = Helper::clean_string( $bnd[$name]['name'] . $bnd[$name]['num'] );
             $file = $path . $name_slug . '.txt';
 
             $brand_data  = $prod['keyword'] . '|';
