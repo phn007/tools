@@ -291,17 +291,22 @@ class TextDatabaseComponent extends Database
                {
                   $filename = $key . '_' . $i;
                }
-
-               $file = $path . $filename . '.txt';
-               $cat_data = serialize( $chunk );
-               file_put_contents( $file, $cat_data );
-               $i++;
+				
+                $file = $path . $filename . '.txt';
+				$product_data = $this->addFilenameToProductData( $filename, $chunk );
+				
+                $product_data = serialize( $product_data );
+                file_put_contents( $file, $cat_data );
+                $i++;
             }
          }
          else
          {
             $filename = $key;
             $file = $path . $filename . '.txt';
+			 
+			 //$this->addFilenameToProductData( $filename, $chunk );
+			 
             $cat_data = serialize( $data[ $key ] );
             file_put_contents( $file, $cat_data );
          }
@@ -310,6 +315,17 @@ class TextDatabaseComponent extends Database
       echo 'Created ' . ucfirst( $dir ) . ': ' . $total . ' products. ' . $project_path;
       echo "\n";
    }
+	
+	
+	function addFilenameToProductData( $filename, $product_data )
+	{
+		foreach ( $product_data as $key => $prod )
+		{	
+			$prod['filename'] = $filename;
+			$data[$key] = $prod;
+		}
+		return $data;
+	}
 
 
    function createBrandDatabase( $folder, $cat_dir )

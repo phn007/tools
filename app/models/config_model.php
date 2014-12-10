@@ -1,6 +1,6 @@
 <?php
 use webtools\AppComponent;
-    
+
 class ConfigModel extends AppComponent
 
 {
@@ -9,7 +9,7 @@ class ConfigModel extends AppComponent
     * -------------------------------------------------------------------------
    */
    function setupConfig( $opt )
-   { 
+   {
       //ตรวจสอบชื่อโฟลเดอร์ที่ user ส่งเข้ามา
       //ถ้า user ไม่ได้ส่งชื่อโฟล์เดอร์ของไฟล์ config เข้ามาให้ไปใช้โฟลเดอร์ default แทน
       if ( 'file' == $opt['conf_dir_type'] )
@@ -244,7 +244,7 @@ class ConfigModel extends AppComponent
          // $site_dir = str_replace( $find, $replace, end( $arr ) );
          $site_dir = $conf['server_name'][$i];
 
-         
+
 
          //setup config file
          $data[] = array(
@@ -340,7 +340,7 @@ class ConfigModel extends AppComponent
 
       }
    }
-    
+
     function addNumber( $x, $y )
     {
         return $x + $y;

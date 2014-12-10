@@ -94,17 +94,12 @@ try {
         );
 
     $options = Console_Getoptplus::getoptplus($config, 'short2long', true);
-   //print_r($options);
-   //include 'site.php';
-
-
 
    include 'libs/options.php';
-   $controller = 'site';
-   $action = 'createsite';
+   $controller = 'textsite';
 
    $opt = new Options();
-   $options = $opt->get( $controller, $action, $options );
+   $options = $opt->verifyOptions( $controller, $options );
 
    include 'appindex.php';
 

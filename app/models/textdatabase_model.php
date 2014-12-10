@@ -21,7 +21,17 @@ class TextDatabaseModel extends webtools\AppComponent
          }
       }
    }
-
+	
+	
+	
+   /**
+    * สร้าง TextDatabase
+    * @param String $project       ชื่อโปรเจ็ค
+    * @param Number $site_number   จำนวนเว็บไซต์
+    * @param Array  $merchant_data ข้อมูลของ merchant 
+    * merchant data:
+	* key -> ชื่อ merchant: project, db_name, network, clear_db
+    */
    function createTextDatabase( $project, $site_number, $merchant_data )
    {
       $cpn = $this->component( 'textdatabase' );
@@ -33,8 +43,12 @@ class TextDatabaseModel extends webtools\AppComponent
       */
       //$num_textdb = $site_number;
       $num_db = $site_number;
+	   
 
       $tp = $cpn->totalProductsV2( $conn, $merchant_data );
+	   
+	   
+	  //จำนวนสินค้าของแต่ละ merchant
       $total_products = $tp['total'];
       $mch = $tp['number'];
 
@@ -50,17 +64,23 @@ class TextDatabaseModel extends webtools\AppComponent
 
       //Display on screen
       echo "Product Number/Prodct: " .$product_per_project  . "\n\n";
-
+	   
+	  //วนลูปผ่านข้อมูลของแต่ละ merchant
       foreach ( $merchant_data as $merchant => $data )
       {
-         $db_name = $data['db_name'];
-         $num_merchant = $mch[ $merchant ];
-         $sqls = $cpn->createSQLString( $num_merchant );
+		  $db_name = $data['db_name'];
+		  
+		  //จำนวนสินค้าของ merchant
+          $num_merchant = $mch[ $merchant ];
+		  
+		  //แบ่งการ query ออกเป็นส่วนๆ เพื่อลดการใช้ ram 
+		  $sqls = $cpn->createSQLString( $num_merchant );
 
-
-         //Query MySQL
-         foreach ( $sqls as $sql )
-         {
+		  //Query MySQL
+		  foreach ( $sqls as $sql )
+          {
+			
+			//ดึงสินค้าออกมาจาก mysql database
             $result = $cpn->getQueryResultV2(  $conn, $db_name, $sql );
 
             echo 'Get data from: ' . $merchant;
@@ -79,6 +99,7 @@ class TextDatabaseModel extends webtools\AppComponent
                $brand_slug = $c['brand_slug'];
                $brand_name = $c['brand_name'];
                $products  = $c['products'];
+				
 
                //Display on screen
                echo 'Parsing: ';
@@ -89,7 +110,7 @@ class TextDatabaseModel extends webtools\AppComponent
 
                //Categories Data
                $cat_data[ $cat_slug ][ $key_slug ] = $products;
-
+	
                //แบ่ง Project Group
                if ( $product_per_project == $count_product_per_project )
                {

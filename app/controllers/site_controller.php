@@ -110,7 +110,7 @@ class SiteController extends webtools\Controller
             else
             {
                $textdb_model->createTextDatabase( $project, $site_number, $merchant_data );
-               $textdb_model->createBrand( $project );
+               //$textdb_model->createBrand( $project );
             }
          }
 
