@@ -55,6 +55,7 @@ class Options
 			'params' => $params,
 			'options' => $inputOptions,
 		);
+
 		return $result;
    	}
 	
@@ -62,14 +63,15 @@ class Options
 	{
 		$params = null;
 		
-		if ( empty( $inputParams )
-			die( 'Empty Input Parameter!!!');
-			
-		$i = 0;
-		foreach ( $actionFunctionList[$inputFunction] as $item )
+		if ( !empty( $inputParams ) )
 		{
-			$params[$item] = $inputParams[$i];
-			$i++;
+			$i = 0;
+			foreach ( $actionFunctionList[$inputFunction] as $item )
+			{
+				if ( isset( $inputParams[$i]) )
+					$params[$item] = $inputParams[$i];
+				$i++;
+			}
 		}
 		return $params;
 	}

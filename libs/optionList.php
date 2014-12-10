@@ -1,6 +1,20 @@
 <?php
 class OptionList
 {
+	function textdb()
+	{
+		//textdb -c ddb2.ini create product
+		//textdb -c ddb2.ini create brand
+		//textdb -c ddb2.ini create all
+		/*
+		controller: textdb
+		action:     create
+		function/params: $
+		*/
+		$functions = array( 'product' => array(), 'brand' => array(), 'all' => array() );
+		return array( 'create' => $functions );
+	}
+	
 	function textsite()
 	{
 		/*
