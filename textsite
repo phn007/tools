@@ -102,8 +102,6 @@ try {
    $options = $opt->verifyOptions( $controller, $options );
 
    include 'appindex.php';
-
-
 }
 catch(Console_GetoptPlus_Exception $e) {
     $error = array($e->getCode(), $e->getMessage());

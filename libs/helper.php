@@ -14,60 +14,60 @@ class Helper
    }
 
 
-   public static function getCategory( $merchant, $category )
-   {
-      //ที่อยู่ของไฟล์
-      $path =  FILES_PATH . 'separator_category.txt';
-
-      //ตรวจสอบว่ามีไฟล์อยู่หรือเปล่า
-      if ( file_exists( $path ) )
-      {
-         //อ่านไฟล์ขึ้นมา
-         $files = file( $path );
-         $files = array_map( 'trim', $files );
-
-         //แยกข้อมูลแล้วเก็บไว้ในอะเรย์
-         foreach ( $files as $file )
-         {
-            $arr = explode( '|', $file );
-            $separator[$arr[0]] = $arr[1];
-         }
-
-         //ตรวจสอบว่ามีข้อมูลของ merchant ที่ส่งเข้ามาหรือเปล่า
-         if ( array_key_exists( $merchant, $separator ) )
-         {
-            $sep = $separator[ $merchant ];
-
-            //แยก category
-
-            if ( ! empty( $sep ) )
-            {
-               $cats = explode( $sep, $category );
-
-               //ลบ array ที่เป็นค่าว่างออก
-               $cats = array_filter( $cats );
-
-               //ดึงเอาชื่อ category ตัวสุดท้ายไปใช้งาน
-               $cat_name = end( $cats );
-
-            }
-            else
-            {
-               $cat_name = $category;
-            }
-            return $cat_name;
-         }
-         else
-         {
-            echo $merchant . ': There is no separator';
-            die();
-         }
-      }
-      else
-      {
-         die( $path . ': File not found!!!' );
-      }
-   }
+   // public static function getCategory( $merchant, $category )
+   // {
+   //    //ที่อยู่ของไฟล์
+   //    $path =  FILES_PATH . 'separator_category.txt';
+   //
+   //    //ตรวจสอบว่ามีไฟล์อยู่หรือเปล่า
+   //    if ( file_exists( $path ) )
+   //    {
+   //       //อ่านไฟล์ขึ้นมา
+   //       $files = file( $path );
+   //       $files = array_map( 'trim', $files );
+   //
+   //       //แยกข้อมูลแล้วเก็บไว้ในอะเรย์
+   //       foreach ( $files as $file )
+   //       {
+   //          $arr = explode( '|', $file );
+   //          $separator[$arr[0]] = $arr[1];
+   //       }
+   //
+   //       //ตรวจสอบว่ามีข้อมูลของ merchant ที่ส่งเข้ามาหรือเปล่า
+   //       if ( array_key_exists( $merchant, $separator ) )
+   //       {
+   //          $sep = $separator[ $merchant ];
+   //
+   //          //แยก category
+   //
+   //          if ( ! empty( $sep ) )
+   //          {
+   //             $cats = explode( $sep, $category );
+   //
+   //             //ลบ array ที่เป็นค่าว่างออก
+   //             $cats = array_filter( $cats );
+   //
+   //             //ดึงเอาชื่อ category ตัวสุดท้ายไปใช้งาน
+   //             $cat_name = end( $cats );
+   //
+   //          }
+   //          else
+   //          {
+   //             $cat_name = $category;
+   //          }
+   //          return $cat_name;
+   //       }
+   //       else
+   //       {
+   //          echo $merchant . ': There is no separator';
+   //          die();
+   //       }
+   //    }
+   //    else
+   //    {
+   //       die( $path . ': File not found!!!' );
+   //    }
+   // }
 
 
 

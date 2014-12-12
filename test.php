@@ -1,8 +1,21 @@
 <?php
+array = array('apple', 'orange', 'pear', 'banana', 'apple', 'pear', 'kiwi', 'kiwi');
 
-for( $i = 0; $i < 5; $i++ )
+$array_duplicate         = array();
+$array_unique            = array();
+$array_duplicate_cnt     = array();
+
+foreach( $array as $val )
 {
-	$args[] = $i;
+	if ( ++$array_duplicate_cnt[$val] > 1 )
+	{
+		$array_duplicate[] = $val;
+	}
+	else
+	{
+		if ( count ( array_keys( $array, $val ) ) == 1 )
+		{ 
+			$array_unique[]     = $val;
+		}
+	}
 }
-
-print_r( $args );

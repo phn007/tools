@@ -3,21 +3,13 @@ use webtools\controller;
 
 class TextSiteController extends Controller
 {
-	private $params  = array();
-	private $options = array();
-	private $action;
-	
-
-	function create( $arg )
+	function create( $funtions, $params, $options )
 	{
-		
-		
+		print_r( "Textsite Controller - create");
+		echo "\n";
+		print_r( $funtions );
+		echo "\n";
+		print_r( $params );
+		print_r( $options );
 	}
-	
-	
-	function textdb()
-	{
-		
-	}
-	
 }

@@ -13,6 +13,7 @@ return array(
     'HtmlSiteModel' => $baseDir . '/app/models/htmlsite_model.php',
     'InitialVariabelsModel' => $baseDir . '/app/models/initialVariables_model.php',
     'OptionComponent' => $baseDir . '/app/components/option_component.php',
+    'OptionList' => $baseDir . '/libs/optionList.php',
     'OptionModel' => $baseDir . '/app/models/option_model.php',
     'Options' => $baseDir . '/libs/options.php',
     'OptionsModel' => $baseDir . '/app/models/options_model.php',

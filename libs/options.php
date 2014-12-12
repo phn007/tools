@@ -29,6 +29,7 @@ class Options
 		$this->printInputActionFalse( $inputAction );
 		$this->printInputFuntionFalse( $inputFunction );
 
+
 		//ตรวจสอบว่า class OptionList มีการกำหนด method ที่มีชื่อตรงกับ $controller หรือเปล่า
 		$this->checkOptionListMethodExist( $controller );
 		
@@ -37,13 +38,11 @@ class Options
 		
 		//ตรวจสอบว่ามีชื่อ action อยู่ใน Controller Option List หรือเปล่า
 		$this->checkActionExistInOptionList( $inputAction, $controllerOptionList );
-
+		
 		//Option from OptionList Class
 		//ดึงรายการ function List จาก OptionList ที่ match กับ input action
 		$actionFunctionList = $this->getActionFunctionList( $controllerOptionList, $inputAction );
-
-		//ตรวจสอบดูว่า inputFunction มีอยู่ใน actionFunctionList หรือเปล่า
-		$this->checkFunctionMatching( $inputFunction, $actionFunctionList );
+		
 		
 		//Next Step : verify parameter from actionFunctionList
 		$params = $this->parameterOfFuncion( $actionFunctionList, $inputFunction, $inputParams );
@@ -63,11 +62,13 @@ class Options
 	{
 		$params = null;
 		
-		if ( !empty( $inputParams ) )
+		//ได้กำหนดชื่อ parameter ของ function ไว้ใน option list class หรือเปล่า
+		if ( isset( $actionFunctionList[$inputFunction] ) )
 		{
 			$i = 0;
 			foreach ( $actionFunctionList[$inputFunction] as $item )
 			{
+				//มี parameter ที่ถูกส่งมาจาก input หรือเป่า
 				if ( isset( $inputParams[$i]) )
 					$params[$item] = $inputParams[$i];
 				$i++;
@@ -86,13 +87,6 @@ class Options
 	{
 		if ( false === $inputFunction )
 			die( "Required Function\n" );
-	}
-	
-	function checkFunctionMatching( $inputFunction, $actionFunctionList )
-	{
-		$functionKeys = array_keys( $actionFunctionList );
-		if ( ! in_array( $inputFunction, $functionKeys ) )
-			die( "Input function not found!!!\n" );
 	}
 	
 	function checkActionExistInOptionList( $action, $controllerOptionList )

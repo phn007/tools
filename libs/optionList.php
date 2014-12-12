@@ -1,62 +1,48 @@
 <?php
+//textdb -c ddb2.ini create product param1 param2
+//textdb -c ddb2.ini create brand
+//textdb -c ddb2.ini create all
+
+/*
+controller: 	textdb
+option: 		-c 
+option-value: 	ddb2.ini
+action:     	create
+function: 		product
+params: 		param1 param2
+*/
+
 class OptionList
 {
+	function scrape()
+	{
+		$function['functions'] = array( 
+			'nordstrom' => array('row', 'page' ), 
+			'zappos' => array( 'row', 'page' ) 
+		);
+		$action = 'product';
+		
+		return array( $action => $function );
+	}
+	
 	function textdb()
 	{
-		//textdb -c ddb2.ini create product
-		//textdb -c ddb2.ini create brand
-		//textdb -c ddb2.ini create all
-		/*
-		controller: textdb
-		action:     create
-		function/params: $
-		*/
-		$functions = array( 'product' => array(), 'brand' => array(), 'all' => array() );
-		return array( 'create' => $functions );
+		$function['functions'] = array( 'textsite' => array(), 'apisite' => array(), 'htmlsite' => array() );
+		$action = 'create';
+		return array( $action => $function );
 	}
 	
 	function textsite()
 	{
-		/*
-		controller = "textsite"
-		action     = "create"
-		function/params   = $createFunction
-		*/
-		
-		$createFuntions = array(
-			'code'      => array( 'dev', 'port'),
+		$createFunction['functions'] = array(
+			'code'      => array(),
 			'textdb'    => array(),
 			'htaccess'  => array(),
 			'logo'      => array(),
 			'sitemap'   => array(),
 			'sitemap_index' => array(),
 		);
-		$create = array( 'functions' => $createFuntions );
-
-		/*
-		controller = "textsite"
-		action     = "textdb"
-		function/params   = $textDbFunction
-		*/
-		$textDbFunction = array( 'create' => array() );
-		$textdb = array( 'functions' => $textDbFunction );
-		
-		$options = array( 'config' );
-		return array( 'create' => $create, 'textdb' => $textdb, 'options' => $options );
-	}
-	
-	function apisite()
-	{
-		
-	}
-	
-	function htmlsite()
-	{
-		
-	}
-	
-	function scrape()
-	{
-		
+		$createAction = 'create';
+		return array( $createAction => $createFunction );
 	}
 }

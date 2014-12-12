@@ -340,9 +340,4 @@ class ConfigModel extends AppComponent
 
       }
    }
-
-    function addNumber( $x, $y )
-    {
-        return $x + $y;
-    }
 }

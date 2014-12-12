@@ -45,9 +45,16 @@ class AppIndex
 		include CONSOLE_PATH . 'Lite.php';
 		include SITE_CREATOR_PATH . 'config/permalink.php';
 
-		webtools\libs\Router::dispatch( $options );
+
+		if ( $options['controller'] == 'site' )
+		{
+			webtools\libs\Router::dispatch( $options );
+		}
+		else
+		{
+			webtools\libs\Router::dispatchTestNew( $options );
+		}
 	}
 }
-
 new AppIndex( $options );
 

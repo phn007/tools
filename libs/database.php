@@ -39,31 +39,31 @@ class database
 
 
 
-   function countProducts( $conn, $db_name )
-   {
-      if ( !empty( $db_name ) )
-      {
-         if ( $this->selectDatabase( $conn, $db_name ) )
-         {
-            $sql = "SELECT COUNT(*) FROM products";
-            $rs = mysqli_query( $conn, $sql );
-            $row = mysqli_fetch_array( $rs );
-         }
-         else
-         {
-            echo "There is no " . $db_name . ' database' . "\n";
-         }
-
-         if ( isset( $row[0]) )
-            return $row[0];
-      }
-      else
-      {
-         echo "Database class -> countProduct: Empty Database name!!!\n";
-         exit( 0 );
-      }
-
-   }
+   // function countProducts( $conn, $db_name )
+   // {
+   //    if ( !empty( $db_name ) )
+   //    {
+   //       if ( $this->selectDatabase( $conn, $db_name ) )
+   //       {
+   //          $sql = "SELECT COUNT(*) FROM products";
+   //          $rs = mysqli_query( $conn, $sql );
+   //          $row = mysqli_fetch_array( $rs );
+   //       }
+   //       else
+   //       {
+   //          echo "There is no " . $db_name . ' database' . "\n";
+   //       }
+   //
+   //       if ( isset( $row[0]) )
+   //          return $row[0];
+   //    }
+   //    else
+   //    {
+   //       echo "Database class -> countProduct: Empty Database name!!!\n";
+   //       exit( 0 );
+   //    }
+   //
+   // }
 
 
    function selectDatabase( $conn, $db )
