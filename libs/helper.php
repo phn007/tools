@@ -4,14 +4,23 @@ namespace webtools\libs;
 class Helper
 {
 
-   public static function make_dir( $path )
-   {
-      if ( ! file_exists( $path ) )
-      {
-         //echo $path . PHP_EOL;
-         mkdir( $path, 0777, true );
-      }
-   }
+	public static function make_dir( $path )
+	{
+		if ( ! file_exists( $path ) )
+		{
+			//echo $path . PHP_EOL;
+			mkdir( $path, 0777, true );
+		}
+	}
+	
+	public static function deleteArrayByValue( $delVal, $array )
+	{
+		if ( ( $key = array_search( $delVal, $array ) ) !== false ) 
+		{
+    		unset( $array[ $key ] );
+		}
+		return $array;
+	}
 
 
    // public static function getCategory( $merchant, $category )

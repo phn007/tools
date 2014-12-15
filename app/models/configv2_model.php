@@ -1,8 +1,8 @@
 <?php
-use webtools\AppComponent;
+use webtools\controller;
 use webtools\libs\Helper;
 
-class ConfigV2Model extends AppComponent
+class ConfigV2Model extends Controller
 {
 	private $conf;
 	
@@ -27,15 +27,30 @@ class ConfigV2Model extends AppComponent
 	function getSiteConfigData()
 	{
 		$siteConfig = $this->conf->get( 'site_config' );
-
-		//เพิ่มตัวแปรที่ต้องใช้เข้าไปใน site config
-		$siteConfig['site_type']     = $this->siteType;
-		$siteConfig['project']       = $this->projectName;
-		$siteConfig['network']       = $this->network;
-		$siteConfig['api_key']       = $this->apiKey;
-		$siteConfig['hostname']      = $this->hostname;
-		$siteConfig['site_category'] = $this->siteCategory;
-		return $siteConfig;
+		return $this->setSiteConfigGroupByDomainName( $siteConfig );
+	}
+	
+	function setSiteConfigGroupByDomainName( $siteConfig )
+	{
+		$data = null;
+		$configKeys = array_keys( $siteConfig );
+	
+		foreach ( $siteConfig['domain'] as $keyNumber => $domain )
+		{
+			foreach ( $configKeys as $name )
+			{
+				$data[$domain][$name] = $siteConfig[$name][$keyNumber];
+				
+				//เพิ่มตัวแปรที่ต้องใช้เข้าไปใน site config
+				$data[$domain]['site_type']     = $this->siteType;
+				$data[$domain]['project']       = $this->projectName;
+				$data[$domain]['network']       = $this->network;
+				$data[$domain]['api_key']       = $this->apiKey;
+				$data[$domain]['hostname']      = $this->hostname;
+				$data[$domain]['site_category'] = $this->siteCategory;
+			}
+		}
+		return $data;
 	}
 	
 	function getMerchantData()

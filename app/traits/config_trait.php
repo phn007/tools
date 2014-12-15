@@ -15,10 +15,9 @@ trait SetupConfig
 		$this->confModel->initialVariables( $filename );
 	}
 	
-	function siteConfigData( $confModel, $options )
+	function siteConfigData()
 	{
-		$this->initialSetupConfig( $confModel, $options );
-		return $confModel->getSiteConfigData();
+		return $this->confModel->getSiteConfigData();
 	}
 	
 	function getConfigFileName( $options )

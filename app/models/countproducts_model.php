@@ -8,7 +8,6 @@ class CountProductsModel extends webtools\AppComponent
    {
       $cpn = $this->component( 'textdatabase' );
 
-
       //ชื่อโปรเจ็ค สำหรับเอาไปแสดงที่หน้าจอขณะ runtime
       echo $project = ucfirst( $project );
       echo "\n";

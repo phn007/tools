@@ -14,17 +14,6 @@ params: 		param1 param2
 
 class OptionList
 {
-	function scrape()
-	{
-		$function['functions'] = array( 
-			'nordstrom' => array('row', 'page' ), 
-			'zappos' => array( 'row', 'page' ) 
-		);
-		$action = 'product';
-		
-		return array( $action => $function );
-	}
-	
 	function textdb()
 	{
 		$function['functions'] = array( 'textsite' => array(), 'apisite' => array(), 'htmlsite' => array() );
@@ -41,6 +30,7 @@ class OptionList
 			'logo'      => array(),
 			'sitemap'   => array(),
 			'sitemap_index' => array(),
+			'config'    => array(),
 		);
 		$createAction = 'create';
 		return array( $createAction => $createFunction );

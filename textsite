@@ -48,22 +48,7 @@ try {
             '-f -c example/config.ini create sitemap_index',
             '-f -c example/config.ini create robots',
             '-f -c example/config.ini --dev sitedev create code',
-            '-f -c example/config.ini run',
-            '-f -c example/config.ini create css',
-            '-f -c example/config.ini create logo',
-            '-f -c example/config.ini create sitemap',
-            '-f -c example/config.ini create sitemap_index',
-            '-f -c example/config.ini create robots',
-            '-f -c example/config.ini create home',
-            '-f -c example/config.ini create pages',
-            '-f -c example/config.ini create categories',
-            '-f -c example/config.ini create brands',
-            '-f -c example/config.ini create category',
-            '-f -c example/config.ini create brand',
-            '-f -c example/config.ini create products',
-            '-f -c example/config.ini create all',
          ),
-
 
         'options' => array(
 

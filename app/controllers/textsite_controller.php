@@ -1,15 +1,42 @@
 <?php
 use webtools\controller;
+include WT_APP_PATH . 'traits/config_trait.php';
+include WT_APP_PATH . 'traits/siteInfo_trait.php';
 
-class TextSiteController extends Controller
+class TextsiteController extends Controller
 {
-	function create( $funtions, $params, $options )
+	use SetupConfig;
+	use SiteInfomation;
+	
+	function create( $function, $params, $options )
 	{
-		print_r( "Textsite Controller - create");
-		echo "\n";
-		print_r( $funtions );
-		echo "\n";
-		print_r( $params );
-		print_r( $options );
+		//SetupConfig Trait
+		$this->initialSetupConfig( $options );
+		$merchantData   = $this->merchantData();
+		$siteNumber     = $this->siteNumber();
+		$projectName    = $this->projectName();
+		$siteConfigData = $this->siteConfigData();
+
+		foreach ( $siteConfigData as $config )
+      	{
+			//SiteInfomation Trait
+			$config['site_desc']   = $this->getSiteDescription( $config['site_category'] );
+			$config['site_author'] = $this->getSiteAuthor();
+			$config['prod_route']  = $this->getProdRoute();
+			
+			//กำหนดจำนวนสินค้าที่แสดงในหน้า category items
+			$config['num_cat_item_per_page'] = 48;
+			
+			if ( 'code' == $function )
+			{
+				$codeModel = $this->model( 'textsite/textsiteSourceCode' );
+				$codeModel->code( $config );
+			}
+			elseif ( 'config' == $function )
+			{
+				$cModel = $this->model( 'textsite/textsiteConfig' );
+				$cModel->create( $config );
+			}
+		}
 	}
 }

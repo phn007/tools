@@ -1,8 +1,8 @@
 <?php
-use webtools\AppComponent;
+use webtools\controller;
 use webtools\libs\Helper;
 
-class TextSiteProductsModel extends AppComponent
+class TextSiteProductsModel extends Controller
 {
 	private $dbCom;
 	private $textDBCom;
@@ -31,7 +31,7 @@ class TextSiteProductsModel extends AppComponent
 		$countProductData = $this->dbCom->countTotalProducts( $merchantData );
 		$totalProducts = $countProductData['totalProducts'];
 		$merchantProductNumber = $countProductData['merchantProductNumber'];
-		$this->productNumberPerSite = $this->calculateProductNumberPerSite( $totalProducts, $siteNumber );
+		$this->productNumberPerSite = $this->textDBCom->calculateProductNumberPerSite( $totalProducts, $siteNumber );
 
 		foreach ( $merchantData as $merchant => $data )
 		{
@@ -42,22 +42,8 @@ class TextSiteProductsModel extends AppComponent
 		}
 
 		if ( count( $this->productDataGroupByCategory ) > 0 )
-		{
 			$this->loopThroughProductPerSiteAndWriteTextDB();
-		}
-
 		$this->printConclusionTotal( $totalProducts );
-	}
-
-	function printConclusionTotal( $totalProducts )
-	{
-		echo "\nTotal Query Products: " . $totalProducts . "\n";
-		echo "Total Create Products: " . $this->totalCreateProducts . "\n";
-		foreach ( $this->totalGroupByProjectName as $key => $number )
-		{
-			echo $key . ' => ' . $number;
-			echo "\n";
-		}
 	}
 
 	function runThroughMysqlStrings( $dbName, $sqls )
@@ -109,8 +95,6 @@ class TextSiteProductsModel extends AppComponent
 		$this->initialCountCategoryVariable( $catSlug );
 		if ( ++$this->countCategory[$catSlug] >= 1000  )
 		{
-			//echo count( $this->productDataGroupByCategory[$catSlug] ) . ": write Per Category: ";
-
 			$this->filename = $this->getTextDBFilename( $catSlug );
 			$this->writeTextDatabase( $this->productDataGroupByCategory[$catSlug] );
 			$this->categoryId[$catSlug] = $this->categoryId[$catSlug] + 1;
@@ -136,7 +120,6 @@ class TextSiteProductsModel extends AppComponent
 	{
 		foreach ( $this->productDataGroupByCategory as $catSlug => $data )
 		{
-			//echo count( $data ) . ": write Per Site: ";
 			$this->filename = $this->getTextDBFilename( $catSlug );
 			$this->writeTextDatabase( $data );
 		}
@@ -203,14 +186,20 @@ class TextSiteProductsModel extends AppComponent
 			$this->categoryId[$catSlug] = null;
 	}
 
-	function calculateProductNumberPerSite( $totalProducts, $siteNumber )
-	{
-		return ceil( $totalProducts / $siteNumber );
-	}
-
 	function printWriteTotalProduct( $products, $file )
 	{
 		$num = str_pad( count( $products ), 4, "0", STR_PAD_LEFT );
 		echo $num . ': ' . $file . "\n";
 	}
+	
+	function printConclusionTotal( $totalProducts )
+	{
+		echo "\nTotal Query Products: " . $totalProducts . "\n";
+		echo "Total Create Products: " . $this->totalCreateProducts . "\n";
+		foreach ( $this->totalGroupByProjectName as $key => $number )
+		{
+			echo $key . ' => ' . $number;
+			echo "\n";
+		}
+	}	
 }

@@ -99,4 +99,9 @@ class TextDBComponent
 		);
 		return $data;
 	}
+
+	function calculateProductNumberPerSite( $totalProducts, $siteNumber )
+	{
+		return ceil( $totalProducts / $siteNumber );
+	}
 }

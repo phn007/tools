@@ -1,8 +1,8 @@
 <?php
-use webtools\AppComponent;
+use webtools\controller;
 use webtools\libs\Helper;
 
-class TextsiteCategoriesModel extends AppComponent
+class TextsiteCategoriesModel extends Controller
 {
 	private $projectName;
 

@@ -17,8 +17,8 @@ class TextDbController extends Controller
 		
 		if ( 'textsite' == $function )
 		{
-			//$productModel = $this->model( 'textDatabase/textsite/textsiteproducts' );
-			//$productModel->create( $projectName, $merchantData, $siteNumber );
+			$productModel = $this->model( 'textDatabase/textsite/textsiteproducts' );
+			$productModel->create( $projectName, $merchantData, $siteNumber );
 
 			$categoryModel = $this->model( 'textDatabase/textsite/textsitecategories' );
 			$categoryModel->create( $projectName );
