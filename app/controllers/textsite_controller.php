@@ -16,9 +16,19 @@ class TextsiteController extends Controller
 		$siteNumber     = $this->siteNumber();
 		$projectName    = $this->projectName();
 		$siteConfigData = $this->siteConfigData();
+		$siteDirNames   = $this->siteDirNames();
 
+		if ( 'textdb' == $function )
+		{
+			$productModel = $this->model( 'textsite/textsitedbproducts' );
+			$productModel->create( $projectName, $merchantData, $siteNumber, $siteDirNames );
+			
+			$categoryModel = $this->model( 'textsite/textsitedbcategories' );
+			$categoryModel->create( $projectName );
+		}
+		
 		foreach ( $siteConfigData as $config )
-      	{
+      	{ 
 			//SiteInfomation Trait
 			$config['site_desc']   = $this->getSiteDescription( $config['site_category'] );
 			$config['site_author'] = $this->getSiteAuthor();

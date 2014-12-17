@@ -43,7 +43,7 @@ trait SourceCode
 	
 	function getDestinationPath()
 	{
-		return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['server_name'];
+		return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir_name'];
 	}
 	
 }

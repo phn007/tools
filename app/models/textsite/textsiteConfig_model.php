@@ -12,10 +12,18 @@ class TextsiteConfigModel extends Controller
 			$destination . 'config.php', 
 			'<?php' . PHP_EOL . '$cfg = ' . var_export( $config, true) . ';' 
 		);
+		$this->printResult( $destination );
 	}
 	
 	function setDestinationPath( $config )
 	{
-		return TEXTSITE_PATH . $config['project'] . '/' . $config['server_name'] . '/config/';
+		return TEXTSITE_PATH . $config['project'] . '/' . $config['site_dir_name'] . '/config/';
+	}
+	
+	function printResult( $destination )
+	{
+		echo "Create config file: ";
+		echo $destination . 'config.php';
+		echo "\n done...";
 	}
 }

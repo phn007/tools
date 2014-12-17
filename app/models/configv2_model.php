@@ -16,15 +16,18 @@ class ConfigV2Model extends Controller
 	private $siteNumber;
 	private $merchants;
 	private $siteType;
+	private $siteDirNames;
 	
 	function getProjectName() { return $this->projectName; }
 	function getSiteNumber() { return $this->siteNumber; }
+	function getSiteDirNames() { return $this->siteDirNames; }
 	
-	function getConfigData( $filename ) { 
+	function getConfigData( $filename ) 
+	{ 
 		$this->conf = new Config_Lite( CONFIG_PATH . $filename ); 
 	}
 	
-	function getSiteConfigData()
+	function getSiteConfigData() 
 	{
 		$siteConfig = $this->conf->get( 'site_config' );
 		return $this->setSiteConfigGroupByDomainName( $siteConfig );
@@ -97,6 +100,8 @@ class ConfigV2Model extends Controller
 
         //รายชื่อ merchant
         $this->merchants = $this->conf->get( 'merchant' );
+		
+		$this->siteDirNames = $this->conf->get( 'site_config', 'site_dir_name' );
 	}
 	
 	function convertMerchantToDbName( $merchant )

@@ -1,7 +1,8 @@
 <?php
 include 'object.php';
 include 'controller.php';
-//include 'cachesite.php';
+include 'component.php';
+include 'cache.php';
 include 'helper.php';
 include 'sammy.php';
 include 'router.php';

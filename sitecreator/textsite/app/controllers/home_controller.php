@@ -9,10 +9,7 @@ class HomeController extends Controller
 		$this->home_page = true;
 		$this->home_menu_state = 'class="active"';
 		
-		$model = $this->model( 'home' );	
-		$this->slideProducts = $model->carousels();
-		$this->productList = $model->productList();
-		
-		exit( 0 );
+		$model = $this->model( 'home' );
+		$this->productItems = $model->productItems;
 	}
 }

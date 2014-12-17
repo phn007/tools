@@ -12,15 +12,6 @@ class Map extends Object {
 
 	public static function pre_dispatch( $uri )
 	{
-		// $path = explode('/', $uri);
-		// $controller = $path[0];
-		// $action = ( empty( $path[1] ) ) ? 'index' : $path[1];
-		// unset( $path[0], $path[1] );
-		//
-		// $params = $path ? array_values( $path ) : array();
-		// self::$path = $controller . '#' . $action;
-		// self::dispatch( $params );
-
 		/*
 		 * กำหนดตัวแปรให้กับ page product
 		 * ----------------------------------------------------------------------
@@ -81,13 +72,10 @@ class Map extends Object {
 		self::render( $controller, $action );
 	}
 
-	public static function load_controller( $name )
+	public static function load_controller( $name ) 
 	{
-		//define path
 		$controller_path = APP_PATH . 'controllers/' . $name . '_controller.php';
-
-		//check path
-		if ( ! file_exists(  $controller_path ) )
+		if ( ! file_exists(  $controller_path ) ) 
 		{
 			$msg = '<span style="color:red">The file';
 			$msg .= '<strong>' . $name . '_controller.php</strong>';
@@ -120,8 +108,13 @@ class Map extends Object {
 		self::write_file( $file_main, $view_layout_main );
 		unset( $view_layout_main );
 
-		//Load View
+		//Extract Global Variables
 		extract( self::$user_vars );
+		
+		//Functions
+		include APP_PATH  . 'views/' . THEME_NAME . '/functions/functions.php';
+		
+		//Load View
 		include $file_main;
 
 		//delete text file
