@@ -1,18 +1,15 @@
 <?php
 class HeadComponent
 {
-   public function __set( $name, $value )
-   {
+   public function __set( $name, $value ) {
       $this->{$name} = $value;
    }
 
-   public function __get( $name )
-   {
+   public function __get( $name ) {
       return $this->{$name};
    }
 
-   function getHead()
-   {
+   function getHead() {
       if ( isset( $this->title ) )
          $head['title'] = '<title>' . $this->title . '</title>';
 

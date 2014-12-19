@@ -1,34 +1,46 @@
 <?php
-class TextDatabaseComponent
-{
+class TextDatabaseComponent {
+	function checkExistTextFilePath( $path ) {
+		if ( ! file_exists( $path ) )
+			trigger_error( 'My Debug: ' . $path . ' TextFile path does not exist' , $error_type = E_USER_ERROR );
+	}
 	
-	function getContentFromTextFile( $textFilePath )
-	{
+	function getContentFromSerializeTextFile( $textFilePath ) {
 		$contents  = file_get_contents( $textFilePath );
         return unserialize( $contents );
 	}
 	
-	function getProductTextFileList()
-	{
-		$productPath = $this->setProductPath();
-		$this->checkExistProductTextFilePath( $productPath );
-		$files = $this->getTextFileList( $productPath );
-		return $files;
+	function getContentFromNormalTextFile( $path ) {
+		$fp = fopen( $path, 'rb' );
+		while ( !feof( $fp ) ) {
+			$chunk = fgets( $fp );
+		}
 	}
 	
-	function getRandomTextFile( $files )
-	{
+	function getRandomTextFilePath( $files ) {
 		shuffle( $files );
 		return $files[0];
 	}
 	
-	function setProductPath() { return CONTENT_PATH . 'products/'; }
-	function getTextFileList( $productPath ) { return glob( $productPath . "*.txt" ); }
-	
-	function checkExistProductTextFilePath( $productPath )
-	{
-		if ( ! file_exists( $productPath ) )
-			trigger_error( 'My Debug: Product TextFile path does not exist' , $error_type = E_USER_ERROR );
+	function readTextFileFromDirectory( $path ) { 
+		return glob( $path . "*.txt" );
 	}
 	
+	function setProductDirPath() { 
+		return CONTENT_PATH . 'products/'; 
+	}
+	
+	function setCategoryDirPath() {
+		return CONTENT_PATH . 'categories/';
+	}
+	
+	function setBrandDirPath() {
+		return CONTENT_PATH . 'brands/';
+	}
+	
+	function getTextFileList( $path ) {
+		$this->checkExistTextFilePath( $path );
+		$files = $this->readTextFileFromDirectory( $path );
+		return $files;
+	}
 }

@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<?php //echo $meta?>
+		<?php echo $seoTags ?>
 		<link href="<?php echo CSS_PATH ?>bootstrap-less.css" rel="stylesheet">
 		<link href="<?php echo CSS_PATH ?>custom.css" rel="stylesheet">
 	</head>
@@ -56,7 +56,7 @@
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<!-- Nav menu left -->
 						<ul class="nav navbar-nav">
-							<li <?php if ( isset( $home_menu_state) ) echo $home_menu_state ?>>
+							<li <?php if ( isset( $homeMenuState) ) echo $homeMenuState ?>>
 								<a href="<?php echo HOME_URL?>">Home</a>
 							</li>
 							<li <?php if ( isset( $cat_menu_state ) ) echo $cat_menu_state ?>>
