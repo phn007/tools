@@ -20,7 +20,7 @@ class CloneComponent
 	function cloneFiles( $source, $destination )
 	{
 		$this->checkAndSetPermissionDestination( $destination );
-		$dirHandle = @opendir( $source ) or die("Unable to open");
+		$dirHandle = @opendir( $source ) or die( "Unable to open" );
 		while ( $file = readdir( $dirHandle ) )
 		{
 			$this->selectCopyMode( $source, $destination, $file );

@@ -73,24 +73,38 @@ class Sammy {
 
 	protected function get_uri($prefix_slash = true)
 	{
-	    if ( isset( $_SERVER['PATH_INFO'] ) )
+		/*
+		$uri = $_SERVER['REQUEST_URI'];
+		echo "Script Name: " . $_SERVER['SCRIPT_NAME'];
+		echo "<br>";
+		echo "uri: " . $uri;
+		echo "<br>";
+		echo "dirmname: " . dirname( $_SERVER['SCRIPT_NAME'] );
+		echo "<br>";
+		echo "PHP URL PATH: " . PHP_URL_PATH;
+		echo "<br>";
+		*/
+		
+		
+	    if ( isset( $_SERVER['PATH_INFO'] ) ) 
 		{
 	        $uri = $_SERVER['PATH_INFO'];
-	    }
-		elseif( isset( $_SERVER['REQUEST_URI'] ) )
+	    } 
+		elseif( isset( $_SERVER['REQUEST_URI'] ) ) 
 		{
 	        $uri = $_SERVER['REQUEST_URI'];
-
-	        if( strpos($uri, $_SERVER['SCRIPT_NAME']) === 0 )
-			{
+			
+			/*
+	        if( strpos( $uri, $_SERVER['SCRIPT_NAME'] ) === 0 )
+			{ 
 	            $uri = substr($uri, strlen($_SERVER['SCRIPT_NAME']));
 	        }
 			elseif( strpos($uri, dirname($_SERVER['SCRIPT_NAME'])) === 0 )
 			{
 	            $uri = substr($uri, strlen(dirname($_SERVER['SCRIPT_NAME'])));
 	        }
-
-
+			*/
+			
 	        // This section ensures that even on servers 
 			//that require the URI to be in the query string (Nginx) a correct
 	        // URI is found, and also fixes the QUERY_STRING server var and $_GET array.
@@ -113,6 +127,13 @@ class Sammy {
 	        // Couldn't determine the URI, so just return false
 	        return false;
 	    }
+		
+		/*
+		echo "result uri: " . $uri;
+		echo "<br>";
+		echo "return: " .  ( $prefix_slash ? '/' : '') . str_replace( array( '//', '../' ), '/', trim( $uri, '/' ) );
+		die();
+		*/
 
 	    // Do some final cleaning of the URI and return it
 	    return ( $prefix_slash ? '/' : '') . str_replace( array( '//', '../' ), '/', trim( $uri, '/' ) );

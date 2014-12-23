@@ -1,5 +1,6 @@
 <?php
 class TextDatabaseComponent {
+	
 	function checkExistTextFilePath( $path ) {
 		if ( ! file_exists( $path ) )
 			trigger_error( 'My Debug: ' . $path . ' TextFile path does not exist' , $error_type = E_USER_ERROR );
@@ -9,12 +10,11 @@ class TextDatabaseComponent {
 		$contents  = file_get_contents( $textFilePath );
         return unserialize( $contents );
 	}
-	
+
 	function getContentFromNormalTextFile( $path ) {
-		$fp = fopen( $path, 'rb' );
-		while ( !feof( $fp ) ) {
-			$chunk = fgets( $fp );
-		}
+		$this->checkExistTextFilePath( $path );
+		$files = file( $path );
+		return array_map( 'trim', $files );
 	}
 	
 	function getRandomTextFilePath( $files ) {
@@ -44,3 +44,11 @@ class TextDatabaseComponent {
 		return $files;
 	}
 }
+
+
+	// function getContentFromNormalTextFile( $path ) {
+	// 	$fp = fopen( $path, 'rb' );
+	// 	while ( !feof( $fp ) ) {
+	// 		$chunk = fgets( $fp );
+	// 	}
+	// }

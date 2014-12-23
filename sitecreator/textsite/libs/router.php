@@ -13,7 +13,7 @@ class Map extends Object {
 	public static function pre_dispatch( $uri )
 	{
 		/*
-		 * กำหนดตัวแปรให้กับ page product
+		 * Define Variable for product detail page
 		 * ----------------------------------------------------------------------
 		*/
 		//Controller และ Action
@@ -30,13 +30,13 @@ class Map extends Object {
 		self::dispatch( $params );
 	}
 
-	public static function dispatch( $params = false )
+	public static function dispatch( $params = false ) 
 	{
 		//run when find a matching route
 		$path = explode( '#', self::$path );
 		$controller = $path[0];
 		$action = $path[1];
-		
+
 		//include the matching controller
 		self::load_controller( $controller );
 
@@ -91,7 +91,6 @@ class Map extends Object {
 	 * Helper function
 	 * -----------------------------------------------------------------------
 	*/
-
 	public static function render( $controller, $action )
 	{
 		$view_path   = self::view_path( $controller, $action );

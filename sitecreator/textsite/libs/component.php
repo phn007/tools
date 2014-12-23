@@ -1,5 +1,5 @@
 <?php
-class Component
+class AppComponent
 {
 	public function component( $component )
 	{

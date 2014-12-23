@@ -4,7 +4,7 @@ include APP_PATH . 'traits/home/categoryList_trait.php';
 include APP_PATH . 'traits/home/seoTags_trait.php';
 include APP_PATH . 'traits/permalink_trait.php';
 
-class HomeModel extends Component
+class HomeModel extends AppComponent
 {
 	use ProductItems;
 	use CategoryList;

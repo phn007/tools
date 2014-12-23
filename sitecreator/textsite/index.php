@@ -23,7 +23,6 @@ $sc_security = $scArr[1];
 define( 'BASE_PATH', dirname( realpath( __FILE__ ) ) . '/' );
 define( 'APP_PATH', BASE_PATH . 'app/' );
 
-
 /*
  * ตัวแปรที่ใช้ในการ Create Page
  * ----------------------------------------------------------------------------
@@ -61,7 +60,6 @@ define( 'SITE_DESC', $site_desc );
 define( 'CSS_PATH', THEME_URL . 'assets/css/' );
 define( 'JS_PATH', THEME_URL . 'assets/js/' );
 
-
 //สำหรับจัดรูปแบบให้ URL
 define( 'PROD_ROUTE', $prod_route );
 define( 'FORMAT', $url_format );
@@ -70,9 +68,8 @@ define( 'FORMAT', $url_format );
 define( 'SC_PROJECT', $sc_project );
 define( 'SC_SECURITY', $sc_security );
 
-
 //TextSpinner
-define( 'TEXTSPIN_PATH',  BASE_PATH . 'files/textspinner/');
+define( 'TEXTSPIN_PATH',  BASE_PATH . 'files/textspinner/market-01/');
 
 /*
  * Include file

@@ -7,8 +7,7 @@ class TextsiteDbCategoriesModel extends Controller
 	private $projectName;
 	
 	//Main
-	function create( $projectName )
-	{
+	function create( $projectName ) {
 		$this->projectName = $projectName;
 		$dirs = $this->getProjectDirectories();
 		$productDirs = $this->getProductDirectories( $dirs );
@@ -16,12 +15,9 @@ class TextsiteDbCategoriesModel extends Controller
 		$this->readProductDataAndWriteToTextFile( $files);
 	}
 	
-	function readProductDataAndWriteToTextFile( $files )
-	{
-		foreach ( $files as $siteDirName => $file )
-		{
-			foreach ( $file as $path )
-			{
+	function readProductDataAndWriteToTextFile( $files ) {
+		foreach ( $files as $siteDirName => $file ) {
+			foreach ( $file as $path ) {
 				$productFilename = $this->getFilenameFromPath( $path );
 				$content = $this->readProductDataFromTextFile( $path );
 				$this->writeCategoryTextFile( $siteDirName, $productFilename, $content );
@@ -30,13 +26,11 @@ class TextsiteDbCategoriesModel extends Controller
 		}
 	}
 	
-	function writeBrandTextFile( $siteDirName, $productFilename, $content  )
-	{
+	function writeBrandTextFile( $siteDirName, $productFilename, $content  ) {
 		$path = $this->setTextFilePath( $siteDirName, 'brands' );
 		Helper::make_dir( $path );
 
-		foreach ( $content as $keywordSlug => $data )
-		{
+		foreach ( $content as $keywordSlug => $data ) {
 			$catFilename = $this->getCategoryFilename( $data['brand'] );
 			$file = $path . '/' . $catFilename;
 			$line = $this->getFileData( $catFilename, $productFilename, $data['brand'], $data['keyword'] );
@@ -51,13 +45,11 @@ class TextsiteDbCategoriesModel extends Controller
 		}
 	}
 	
-	function writeCategoryTextFile( $siteDirName, $productFilename, $content  )
-	{
+	function writeCategoryTextFile( $siteDirName, $productFilename, $content  ) {
 		$path = $this->setTextFilePath( $siteDirName, 'categories' );
 		Helper::make_dir( $path );
 
-		foreach ( $content as $keywordSlug => $data )
-		{
+		foreach ( $content as $keywordSlug => $data ) {
 			$catFilename = $this->getCategoryFilename( $data['category'] );
 			$file = $path . '/' . $catFilename;
 			$line = $this->getFileData( $catFilename, $productFilename, $data['category'], $data['keyword'] );
@@ -72,37 +64,30 @@ class TextsiteDbCategoriesModel extends Controller
 		}
 	}
 	
-	function setTextFilePath( $siteDirName, $catDir )
-	{
+	function setTextFilePath( $siteDirName, $catDir ) {
 		return TEXTSITE_PATH . $this->projectName . '/' . $siteDirName . '/contents/' . $catDir . '/';
 	}
 	
-	function getCategoryFilename( $catName )
-	{
+	function getCategoryFilename( $catName ) {
 		$catFilename = Helper::clean_string( $catName );
 		return $catFilename . '.txt';
 	}
 	
-	function getFileData($cateFilename, $productFilename, $catName, $keyword )
-	{
+	function getFileData($cateFilename, $productFilename, $catName, $keyword ) {
 		return $catName . '|' . $productFilename . '|' . $keyword . PHP_EOL;
 	}
 	
-	function readProductDataFromTextFile( $path )
-	{
+	function readProductDataFromTextFile( $path ) {
 		return unserialize( file_get_contents( $path ) );
 	}
 	
-	function getFilenameFromPath( $path )
-	{
+	function getFilenameFromPath( $path ) {
 		$arr = explode( '/', $path );
 		return str_replace( '.txt', '', end( $arr ) );
 	}
 	
-	function getProductTextFileGroupBySiteDirName( $productDirs )
-	{
-		foreach ( $productDirs as $path )
-		{
+	function getProductTextFileGroupBySiteDirName( $productDirs ) {
+		foreach ( $productDirs as $path ) {
 			$arr = explode( '/', $path );
 			list(,,,$siteDirName ) = $arr;
 			$files[$siteDirName] = glob( $path . '/*.txt' );
@@ -110,15 +95,13 @@ class TextsiteDbCategoriesModel extends Controller
 		return $files;
 	}
 	
-	function getProductDirectories( $dirs )
-	{
+	function getProductDirectories( $dirs ) {
 		foreach ( $dirs as $dir )
 			$productDirs[] = $dir . '/contents/products';
 		return $productDirs;
 	}
 	
-	function getProjectDirectories()
-	{
+	function getProjectDirectories() {
 		$path = TEXTSITE_PATH . $this->projectName . '/*';
 		$dirs =  glob( $path,  GLOB_ONLYDIR );
 		
@@ -127,8 +110,7 @@ class TextsiteDbCategoriesModel extends Controller
 		return $dirs;
 	}
 	
-	function printWriteCategoryProcess( $productFilename, $catTitle, $siteDirName, $catName )
-	{
+	function printWriteCategoryProcess( $productFilename, $catTitle, $siteDirName, $catName ) {
 		echo $this->projectName . ': ';
 		echo $siteDirName . ': ';
 		echo $productFilename . ': ';

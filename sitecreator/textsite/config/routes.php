@@ -1,4 +1,5 @@
 <?php
+
 //Shop Redirect to merchant
 Map::get( '/shop/(.*)', 'shop#index' );
 
