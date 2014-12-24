@@ -17,12 +17,10 @@ class ProductController extends Controller {
 		$this->productDetail = $model->productDetail;
 		$this->spinContent = $model->getSpinContent();
 		$this->relatedProducts = $model->getRelatedProducts();
-		$this->navmenu = $model->getNavmenu();
 
-		// echo "Controller<br>";
-		// echo '<pre>';
-		// print_r( $this->relatedProducts );
-		// die();
+		$model->getNavmenu();
+		$this->menuUrl = $model->menuUrl;
+		$this->menuState = $model->menuState;
 		// $this->textsearch = $model->textForSearch();
 		$this->permalink = $model->permalink();
 		

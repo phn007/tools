@@ -46,7 +46,7 @@ class ProductModel extends AppComponent {
 	}
 
 	function getNavmenu() {
-		return $this->setNavmenu(); //Navmenu Traits
+		$this->setNavmenu(); //Navmenu Traits
 	}
 
 	function permalink() {
