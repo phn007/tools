@@ -12,17 +12,15 @@ function: 		product
 params: 		param1 param2
 */
 
-class OptionList
-{
-	function textdb()
-	{
+class OptionList {
+
+	function textdb() {
 		$function['functions'] = array( 'textsite' => array(), 'apisite' => array(), 'htmlsite' => array() );
 		$action = 'create';
 		return array( $action => $function );
 	}
 	
-	function textsite()
-	{
+	function textsite() {
 		$createFunction['functions'] = array(
 			'code'      => array(),
 			'textdb'    => array(),
@@ -34,5 +32,15 @@ class OptionList
 		);
 		$createAction = 'create';
 		return array( $createAction => $createFunction );
+	}
+
+	function html() {
+		$functions['functions'] = array( 
+			'homepage' => array(),
+			'productpage' => array(),
+			'assets' => array()
+		);
+		$action = 'build';
+		return array( $action => $functions );
 	}
 }

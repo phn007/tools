@@ -18,7 +18,7 @@ class SeoTagsComponent {
 		return '<title>' . $content . '</title>';
 	}
 	
-	function keyword( $content ) {
+	function keywords( $content ) {
 		return '<meta name="keywords" content="' . $content . '" />';
 	}
 	

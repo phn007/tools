@@ -1,5 +1,12 @@
 <?php
 class Helper {
+
+	public static function make_dir( $path ) {
+		if ( ! file_exists( $path ) ) {
+			mkdir( $path, 0777, true );
+		}
+	}
+
 	public static function clean_string( $string ) {
 		$string = preg_replace( "`\[.*\]`U", "", $string );
 		$string = preg_replace( '`&(amp;)?#?[a-z0-9]+;`i', '-', $string );

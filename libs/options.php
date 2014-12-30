@@ -29,7 +29,6 @@ class Options
 		$this->printInputActionFalse( $inputAction );
 		$this->printInputFuntionFalse( $inputFunction );
 
-
 		//ตรวจสอบว่า class OptionList มีการกำหนด method ที่มีชื่อตรงกับ $controller หรือเปล่า
 		$this->checkOptionListMethodExist( $controller );
 		
@@ -43,7 +42,6 @@ class Options
 		//ดึงรายการ function List จาก OptionList ที่ match กับ input action
 		$actionFunctionList = $this->getActionFunctionList( $controllerOptionList, $inputAction );
 		
-		
 		//Next Step : verify parameter from actionFunctionList
 		$params = $this->parameterOfFuncion( $actionFunctionList, $inputFunction, $inputParams );
 		
@@ -54,14 +52,13 @@ class Options
 			'params' => $params,
 			'options' => $inputOptions,
 		);
-
 		return $result;
    	}
 	
 	function parameterOfFuncion( $actionFunctionList, $inputFunction, $inputParams )
 	{
 		$params = null;
-		
+
 		//ได้กำหนดชื่อ parameter ของ function ไว้ใน option list class หรือเปล่า
 		if ( isset( $actionFunctionList[$inputFunction] ) )
 		{

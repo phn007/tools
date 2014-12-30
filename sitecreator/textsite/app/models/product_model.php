@@ -3,6 +3,7 @@ include APP_PATH . 'traits/product/productDetail_trait.php';
 include APP_PATH . 'traits/product/spinContent_trait.php';
 include APP_PATH . 'traits/product/relatedProducts_trait.php';
 include APP_PATH . 'traits/product/navmenuProducts_trait.php';
+include APP_PATH . 'traits/product/productSeoTags_trait.php';
 include APP_PATH . 'traits/permalink_trait.php';
 
 /**
@@ -15,6 +16,7 @@ class ProductModel extends AppComponent {
 	use RelatedProducts;
 	use Navmenu;
 	use Permalink, CategoryLink, GotoLink;
+	use ProductSeoTags;
 
 	private $productFile;
 	private $productKey;
@@ -24,6 +26,11 @@ class ProductModel extends AppComponent {
 	private $spinCom;
 	private $wordlib_path;
 	private $text_path;
+	private $spinContent;
+
+	private $relatedProducts;
+	private $permalink;
+	private $seoTags;
 
 	function __set( $name, $value ) {
       	$this->{$name} = $value;
@@ -38,11 +45,11 @@ class ProductModel extends AppComponent {
 	}
 
 	function getSpinContent() {
-		return $this->setSpinContent(); //SpinContent Traits
+		$this->spinContent = $this->setSpinContent(); //SpinContent Traits
 	}
 
 	function getRelatedProducts() {
-		return $this->setRelatedProducts();
+		$this->relatedProducts = $this->setRelatedProducts();
 	}
 
 	function getNavmenu() {
@@ -50,6 +57,29 @@ class ProductModel extends AppComponent {
 	}
 
 	function permalink() {
-		return $this->getPermalink( $this->productFile, $this->productKey );
-	}	
+		$this->permalink = $this->getPermalink( $this->productFile, $this->productKey );
+	}
+
+	function getSeoTags() {
+		$this->getkeywordTags();
+		$this->seoTags = $this->getProductSeoTags();
+	}
+
+	function getKeywordTags() {
+		$this->tags = createKeywordTags( $this->productKey );
+	}
+}
+
+function createKeywordTags( $keyword ) {
+	$tags = explode( '-', $keyword);
+	$tags = array_filter( $tags );
+	$i = 1;
+	foreach ( $tags as $tag ) {
+		$num = strlen ( $tag );
+		if ( $num > 1 ) {
+			$data[ 'tag' . $i ] = $tag;
+			$i++;
+		}
+	}
+	return $data;
 }

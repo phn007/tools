@@ -12,6 +12,7 @@ trait RelatedProducts {
 }
 
 trait GetRelatedProductDetail {
+	
 	function getProductDetailFromProductTextFile( $contents ) {
 		if ( empty( $contents ) ) return null;
 		foreach ( $contents as $key => $data ) {
@@ -57,8 +58,8 @@ trait GetDataFromCategory {
 	function randomContents( $contents ) {
 		if ( empty( $contents ) ) return null;
 		$randContents = null;
-		$randKeys = array_rand( $contents, $this->randNumber );
-
+		$randNumber =$this->checkRandNumberAvailable( $contents );
+		$randKeys = array_rand( $contents, $randNumber );
 		foreach ( $randKeys as $key ) {
 			$arr = explode( '|', $contents[$key] );
 			$filename = $arr[1];
@@ -67,6 +68,11 @@ trait GetDataFromCategory {
 			$randContents[$key]['filename'] = $filename;
 		}
 		return $randContents;
+	}
+
+	function checkRandNumberAvailable( $contents ) {
+		$count = count( $contents );
+		return $count < $this->randNumber ? $count : $this->randNumber;
 	}
 
 	function readCategoryContent( $contentPath ) {

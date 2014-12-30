@@ -34,7 +34,7 @@ class TextsiteController extends Controller {
 			//กำหนดจำนวนสินค้าที่แสดงในหน้า category items
 			$config['num_cat_item_per_page'] = 48;
 			
-			if ( 'code' == $function ){
+			if ( 'code' == $function ) {
 				$codeModel = $this->model( 'textsite/textsiteSourceCode' );
 				$codeModel->code( $config );
 			}

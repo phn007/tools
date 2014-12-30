@@ -71,6 +71,7 @@ class CloneComponent
 		}
 	}
 	
+	//Call recursive
 	function checkExistDirectory( $source, $destination, $file )
 	{
 		if( $file != "." && $file != ".." && is_dir( "$source/$file" ) ) //if it is folder

@@ -5,6 +5,7 @@
 class ProductController extends Controller {
 
 	function index( $params ) {
+		
 		$this->productPage = true;
 		$this->layout = 'layout';
 		$this->view = 'index';
@@ -15,15 +16,22 @@ class ProductController extends Controller {
 
 		$model->getProductDetail();
 		$this->productDetail = $model->productDetail;
-		$this->spinContent = $model->getSpinContent();
-		$this->relatedProducts = $model->getRelatedProducts();
+
+		$model->getSpinContent();
+		$this->spinContent = $model->spinContent;
+
+		$model->getRelatedProducts();
+		$this->relatedProducts = $model->relatedProducts;
 
 		$model->getNavmenu();
 		$this->menuUrl = $model->menuUrl;
 		$this->menuState = $model->menuState;
-		// $this->textsearch = $model->textForSearch();
-		$this->permalink = $model->permalink();
-		
-		$this->seoTags = "";
+
+		$model->permalink();
+		$this->permalink = $model->permalink;
+
+		// $model->getSeoTags();
+		// $this->seoTags = $model->seoTags;
+		$this->seoTags = '';
 	}
 }
