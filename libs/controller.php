@@ -1,10 +1,8 @@
 <?php
 namespace webtools;
 
-class Controller
-{
-	public function model( $model )
-	{
+class Controller {
+	public function model( $model ) {
 		$path = WT_APP_PATH . 'models/' . $model . '_model.php';
 		if ( ! file_exists( $path ) )
 			die( "\n" . 'The ' . $model. ' model file not found!' . "\n\n" );
@@ -17,8 +15,7 @@ class Controller
 		return new $model_class();
 	}
 	
-	public function component( $component )
-	{
+	public function component( $component ) {
 		$path = WT_APP_PATH . 'components/' . $component . '_component.php'; 
 		if ( ! file_exists( $path ) )
 			die( "\n" . 'The ' . $component. ' component file not found!' . "\n\n" );
@@ -31,8 +28,7 @@ class Controller
 		return $obj;
 	}
 
-	public function textSiteCreatorComponent( $component )
-	{
+	public function textSiteCreatorComponent( $component ) {
 		$path = $component . '_component.php'; 
 		if ( ! file_exists( $path ) )
 			die( "\n" . 'The ' . $component. ' component file not found!' . "\n\n" );
@@ -45,4 +41,10 @@ class Controller
 		return $obj;
 	}
 
+	public function LoadMerchantScraper( $scraper ) {
+		$path = WT_APP_PATH . 'extensions/scraper-class/' . $scraper . '_scraper.php'; 
+		if ( ! file_exists( $path ) )
+			die( "\n" . 'The ' . $scraper. ' scraper file not found!' . "\n\n" );
+		require_once $path;
+	}
 }

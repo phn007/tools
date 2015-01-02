@@ -43,4 +43,25 @@ class OptionList {
 		$action = 'build';
 		return array( $action => $functions );
 	}
+
+	function scrape() {
+		$functions['functions'] = array( 
+			'nordstrom' => array( 'row', 'page' ),
+			'zappost' => array( 'row', 'page' )
+		);
+		$action = 'merchant';
+		return array( $action => $functions );
+	}
+
+	function prospapi() {
+		$functions['functions'] = array( 
+			'category' => array(),
+			'brand' => array(),
+			'product' => array(),
+			'all' => array()
+		);
+		$action = 'get';
+		return array( $action => $functions );
+		
+	}
 }

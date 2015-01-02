@@ -34,7 +34,7 @@ class Options
 		
 		//ดึงรายการ optionlist ของ method ที่มีชื่อตรงกับ $controller
 		$controllerOptionList = $this->getControllerOptionList( $controller, $inputAction );
-		
+
 		//ตรวจสอบว่ามีชื่อ action อยู่ใน Controller Option List หรือเปล่า
 		$this->checkActionExistInOptionList( $inputAction, $controllerOptionList );
 		
@@ -44,7 +44,7 @@ class Options
 		
 		//Next Step : verify parameter from actionFunctionList
 		$params = $this->parameterOfFuncion( $actionFunctionList, $inputFunction, $inputParams );
-		
+
 		$result = array(
 			'controller' => $controller,
 			'action' => $inputAction,
