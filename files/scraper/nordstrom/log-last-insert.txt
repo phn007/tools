@@ -1,1 +1,1 @@
-2015-01-01 22:46:50 nordstrom row: 10 page: 16
+2015-01-04 02:06:42 nordstrom row: 30 page: 3

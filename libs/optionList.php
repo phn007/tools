@@ -13,14 +13,9 @@ params: 		param1 param2
 */
 
 class OptionList {
-
-	function textdb() {
-		$function['functions'] = array( 'textsite' => array(), 'apisite' => array(), 'htmlsite' => array() );
-		$action = 'create';
-		return array( $action => $function );
-	}
 	
 	function textsite() {
+		$createAction = 'create';
 		$createFunction['functions'] = array(
 			'code'      => array(),
 			'textdb'    => array(),
@@ -30,38 +25,39 @@ class OptionList {
 			'sitemap_index' => array(),
 			'config'    => array(),
 		);
-		$createAction = 'create';
 		return array( $createAction => $createFunction );
 	}
 
 	function html() {
+		$action = 'build';
 		$functions['functions'] = array( 
 			'homepage' => array(),
 			'productpage' => array(),
 			'assets' => array()
 		);
-		$action = 'build';
-		return array( $action => $functions );
-	}
-
-	function scrape() {
-		$functions['functions'] = array( 
-			'nordstrom' => array( 'row', 'page' ),
-			'zappost' => array( 'row', 'page' )
-		);
-		$action = 'merchant';
 		return array( $action => $functions );
 	}
 
 	function prospapi() {
+		$action = 'get';
 		$functions['functions'] = array( 
 			'category' => array(),
 			'brand' => array(),
 			'product' => array(),
 			'all' => array()
 		);
-		$action = 'get';
 		return array( $action => $functions );
+	}
+
+	function scrape() {
+		$getAction = 'get';
+		$getFunctions['functions'] = array( '*' => array( 'row', 'page' ) );
 		
+		$delAction = 'del';
+		$delFunction['functions'] = array(
+			'db' => array( 'merchant' ),
+			'tb' => array( 'merchant' )
+		);
+		return array( $getAction => $getFunctions, $delAction => $delFunction );
 	}
 }

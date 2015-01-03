@@ -5,10 +5,18 @@ use webtools\controller;
 */
 class ScrapeController extends Controller {
 	
-	function merchant( $function, $params, $options ) {
+	function get( $function, $params, $options ) {
+
+		//To do list
+		//check options
+		//check merhant existing
+
 		$model = $this->model( 'scraper' );
-		$model->initialVariables(  $function, $params, $options  );
+		$model->merchantName = $function;
+		$model->initialVariables( $params, $options  );
 		$urlData = $model->getUrlDataFromCsvFile();
+
+		$model->setInputPageNumber();
 
 		foreach ( $urlData as $row => $item ) {
 			$pageinfo = $model->getPageInfo( $item );
@@ -27,5 +35,12 @@ class ScrapeController extends Controller {
                	$currentPage++;
 		    } while( $nextPage );
 		}
+	}
+
+	function del( $function, $params, $options ) {
+		$model = $this->model( 'scraper' );
+		$model->merchantName = $params['merchant'];
+		if ( 'db' == $function )
+			$model->deleteDatabase();
 	}
 }

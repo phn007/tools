@@ -6,24 +6,21 @@ trait SourceCode
 	private $cloneCom;
 	private $siteType;
 	
-	function initialSourceCode( $config )
-	{
+	function initialSourceCode( $config ) {
 		$this->config = $config;
 		$this->siteType = $config['site_type'];
 		$theme = $config['theme_name'];
-		$this->cloneCom = $this->component( 'website/Clone' );
+		$this->cloneCom = $this->component( 'clone' );
 	}
 	
-	function copyFiles( $targetFileFunction, $sourceDir, $mode )
-	{
+	function copyFiles( $targetFileFunction, $sourceDir, $mode ) {
 		$source = $this->getSourcePath( $sourceDir );
 		$destination = $this->getDestinationPath( $sourceDir );
 		$specificFiles = $this->getSpecificFiles( $targetFileFunction, $source );
 		$this->cloneCom->runClone( $source, $destination, $specificFiles, $mode );
 	}
 	
-	function getSpecificFiles( $targetFileFunction, $source )
-	{
+	function getSpecificFiles( $targetFileFunction, $source ) {
 		if ( empty( $targetFileFunction ) )
 			return array();
 		
@@ -36,13 +33,11 @@ trait SourceCode
 		return $data;
 	}
 
-	function getSourcePath( $sourceDir )
-	{
+	function getSourcePath( $sourceDir ) {
 		return WT_BASE_PATH . 'sitecreator/' . $sourceDir;
 	}
 	
-	function getDestinationPath()
-	{
+	function getDestinationPath() {
 		return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir_name'];
 	}
 	

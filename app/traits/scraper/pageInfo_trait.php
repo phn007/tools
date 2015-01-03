@@ -39,8 +39,10 @@ trait PageInfo {
 		$pageinfo = file_get_contents( $this->setPageInfoPath() );
 		$pageinfo = unserialize( $pageinfo );
 
-		if ( $pageinfo['catUrl'] != $this->item['url'] )
+		if ( $pageinfo['catUrl'] != $this->item['url'] ) {
 			$pageinfo = $this->getPageInfoFromWebPage();
+		}
+			
 		return $pageinfo;
 	}
 
@@ -50,7 +52,7 @@ trait PageInfo {
 	}
 
 	function setPageInfoPath() {
-		return WT_BASE_PATH . 'files/scraper/' . $this->merchantName() . '/pageinfo.txt';
+		return WT_BASE_PATH . 'files/scraper/' . $this->merchantName . '/pageinfo.txt';
 	}
 }
 
@@ -58,22 +60,6 @@ trait PageInfo {
 trait PageNumber {
 	private $pageStart;
 	private $pageEnd;
-
-	function setStartPageNumber( $pageinfo ) {
-		if ( $this->pageStart == 0 )
-			$this->pageStart = 1;
-
-		if ( $this->pageStart > $pageinfo['lastPage'] )
-			die( 'Error: start page more than lastpage' );
-	}
-
-	function setLastPageNumber( $pageinfo ) {
-		if ( $this->pageEnd == 0 ) 
-        	$this->pageEnd = $pageinfo['lastPage'];
-        
-        if ( $this->pageEnd > $pageinfo['lastPage'] )
-        	$this->pageEnd = $pageinfo['lastPage'];
-	}
 
 	function inputPageNumber() {
 		$arr = explode( '-', $this->params['page'] );
@@ -88,5 +74,20 @@ trait PageNumber {
 		}
 		$this->pageStart = $pageStart;
 		$this->pageEnd = $pageEnd;
+	}
+
+	function setStartPageNumber( $pageinfo ) {
+		if ( $this->pageStart == 0 )
+			$this->pageStart = 1;
+		if ( $this->pageStart > $pageinfo['lastPage'] )
+			$this->pageStart = 1;
+	}
+
+	function setLastPageNumber( $pageinfo ) {
+		if ( $this->pageEnd == 0 ) 
+        	$this->pageEnd = $pageinfo['lastPage'];
+        
+        if ( $this->pageEnd > $pageinfo['lastPage'] )
+        	$this->pageEnd = $pageinfo['lastPage'];
 	}
 }

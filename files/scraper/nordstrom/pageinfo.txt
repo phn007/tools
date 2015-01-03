@@ -1,1 +1,1 @@
-a:3:{s:9:"urlFormat";s:54:"http://shop.nordstrom.com/c/womens-dresses-shop?page=2";s:8:"lastPage";s:2:"56";s:6:"catUrl";s:62:"http://shop.nordstrom.com/c/womens-dresses-shop?origin=leftnav";}
+a:3:{s:9:"urlFormat";s:59:"http://shop.nordstrom.com/c/mens-clothing-sportswear?page=2";s:8:"lastPage";s:2:"52";s:6:"catUrl";s:67:"http://shop.nordstrom.com/c/mens-clothing-sportswear?origin=leftnav";}

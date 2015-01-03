@@ -15,11 +15,11 @@ class ScraperModel extends Controller {
 	use ProductItemList;
 	use ProductDatabase;
 
-	private $funcion;
 	private $params;
 	private $options;
 	private $item;
 	private $scraper;
+	private $merchantName;
 
 	function __set( $name, $value ) {
       	$this->{$name} = $value;
@@ -29,11 +29,11 @@ class ScraperModel extends Controller {
       	return $this->{$name};
    	}
 
-	function initialVariables( $function, $params, $options ) {
-		$this->function = $function;
+	function initialVariables( $params, $options ) {
+
 		$this->params = $params;
 		$this->options = $options;
-		$this->LoadMerchantScraper( $this->merchantName() );
+		$this->LoadMerchantScraper( $this->merchantName );
 		$this->scraper = new Scraper();
 	}
 
@@ -46,8 +46,11 @@ class ScraperModel extends Controller {
 		return $this->setPageInfo(); 
 	}
 
-	function setPageNumber( $pageinfo ) { //pageInfo_trait.php
+	function setInputPageNumber() { //pageInfo_trait.php
 		$this->inputPageNumber(); 
+	}
+
+	function setPageNumber( $pageinfo ) { //pageInfo_trait.php
 		$this->setStartPageNumber( $pageinfo );
 		$this->setLastPageNumber( $pageinfo );
 	}
@@ -62,10 +65,6 @@ class ScraperModel extends Controller {
 
 	function insertToDatabase( $productItems, $row, $currentPage ) { //database_trait.php
 		$this->insertProductItemToDatabase( $productItems, $row, $currentPage );
-	}
-
-	function merchantName() {
-		return $this->function;
 	}
 
 	function setUserAgent() {

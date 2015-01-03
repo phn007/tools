@@ -27,8 +27,8 @@ class TextSiteDbProductsModel extends Controller
 		$this->projectName = $projectName;
 		$this->siteDirNames = $siteDirNames;
 
-		$this->dbCom = $this->component( 'textDatabase/database' );
-		$this->textDBCom = $this->component( 'textDatabase/textDB' );
+		$this->dbCom = $this->component( 'database' );
+		$this->textDBCom = $this->component( 'textDB' );
 
 		$countProductData = $this->dbCom->countTotalProducts( $merchantData );
 		$totalProducts = $countProductData['totalProducts'];

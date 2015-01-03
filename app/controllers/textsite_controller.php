@@ -1,7 +1,7 @@
 <?php
 use webtools\controller;
 include WT_APP_PATH . 'traits/config_trait.php';
-include WT_APP_PATH . 'traits/siteInfo_trait.php';
+include WT_APP_PATH . 'traits/textsite/siteInfo_trait.php';
 
 class TextsiteController extends Controller {
 	

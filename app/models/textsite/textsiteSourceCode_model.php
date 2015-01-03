@@ -1,7 +1,7 @@
 <?php
 use webtools\controller;
 use webtools\libs\Helper;
-include WT_APP_PATH . 'traits/sourceCode_trait.php';
+include WT_APP_PATH . 'traits/textsite/sourceCode_trait.php';
 
 class TextSiteSourceCodeModel extends Controller
 {

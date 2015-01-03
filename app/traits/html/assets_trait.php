@@ -2,7 +2,7 @@
 trait Assets {
 
 	function buildAssets() {
-		$cloneCom = $this->component( 'website/Clone' );
+		$cloneCom = $this->component( 'clone' );
 		$source = $this->setSourcePath();
 		$destination = $this->setDestinationPath();
 		$specificFiles = array();

@@ -4,9 +4,9 @@
 */
 class CurlComponent extends CUrlOptions
 {
-	function getRequest( $params ) {
+	function getRequest( $options ) {
 		$this->init();
-		$this->setOptions( $params );
+		$this->setOptions( $options );
 		$result = $this->exec();
 		$info = $this->getInfo();
 		return array(
@@ -48,6 +48,10 @@ class CurlOptions
 
 	protected function returnTransfer( $value ) {
 		curl_setopt( $this->ch, CURLOPT_RETURNTRANSFER, $value );
+	}
+
+	protected function connectTimeout( $second ) {
+		curl_setopt( $this->ch, CURLOPT_CONNECTTIMEOUT, $second );
 	}
 
 	protected function timeout( $second ) {

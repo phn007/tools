@@ -58,18 +58,16 @@ class Options
 	function parameterOfFuncion( $actionFunctionList, $inputFunction, $inputParams )
 	{
 		$params = null;
+		if ( isset( $actionFunctionList[ $inputFunction ] ) )
+			$functionList = $actionFunctionList[ $inputFunction ];
+		elseif ( isset( $actionFunctionList['*'] ) )
+			$functionList = $actionFunctionList['*'];
 
-		//ได้กำหนดชื่อ parameter ของ function ไว้ใน option list class หรือเปล่า
-		if ( isset( $actionFunctionList[$inputFunction] ) )
-		{
-			$i = 0;
-			foreach ( $actionFunctionList[$inputFunction] as $item )
-			{
-				//มี parameter ที่ถูกส่งมาจาก input หรือเป่า
-				if ( isset( $inputParams[$i]) )
-					$params[$item] = $inputParams[$i];
-				$i++;
-			}
+		$i = 0;
+		foreach ( $functionList as $item ) {
+			if ( isset( $inputParams[$i]) )
+				$params[$item] = $inputParams[$i];
+			$i++;
 		}
 		return $params;
 	}

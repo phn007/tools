@@ -68,7 +68,7 @@ trait checkCsvFile {
 	}
 
 	function csvFilepath() {
-		return WT_BASE_PATH . 'files/scraper/' . $this->merchantName() . '/' . $this->csvFilename();
+		return WT_BASE_PATH . 'files/scraper/' . $this->merchantName . '/' . $this->csvFilename();
 	}
 
 	function csvFilename() {

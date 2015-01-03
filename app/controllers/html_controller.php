@@ -1,12 +1,10 @@
 <?php
 use webtools\controller;
 include WT_APP_PATH . 'traits/config_trait.php';
-include WT_APP_PATH . 'traits/siteInfo_trait.php';
 
 class HtmlController extends Controller {
 	
 	use SetupConfig;
-	use SiteInfomation;
 
 	function build( $function, $params, $options ) {
 

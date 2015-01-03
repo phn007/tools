@@ -15,7 +15,7 @@ trait ProductDatabase {
 			if ( !isset( $data['description'] ) )$data['description'] = '';
 			$data['url'] = $this->scraper->merchantUrl . $data['url'];
 			$data['category'] = $this->item['category'];
-			$data['merchant'] = $this->merchantName();
+			$data['merchant'] = $this->merchantName;
 
 			$this->insertTable( $conn, $data );
 			$count++;
@@ -27,22 +27,29 @@ trait ProductDatabase {
 	function logLastInsert( $row, $page ) {
 		date_default_timezone_set('Asia/Bangkok');
 		$time = date( "Y-m-d H:i:s" );
-		$merchant = $this->merchantName();
+		$merchant = $this->merchantName;
 		$log = $time . ' ' . $merchant . ' row: ' . $row . ' page: ' . $page;
 		$file = WT_BASE_PATH . 'files/scraper/' . $merchant . '/log-last-insert.txt';
 		file_put_contents( $file, $log );
 	}
 
 	function printResult( $row, $page, $count, $data ) {
-		echo 'row: ' . $row . ': ';
-		echo 'category: ' . $data['category'] . ' ';
-		echo 'page: ' . $page . ' ';
-		echo 'product: ' . $count . ' ' . $data['title'];
+		echo $this->merchantName . ' ';
+		echo 'category -> ' . $data['category'] . ' ';
+		echo 'row -> ' . $row . ' ';
+		echo 'page -> ' . $page . ' ';
+		echo 'product -> ' . $count . ' ' . $data['title'];
 		echo "\n";
 	}
 
 	function databaseName() {
-		return 'vl_' . $this->merchantName() . '_test';
+		return 'vl_' . $this->merchantName . '_test';
+	}
+
+	function deleteDatabase() {
+		$db = new Database();
+		$conn = $db->connectDatabase();
+		$db->deleteDatabase( $conn, $this->databaseName() );
 	}
 
 	function insertTable( $conn, $data ) {
