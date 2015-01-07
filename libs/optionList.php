@@ -17,15 +17,25 @@ class OptionList {
 	function textsite() {
 		$createAction = 'create';
 		$createFunction['functions'] = array(
-			'code'      => array(),
 			'textdb'    => array(),
+			'code'      => array(),
 			'htaccess'  => array(),
 			'logo'      => array(),
 			'sitemap'   => array(),
-			'sitemap_index' => array(),
+			'sitemapindex' => array(),
 			'config'    => array(),
+			'robots'    => array(),
+			'siteall'   => array(),
+			'all'       => array(),
+			'theme'     => array()
 		);
-		return array( $createAction => $createFunction );
+
+		$serverAction = 'server';
+		$serverFunction['functions'] = array( 'start' => array() );
+		return array( 
+			$createAction => $createFunction, 
+			$serverAction => $serverFunction 
+		);
 	}
 
 	function html() {

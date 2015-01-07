@@ -3,14 +3,11 @@ use webtools\controller;
 use webtools\libs\Helper;
 
 include WT_APP_PATH . 'traits/prospapi/prospDatabase_trait.php';
-include WT_APP_PATH . 'traits/prospapi/merchantList_trait.php';
 include WT_APP_PATH . 'traits/prospapi/prospCategory_trait.php';
 include WT_APP_PATH . 'traits/prospapi/prospBrand_trait.php';
 include WT_APP_PATH . 'traits/prospapi/prospProduct_trait.php';
 
 class ProspApiModel extends Controller{
-
-	use MerchantList;
 	use ProspDatabase;
 	use ProspCategory;
 	use ProspBrand;
@@ -29,10 +26,6 @@ class ProspApiModel extends Controller{
    	function __get( $name ) {
       	return $this->{$name};
    	}
-
-	function getMerchantList( $options ) {
-		return $this->setMerchantList( $options );
-	}
 
 	function connectDatabase() {
 		$this->db = new Database();

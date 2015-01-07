@@ -1,15 +1,21 @@
 <?php
 use webtools\controller;
+include WT_APP_PATH . 'traits/setupConfig_trait.php';
+
 class ProspApiController extends Controller {
+	use SetupConfig;
 
 	function get( $function, $params, $options ) {
+		//setupConfig_trait.php
+		$this->initialSetupConfig( $options );
+		$merchants = $this->getMerchantData();
+
 		$model = $this->model( 'prospapi' );
-		$merchants = $model->getMerchantList( $options );
 		$model->connectDatabase();
 
 		foreach ( $merchants as $merchant => $data ) {
-			$dbName = $data['dbName'];
-			$clearStatus = $data['clearDbStatus'];
+			$dbName = $data['db_name'];
+			$clearStatus = $data['clear_db'];
 			$model->clearDatabase( $dbName, $clearStatus );
 			$model->createDatabase( $dbName );
 			$model->project = $data['project'];

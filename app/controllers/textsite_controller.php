@@ -1,51 +1,48 @@
 <?php
 use webtools\controller;
-include WT_APP_PATH . 'traits/config_trait.php';
+
+include WT_APP_PATH . 'traits/setupConfig_trait.php';
 include WT_APP_PATH . 'traits/textsite/siteInfo_trait.php';
 
 class TextsiteController extends Controller {
-	
 	use SetupConfig;
 	use SiteInfomation;
 	
 	function create( $function, $params, $options ) {
-		//SetupConfig Trait
-		$this->initialSetupConfig( $options );
-		$merchantData   = $this->merchantData();
-		$siteNumber     = $this->siteNumber();
-		$projectName    = $this->projectName();
-		$siteConfigData = $this->siteConfigData();
-		$siteDirNames   = $this->siteDirNames();
+		$this->initialSetupConfig( $options ); //SetupConfig Trait
+		$merchantData   = $this->getMerchantData();
+		$siteNumber     = $this->getSiteNumber();
+		$projectName    = $this->getProjectName();
+		$siteConfigData = $this->getSiteConfigData();
+		$siteDirNames   = $this->getSiteDirNames();
 
-		if ( 'textdb' == $function ) {
-			$productModel = $this->model( 'textsite/textsitedbproducts' );
+		if ( 'textdb' == $function || 'all' == $function ) {
+			$productModel = $this->model( 'textdb/textdbProducts' );
 			$productModel->create( $projectName, $merchantData, $siteNumber, $siteDirNames );
-			
-			$categoryModel = $this->model( 'textsite/textsitedbcategories' );
+			$categoryModel = $this->model( 'textdb/textdbCategories' );
 			$categoryModel->create( $projectName );
 		}
-		
+
+		$model = $this->model( 'textsite' );
 		foreach ( $siteConfigData as $config ) { 
-			//SiteInfomation Trait
-			$config['site_desc']   = $this->getSiteDescription( $config['site_category'] );
+			$config['site_desc']   = $this->getSiteDescription( $config['site_category'] ); //SiteInfomation Trait
 			$config['site_author'] = $this->getSiteAuthor();
 			$config['prod_route']  = $this->getProdRoute();
-			
-			//กำหนดจำนวนสินค้าที่แสดงในหน้า category items
 			$config['num_cat_item_per_page'] = 48;
-			
-			if ( 'code' == $function ) {
-				$codeModel = $this->model( 'textsite/textsiteSourceCode' );
-				$codeModel->code( $config );
-			}
-			elseif ( 'config' == $function ) {
-				$cModel = $this->model( 'textsite/textsiteConfig' );
-				$cModel->create( $config );
-			}
-			elseif ( 'htaccess' == $function ) {
-				$htModel = $this->model( 'textsite/textsitehtaccess' );
-				$htModel->create( $config );
-			}
+
+			$model->initialTextsite( $config, $options );
+			if ( 'code' == $function     	 || 'siteall' == $function || 'all' == $function ) $model->code();
+			if ( 'config' == $function   	 || 'siteall' == $function || 'all' == $function ) $model->siteConfig();
+			if ( 'htaccess' == $function 	 || 'siteall' == $function || 'all' == $function ) $model->htaccess();
+			if ( 'sitemap' == $function  	 || 'siteall' == $function || 'all' == $function ) $model->sitemap();
+			if ( 'sitemapindex' == $function || 'siteall' == $function || 'all' == $function ) $model->sitemapIndex();
+			if ( 'robots' == $function   	 || 'siteall' == $function || 'all' == $function ) $model->robots();
+			if ( 'logo' == $function 		 || 'siteall' == $function || 'all' == $function ) $model->logo();
+			if ( 'theme' == $function ) $model->theme();
 		}
+	}
+
+	function server( $function, $params, $options ) {
+		$this->initialSetupConfig( $options ); //SetupConfig Trait
 	}
 }

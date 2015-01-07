@@ -1,5 +1,6 @@
 <?php
 trait SpinContent {
+	use Spin;
 
 	function setSpinContent() {
 		$c = new Cache();
@@ -19,6 +20,15 @@ trait SpinContent {
 		return $this->keywordReplacing( $cache, $this->productDetail['keyword'] );
 	}
 
+	function keywordReplacing( $text, $keyword ) {
+		foreach ( $text as $key => $string ) {
+			$data[$key] = str_replace( '#keyword#', $keyword, $string );
+		}
+		return $data;
+	}
+}
+
+trait Spin {
 	function spin() {
 		$files = $this->readFilenameListFromTextAds();
 		$this->checkIssetFiles( $files );
@@ -34,9 +44,10 @@ trait SpinContent {
 		return $this->addAccentHtmlTagToAds( $text );
 	}
 
-	function parseFilenameFromPath( $path ) {
-		$arr = explode( '/', $path ); //กำหนดชื่อไฟล์
-		return str_replace( '.txt', '', end( $arr ) );
+	function readFilenameListFromTextAds() {
+		$files = glob( $this->text_path ); //อ่านชื่อไฟล์ของ text ads
+		sort( $files );
+		return $files;
 	}
 
 	function checkIssetFiles( $files ) {
@@ -44,10 +55,9 @@ trait SpinContent {
 			die( "runSpinContent: file not found!!!" );
 	}
 
-	function readFilenameListFromTextAds() {
-		$files = glob( $this->text_path ); //อ่านชื่อไฟล์ของ text ads
-		sort( $files );
-		return $files;
+	function parseFilenameFromPath( $path ) {
+		$arr = explode( '/', $path ); //กำหนดชื่อไฟล์
+		return str_replace( '.txt', '', end( $arr ) );
 	}
 
 	function addAccentHtmlTagToAds( $text ) {
@@ -65,12 +75,5 @@ trait SpinContent {
 		);
 		shuffle( $arr );
 		return preg_replace('/#keyword#/', $arr[0], $ads, 1 );
-	}
-
-	function keywordReplacing( $text, $keyword ) {
-		foreach ( $text as $key => $string ) {
-			$data[$key] = str_replace( '#keyword#', $keyword, $string );
-		}
-		return $data;
 	}
 }

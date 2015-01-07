@@ -34,8 +34,9 @@ class AppIndex
 		include 'libs/router.php';
 		include 'libs/database.php';
 		include 'libs/helper.php';
+		include 'libs/networkSupport.class.php';
 		include CONSOLE_PATH . 'Lite.php';
-		include SITE_CREATOR_PATH . 'config/permalink.php';
+		//include SITE_CREATOR_PATH . 'config/permalink.php';
 
 
 		if ( $options['controller'] == 'site' )

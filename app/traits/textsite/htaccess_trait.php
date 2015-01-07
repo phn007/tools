@@ -1,17 +1,13 @@
 <?php
-use webtools\controller;
 use webtools\libs\Helper;
 
-/**
-* Create textSite Htaccess
-*/
-class TextsiteHtaccessModel extends Controller {
-	
-	function create( $config ) {
-		$projectName = $config['project'];
-		$siteDirName = $config['site_dir_name'];
-		$webType = $config['web_type'];
-		$webUser = $config['web_user'];
+trait Htaccess {
+
+	function createHtaccess() {
+		$projectName = $this->config['project'];
+		$siteDirName = $this->config['site_dir_name'];
+		$webType = $this->config['web_type'];
+		$webUser = $this->config['web_user'];
 		
 		$hta = 'RewriteEngine On' . PHP_EOL;
 		$hta .= $this->rewriteBase( $webType, $webUser ) . PHP_EOL;
@@ -19,9 +15,10 @@ class TextsiteHtaccessModel extends Controller {
 		$hta .= 'RewriteCond %{REQUEST_FILENAME} !-d' . PHP_EOL;
 		$hta .= 'RewriteRule (.*) index.php/$1' . PHP_EOL;
 
-		$destination = $this->setDestination( $projectName, $siteDirName );
+		$destination = $this->setHtaccessDestination( $projectName, $siteDirName );
 		Helper::make_dir( $destination );
 		$this->writeHtaccessFile( $destination, $hta );
+		$this->printHtaccessResult( $destination );
 	}
 	
 	function writeHtaccessFile( $destination, $content ) {
@@ -40,7 +37,13 @@ class TextsiteHtaccessModel extends Controller {
 		return $hta;
 	}
 	
-	function setDestination( $projectName, $siteDirName ) {
+	function setHtaccessDestination( $projectName, $siteDirName ) {
 		return TEXTSITE_PATH . $projectName . '/' . $siteDirName;
+	}
+
+	function printHtaccessResult( $destination ) {
+		echo "Create Htaccess file: ";
+		echo $destination . '/.htaccess';
+		echo " done...\n";
 	}
 }

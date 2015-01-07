@@ -60,21 +60,14 @@ try {
             ),
 
             array(
-               'short' => 'f',
+               'short' => 'r',
                'type' => 'noarg',
-               'desc' => array('spacific config as file' )
-            ),
-
-            array(
-               'long' => 'dev',
-               'type' => 'mandatory',
-               'desc' => array('directory', 'development site destination' )
+               'desc' => array('add route: r.php to root' )
             ),
          ),
 
         'parameters' => array(
-            '<param1> funciton ( showconfig, getproduct, textdb, create, run )',
-            '<param2> sub function ( code, logo, htaccess )'
+            '<param1> funciton ( create, server )'
          ),
         );
 

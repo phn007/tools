@@ -1,6 +1,8 @@
 <?php
-trait ProductItems
-{
+trait ProductItems {
+	use ProductContent;
+	use ProductData;
+
 	private $productPath;
 	private $itemNumber = 15;
 	private $productData;
@@ -32,14 +34,32 @@ trait ProductItems
 			$data[$key] = $product;
 		}
 		return $data;
+	}	
+}
+
+trait ProductContent {
+	function getProductContents() {
+		$productFilePath = $this->getProductFilePath();
+		$filename = $this->getFilenameFromPath( $productFilePath );
+		$contents = $this->dbCom->getContentFromSerializeTextFile( $productFilePath );
+		$data[$filename] = $contents;
+		return $data;
 	}
-	
+
+	function getProductFilePath() {
+		$productDir = $this->dbCom->setProductDirPath();
+		$files = $this->dbCom->getTextFileList( $productDir );
+		return $this->dbCom->getRandomTextFilePath( $files );
+	}
+
 	function getFilenameFromPath( $productPath ) {
 		$arr = explode( '/', $productPath );
         $textFile = end( $arr );
         return str_replace( '.txt', '', $textFile );
 	}
-	
+}
+
+trait ProductData {
 	function getProductData( $products ) {
 		$filename = key( $products );
 		$products = $products[$filename];
@@ -48,41 +68,27 @@ trait ProductItems
 			$data[$filename][$key] = $products[$key];
 		return $data;
 	}
-	
+
 	function getProductNameList( $products ) {	
 		$keys = $this->getProductKeys( $products);
 		$num  = $this->getProductNumberByItemNumber( $keys ); 
 		return $this->randomProductKeys( $keys, $num );	
 	}
-	
-	function randomProductKeys( $keys, $num ) {
-		$rand_number = array_rand( $keys, $num );
-       	foreach( $rand_number as $number )
-		   $rand_keys[] = $keys[$number];
-		return $rand_keys;
+
+	function getProductKeys( $products ) {
+		return array_keys( $products );
 	}
-	
+
 	function getProductNumberByItemNumber( $keys ) {
 		$count = count( $keys );
 		$num   = $count > $this->itemNumber ? $this->itemNumber : $count;
 		return $num;
 	}
-	
-	function getProductKeys( $products ) {
-		return array_keys( $products );
-	}	
-	
-	function getProductFilePath() {
-		$productDir = $this->dbCom->setProductDirPath();
-		$files = $this->dbCom->getTextFileList( $productDir );
-		return $this->dbCom->getRandomTextFilePath( $files );
-	}
-	
-	function getProductContents() {
-		$productFilePath = $this->getProductFilePath();
-		$filename = $this->getFilenameFromPath( $productFilePath );
-		$contents = $this->dbCom->getContentFromSerializeTextFile( $productFilePath );
-		$data[$filename] = $contents;
-		return $data;
+
+	function randomProductKeys( $keys, $num ) {
+		$rand_number = array_rand( $keys, $num );
+       	foreach( $rand_number as $number )
+		   $rand_keys[] = $keys[$number];
+		return $rand_keys;
 	}
 }

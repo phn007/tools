@@ -1,11 +1,11 @@
 <?php
-trait CategoryList
-{
+trait CategoryList {
+	use CategoryData;
+
 	private $showNumber = 100;
 	private $typeName;
 
-	function categoryList( $typeName )
-	{
+	function categoryList( $typeName ) {
 		$this->typeName = $typeName;
 		$categoryDir = $this->getCategoryDirPath();
 		$files = $this->dbCom->getTextFileList( $categoryDir );
@@ -25,6 +25,17 @@ trait CategoryList
 			return $this->dbCom->setBrandDirPath();
 	}
 	
+	function getFileByListNumber( $files, $listNumber ) {
+		return array_slice( $files, 0, $listNumber );
+	}
+	
+	function setShowNumber( $files ) {
+		$count = count( $files );
+     	return $count < $this->showNumber ? $count : $this->showNumber;
+	}
+}
+
+trait CategoryData {
 	function getCategoryData( $path ) {
 		$this->dbCom->checkExistTextFilePath( $path );	
 		$files = $this->readCategoryContent( $path );
@@ -35,21 +46,12 @@ trait CategoryList
 		$categoryLink = $this->getCategoryLink( $this->typeName, $catSlug ); //CategoryLink Trait
 		return array( 'categoryName' => $categoryName, 'categorylink' => $categoryLink );
 	}
-	
-	function separateCategoryContent( $files ) {
-		return explode( '|', $files[0] );
-	}
-	
+
 	function readCategoryContent( $path) {
 		return file( $path );
 	}
-	
-	function getFileByListNumber( $files, $listNumber ) {
-		return array_slice( $files, 0, $listNumber );
-	}
-	
-	function setShowNumber( $files ) {
-		$count = count( $files );
-     	return $count < $this->showNumber ? $count : $this->showNumber;
+
+	function separateCategoryContent( $files ) {
+		return explode( '|', $files[0] );
 	}
 }

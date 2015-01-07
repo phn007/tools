@@ -10,11 +10,10 @@ include APP_PATH . 'traits/permalink_trait.php';
 * Product Model
 */
 class ProductModel extends AppComponent {
-	
 	use ProductDetail;
 	use SpinContent;
 	use RelatedProducts;
-	use Navmenu;
+	use NavmenuProduct;
 	use Permalink, CategoryLink, GotoLink;
 	use ProductSeoTags;
 
@@ -49,7 +48,7 @@ class ProductModel extends AppComponent {
 	}
 
 	function getRelatedProducts() {
-		$this->relatedProducts = $this->setRelatedProducts();
+		$this->relatedProducts = $this->setRelatedProducts(); //RelatedProducts Trait
 	}
 
 	function getNavmenu() {

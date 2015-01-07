@@ -1,12 +1,12 @@
 <?php 
-trait Navmenu {
+trait NavmenuProduct {
 	use PositionOfFileList;
 	use PositionOfProductItem;
 	use CheckNextItemAndFile;
 	use NavmenuUrl;
 
-	private $menuUrl;
-	private $menuState = array();
+	private $menuUrl; //output
+	private $menuState = array(); //output
 
 	function setNavmenu() {
 		$this->dbCom = $this->component( 'textdatabase' );
@@ -124,7 +124,7 @@ trait CheckNextItemAndFile {
 
 	function setNextContinue() {
 		$nextFilePath = $this->nextFile['path'];
-		$productItemOfNextFile = $this->navGetProductItemList( $nextFilePath ); //Navmenu Trait
+		$productItemOfNextFile = $this->navGetProductItemList( $nextFilePath ); //NavmenuProduct Trait
 		$this->nextItem = $this->getFirstKeyOfProductItem( $productItemOfNextFile ); //PositionOfProductItem Trait
 		$this->nextProductFile = $this->nextFile['filename'];
 	}
@@ -150,7 +150,7 @@ trait CheckNextItemAndFile {
 
 	function setPrevContinue() {
 		$prevFilePath = $this->prevFile['path'];
-		$productItemOfPrevFile = $this->navGetProductItemList( $prevFilePath ); //Navmenu Trait
+		$productItemOfPrevFile = $this->navGetProductItemList( $prevFilePath ); //NavmenuProduct Trait
 		$this->prevItem = $this->getLastKeyOfProductItem( $productItemOfPrevFile ); //PositionOfProductItem Trait
 		$this->prevProductFile = $this->prevFile['filename'];
 	}
