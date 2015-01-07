@@ -44,5 +44,7 @@ class TextsiteController extends Controller {
 
 	function server( $function, $params, $options ) {
 		$this->initialSetupConfig( $options ); //SetupConfig Trait
+		$model = $this->model( 'textsite' );
+		if ( 'start' == $function ) $model->serverStart( $this->getSiteConfigData() );
 	}
 }

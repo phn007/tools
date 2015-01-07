@@ -89,7 +89,7 @@ trait ReadConfigFile {
 	}
 
 	function getSiteDirNames() {
-		return $this->conf->get( 'site_config', 'site_dir_name' );
+		return $this->conf->get( 'site_config', 'site_dir' );
 	}
 
 	function getSiteConfigData() {

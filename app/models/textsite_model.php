@@ -9,6 +9,7 @@ include WT_APP_PATH . 'traits/textsite/sitemap_trait.php';
 include WT_APP_PATH . 'traits/textsite/sitemapIndex_trait.php';
 include WT_APP_PATH . 'traits/textsite/robots_trait.php';
 include WT_APP_PATH . 'traits/textsite/logo_trait.php';
+include WT_APP_PATH . 'traits/textsite/server_trait.php';
 
 class TextsiteModel extends Controller {
 	use Code;
@@ -18,6 +19,7 @@ class TextsiteModel extends Controller {
 	use SitemapIndex;
 	use Robots;
 	use Logo;
+	use Server;
 
 	private $config;
 	private $cloneCom;
@@ -62,5 +64,9 @@ class TextsiteModel extends Controller {
 	function theme() {
 		$this->cloneCom = $this->component( 'clone' );
 		$this->getViews();
+	}
+
+	function serverStart( $siteConfigData ) {
+		$this->runServer( $siteConfigData );
 	}
 }

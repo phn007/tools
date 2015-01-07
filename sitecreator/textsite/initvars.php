@@ -1,10 +1,4 @@
 <?php
-
-/*
- * BASE PATH
- * ----------------------------------------------------------------------------
-*/
-define( 'BASE_PATH', dirname( realpath( __FILE__ ) ) . '/' );
 define( 'APP_PATH', BASE_PATH . 'app/' );
 
 /*

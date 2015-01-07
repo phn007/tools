@@ -1,0 +1,10 @@
+{
+	"name": "Tuts+",
+	"version": "1.0",
+	"dependencies": {
+		"jquery": "latest",
+		"fontawesome": "latest",
+		"bootstrap": "3.2.0",
+		"modernizer": "latest"
+	}
+}
