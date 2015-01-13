@@ -47,4 +47,14 @@ class TextsiteController extends Controller {
 		$model = $this->model( 'textsite' );
 		if ( 'start' == $function ) $model->serverStart( $this->getSiteConfigData() );
 	}
-}
+
+	function show( $function, $params, $options ) {
+		$this->initialSetupConfig( $options ); //SetupConfig Trait
+		if ( 'config' == $function ) {
+			foreach ( $this->getSiteConfigData() as $config ) {
+				print_r( $config );
+				echo "\n";
+			}
+		}
+	}
+}//class

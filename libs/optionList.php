@@ -32,9 +32,14 @@ class OptionList {
 
 		$serverAction = 'server';
 		$serverFunction['functions'] = array( 'start' => array() );
+
+		$showAction = 'show';
+		$showFunction['functions'] = array( 'config' => array() );
+
 		return array( 
 			$createAction => $createFunction, 
-			$serverAction => $serverFunction 
+			$serverAction => $serverFunction,
+			$showAction => $showFunction
 		);
 	}
 

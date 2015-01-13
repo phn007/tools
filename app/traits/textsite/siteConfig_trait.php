@@ -13,7 +13,7 @@ trait SiteConfig {
 	}
 
 	function setDestinationPath() {
-		return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir_name'] . '/config/';
+		return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir'] . '/config/';
 	}
 
 	function printResult( $destination ) {

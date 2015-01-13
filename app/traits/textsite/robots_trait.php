@@ -26,6 +26,6 @@ trait Robots {
 	}
 
 	function robotDestination() {
-		return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir_name'];
+		return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir'];
 	}
 }

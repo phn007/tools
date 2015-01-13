@@ -37,6 +37,7 @@ define( 'SITE_DESC', $site_desc );
 
 define( 'CSS_PATH', THEME_URL . 'assets/css/' );
 define( 'JS_PATH', THEME_URL . 'assets/js/' );
+define( 'IMG_PATH', THEME_URL . 'assets/img/' );
 
 //สำหรับจัดรูปแบบให้ URL
 define( 'PROD_ROUTE', $prod_route );

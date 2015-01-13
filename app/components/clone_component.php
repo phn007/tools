@@ -54,7 +54,7 @@ class CloneComponent {
 	
 	function copyFile( $source, $destination, $file ) {
 		if ( $file != "." && $file != ".." && ! is_dir( "$source/$file" ) ) { //if it is file
-			$this->printCopiedFiles( $source, $file );
+			$this->printCopiedFiles( $destination, $file );
 			copy( "$source/$file", "$destination/$file" );
 		}
 	}
@@ -73,8 +73,8 @@ class CloneComponent {
 		}
 	}
 	
-	function printCopiedFiles( $source, $file ) {
-		echo $source . '/' . $file;
+	function printCopiedFiles( $destination, $file ) {
+		echo $destination . '/' . $file;
 		echo "\n";
 	}
 }

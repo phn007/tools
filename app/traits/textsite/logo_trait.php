@@ -9,7 +9,7 @@ trait Logo {
 	}
 
 	function logoDestination() {
-		$path = TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir_name'];
+		$path = TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir'];
 		return $path . '/images/logo/';
 	}
 

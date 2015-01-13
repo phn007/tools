@@ -111,11 +111,11 @@ trait XmlFileAndDirectory {
 	}
 
 	function sitemapSource() {
-		return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir_name'] . '/contents/products/';
+		return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir'] . '/contents/products/';
 	}
 
 	function sitemapDestination() {
-		return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir_name'] . '/sitemap/';
+		return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir'] . '/sitemap/';
 	} 
 }
 

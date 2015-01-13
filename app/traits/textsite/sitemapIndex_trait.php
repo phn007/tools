@@ -44,11 +44,11 @@ trait SitemapIndexFileAndDirectory {
     }
 
     function sitemapIndexDestination() {
-    	return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir_name'] . '/';
+    	return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir'] . '/';
     }
 
     function sitemapDir() {
-    	return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir_name'] . '/sitemap/';
+    	return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir'] . '/sitemap/';
     }
 }
 

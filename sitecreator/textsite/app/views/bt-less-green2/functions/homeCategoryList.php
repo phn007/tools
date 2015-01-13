@@ -7,7 +7,6 @@ $brand = new HomeCategoryList( $brandList );
 $brandListHtml = $brand->getHtml();
 
 class HomeCategoryList {
-	
 	private $categoryList;
 	
 	function __construct( $categoryList ) {

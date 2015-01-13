@@ -2,7 +2,6 @@
 class HomeController extends Controller
 {
 	function index() {
-		//กำหนดค่าตัวแปรให้กับ Theme
 		$this->layout = 'application';
 		$this->view = 'index';
 		$this->homePage = true;

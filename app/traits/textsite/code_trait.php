@@ -9,8 +9,11 @@ trait Code {
 
 	function getViews() {
 		$source = $this->getSourcePath() . 'textsite/app/views/' . $this->config['theme_name'];
+		if ( !file_exists( $source ) ) die( "\nTheme directory not found!!!\n" );
+
 		$destination = $this->getDestinationPath() . 'app/views/' . $this->config['theme_name'];
-		$this->cloneCom->runClone( $source, $destination, null, 'fullMode' );
+		$excludeFiles = array( $source . '/assets/less' );
+		$this->cloneCom->runClone( $source, $destination, $excludeFiles, 'excludeMode' );
 	}
 
 	function getRouteFileForDevelopment() {

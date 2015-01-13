@@ -5,7 +5,7 @@ trait Htaccess {
 
 	function createHtaccess() {
 		$projectName = $this->config['project'];
-		$siteDirName = $this->config['site_dir_name'];
+		$siteDirName = $this->config['site_dir'];
 		$webType = $this->config['web_type'];
 		$webUser = $this->config['web_user'];
 		
