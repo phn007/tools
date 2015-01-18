@@ -33,6 +33,7 @@ class TextsiteModel extends Controller {
 		$this->cloneCom = $this->component( 'clone' );
 		$this->getAllExceptViews();
 		$this->getViews();
+		
 		if ( isset( $this->options['r'] ) ) 
 			$this->getRouteFileForDevelopment();
 	}

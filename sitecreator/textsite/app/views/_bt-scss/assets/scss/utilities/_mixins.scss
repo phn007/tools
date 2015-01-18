@@ -1,0 +1,80 @@
+// ==========================================================================
+// Mixins
+// ==========================================================================
+
+// BEM selectors
+
+@mixin e($element) {
+	&__#{$element} {
+    @content;
+  }
+}
+@mixin m($modifier) {
+  &--#{$modifier} {
+    @content;
+  }
+}
+
+// Generate modifier color classes
+@mixin bg-colors($map) {
+	@each $theme, $color in $map {
+		&--#{$theme} {
+			background-color: $color;    
+		}
+	}
+}
+
+// Generating :before or :after pseudo-element shapes
+@mixin p-el(
+	$el,
+	$el-w: null,
+	$el-h: null) {
+	@if $el == "before" or $el == "after" { 
+	  &:#{$el} {
+		  @extend %pseudos;
+		  width: $el-w;
+	  	height: $el-h;
+	    @content;
+	  }
+	} 
+	@else {
+    @error "`#{$el}` is not a valid pseudo-element.";
+	}
+}
+
+// Image replacement
+@mixin img-replace($img, $w, $h, $disp: block) {
+	background-image: url('#{$path--rel}/#{$img}');
+	background-repeat: no-repeat;
+	width: $w;
+	height: $h;
+	display: $disp;
+}
+
+
+// Sbtn Theme
+@mixin sbtn-theme($sbtn-color) {
+	border-color: darken($sbtn-color, 20%);
+	background-color: $sbtn-color;
+	&:hover {
+		background-color: darken($sbtn-color, 6%);
+		box-shadow: 
+			0 .125em $off-wht, 
+			inset 0 .063em $off-wht, 
+			inset 0 -.188em lighten($sbtn-color, 2%);
+	}
+	&:active {
+		box-shadow: 
+			0 .063em $off-wht, 
+			inset 0 0 1.094em darken($sbtn-color, 40%), 
+			inset 0 .063em darken($sbtn-color, 20%),
+			inset 0 -0.188em darken($sbtn-color, 20%); 
+	}
+	@extend %sbtn;
+}
+@mixin trans($val...) {
+	-webkit-transition: $val;
+	-moz-transition: $val; 
+	-o-transition: $val; 
+	transition: $val; 
+}

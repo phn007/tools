@@ -17,5 +17,5 @@ $scArr = explode( '#', $statcounter );
 $sc_project = $scArr[0];
 $sc_security = $scArr[1];
 
-include 'initvars.php';
+include 'libs/initvars.php';
 include BASE_PATH . 'libs/core.php';

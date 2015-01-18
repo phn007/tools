@@ -1,0 +1,23 @@
+// $grey-palette: (
+// 	xx-light : lighten($grey, 43%),
+// 	x-light  : lighten($grey, 35%),
+// 	light    : lighten($grey, 12%),
+// 	base     : $grey,
+// 	dark     : darken($grey, 8%),
+// 	x-dark   : darken($grey, 16%)
+// );
+
+$black-palette : (
+	light      : lighten($black, 10%),
+	base       : $black,
+	dark       : darken($black, 10%)
+);
+
+
+$grey-palette: (
+	x-light  : lighten($gray-base, 93.5%), // #eee
+	light 	 : lighten($gray-base, 46.7%), // #777
+	base 	 : lighten($gray-base, 33.5%), // #555
+	dark 	 : lighten($gray-base, 20%),   // #333
+	x-darker : lighten($gray-base, 13.5%), // #222
+);

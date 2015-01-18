@@ -111,7 +111,7 @@ class Map extends Object {
 		extract( self::$user_vars );
 		
 		//Functions
-		include APP_PATH  . 'views/' . THEME_NAME . '/functions/functions.php';
+		include APP_PATH  . 'views/' . THEME_NAME . '/modules/functions.php';
 		
 		//Load View
 		include $file_main;

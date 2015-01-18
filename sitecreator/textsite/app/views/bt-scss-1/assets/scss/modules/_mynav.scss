@@ -1,0 +1,20 @@
+.mynav {
+	@include e(item) {
+		@extend %mynav-item-disp;
+		a {
+			@extend %mynav-item-link;
+			color: palette(grey, light);
+			&:hover {
+				@extend %mynav-item-on;
+			}
+		}
+
+		@include m(current) {
+			a {
+				@extend %mynav-item-link;
+				@extend %mynav-item-on;
+			}
+		}
+	}
+}
+

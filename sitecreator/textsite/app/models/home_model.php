@@ -24,6 +24,9 @@ class HomeModel extends AppComponent
 	function __construct() {
 		$this->dbCom = $this->component( 'textdatabase' );
 		$this->tagCom = $this->component( 'seoTags' );
+	}
+
+	function process() {
 		$this->homeProducts();
 		$this->homeCategoryList();
 		$this->homeBrandList();
@@ -44,5 +47,10 @@ class HomeModel extends AppComponent
 	
 	function homeSeoTags() {
 		$this->seoTags = $this->getSeoTags(); //SeoTags Trait
+	}
+
+	function checkProductContentExist() {
+		$path = $this->dbCom->setProductDirPath();
+		if ( ! file_exists( $path ) )  return false;
 	}
 }

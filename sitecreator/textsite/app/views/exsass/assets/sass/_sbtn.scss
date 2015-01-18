@@ -1,0 +1,77 @@
+// /* Color Themes - Variables */
+$purple: #9A68C7;
+$blue: #3BA9E4;
+$green: #75B343;
+$orange: #FF6A42;
+
+// /* Common Colors - Variables */
+$off-wht: rgba(white,.4);
+
+// /* Mixins */
+@mixin sbtn-theme($sbtn-color) {
+	border-color: darken($sbtn-color, 20%);
+	background-color: $sbtn-color;
+	&:hover {
+		background-color: darken($sbtn-color, 6%);
+		box-shadow: 0 .125em $off-wht, inset 0 .063em $off-wht, inset 0 -.188em lighten($sbtn-color, 2%);
+	}
+	&:active {
+		box-shadow: 0 .063em $off-wht, inset 0 0 1.094em darken($sbtn-color, 40%), inset 0 .063em darken($sbtn-color, 20%),inset 0 -0.188em darken($sbtn-color, 20%); 
+	}
+	@extend %sbtn;
+}
+
+@mixin trans($val...) {
+	-webkit-transition: $val;
+	-moz-transition: $val; 
+	-o-transition: $val; 
+	transition: $val; 
+}
+
+// /* Button Global */
+%sbtn {
+	display: inline-block;
+	margin: 1rem; 
+	padding: .938em 1.875em;
+	border: .094em solid;
+	border-radius: .625em;
+	box-shadow: 0 .375em .313em -.313em rgba(black,.8), inset 0 .063em $off-wht, inset 0 -.188em rgba(black,.15);
+	color: #FFF;
+	font: bold 1.8rem sans-serif;
+	@include trans(0.2s ease-in-out); 
+	text: {
+		transform: uppercase;
+		decoration: none;
+		shadow: 0 .063em rgba(black,.3);
+	}
+  cursor:pointer;
+}
+
+// /* Themes */
+.purple {
+	@include sbtn-theme($purple);
+}
+.blue {
+	@include sbtn-theme($blue);
+}
+.green {
+	@include sbtn-theme($green);
+}
+.orange {
+	@include sbtn-theme($orange);
+}
+
+.sbtn-delete {
+	@extend %tidecrimson;
+}
+.sbtn-start {
+	@extend %blue;
+}
+.sbtn-order {
+	@extend %green;
+}
+.sbtn-submit {
+	@extend %palevioletred;
+}
+
+

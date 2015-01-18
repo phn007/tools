@@ -44,11 +44,3 @@ class TextDatabaseComponent {
 		return $files;
 	}
 }
-
-
-	// function getContentFromNormalTextFile( $path ) {
-	// 	$fp = fopen( $path, 'rb' );
-	// 	while ( !feof( $fp ) ) {
-	// 		$chunk = fgets( $fp );
-	// 	}
-	// }
