@@ -1,7 +1,7 @@
 <?php
 trait ProductPage {
 
-	function buildProductPageHtml() {
+	function buildProductPage() {
 		$dbComPath = $this->sourceDir . 'app/components/textdatabase';
 		$dbCom = $this->textSiteCreatorComponent( $dbComPath );
 
@@ -20,7 +20,7 @@ trait ProductPage {
 
 		foreach ( $productKeys as $key ) {
 			$projectName = $this->config['project'];
-			$siteDirName = $this->config['site_dir_name'];
+			$siteDirName = $this->config['site_dir'];
 			
 			$command = 'php '. WT_BASE_PATH . 'buildhtml/app.php ';
 			$command .= $projectName . ' ';

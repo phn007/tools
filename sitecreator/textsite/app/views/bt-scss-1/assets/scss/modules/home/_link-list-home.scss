@@ -1,0 +1,40 @@
+@mixin title() {
+	padding: 0 0 em(10px) 0 ;
+	font-size: em( 18px );
+	font-weight: $font-weight--bold;
+	color: palette( primary, xxx-light );
+	border-bottom: 1px solid palette( primary, light );
+}
+
+.link-list {
+	overflow: auto;
+	background-color: palette( primary, base );
+	padding: 0 0 em(10px) 0;
+	
+	.header {
+		background-color: palette( primary, dark );
+		padding: em(15px) 0 em(15px);
+		h2 {
+			margin: 0;
+			font-size: em( 22px );
+			color: palette( primary, x-light );
+		}
+	}
+	
+	h3 {
+		@include title;
+	}
+
+	.brands {
+		margin-top: em(20px);
+	}
+	
+	a {
+		color: palette( primary, xxx-light );
+		&:hover {
+			color: palette( secondary, base );
+			text-decoration: none;
+		}
+	}
+}
+

@@ -1,98 +1,120 @@
 <?php
 trait RelatedProducts {
-	use GetDataFromCategory;
-	use GetRelatedProductDetail;
+	use GetDataFromCategories;
+	use GetProductFilename;
+	use GetProductContents;
+	use RandomRelatedProduct;
+	use AddGotoLink;
 
 	function setRelatedProducts() {
 		$this->dbCom = $this->component( 'textdatabase' );
-		$randContents = $this->getProductDataFromCategoryTextFile(); //GetDataFromCategory Trait
-		$relatedProducts = $this->getProductDetailFromProductTextFile( $randContents ); //GetRelatedProductDetail Trait
-		return $relatedProducts;
+		$catSlug = $this->getCategorySlug();
+		$productFiles = $this->getDataFromCategoriesFile( $catSlug );
+		$productFilename = $this->getProductFilename( $productFiles );
+		$productContents = $this->getProductContents( $productFilename );
+		$products = $this->randomRelatedProduct( $productContents );
+		return $this->addGotoLink( $productFilename, $products );
+	}
+
+	function getCategorySlug() {
+		return Helper::clean_string( $this->productDetail['category'] );
 	}
 }
 
-trait GetRelatedProductDetail {
-	
-	function getProductDetailFromProductTextFile( $contents ) {
-		if ( empty( $contents ) ) return null;
-		foreach ( $contents as $key => $data ) {
-			$keySlug = $this->getKeySlug( $key );
-			$this->dbCom->checkExistTextFilePath( $data['path'] );
-			$contents = $this->readProductContents( $data['path'] );
-			$product = $this->getProductContentByKey( $contents, $keySlug );
-			$product = $this->addGoToLinkIntoRelatedProductItem( $product, $data['filename'], $key );
-			$relatedProducts[] = $product;
+trait AddGotoLink {
+	function addGotoLink( $productFile, $products ) {
+		foreach ( $products as $productKey => $product ) {
+			$data[$productKey] = $this->addLinkIntoRelatedProductItem( $product, $productFile, $productKey );
 		}
-		return $relatedProducts;
+		return $data;
 	}
 
-	function addGoToLinkIntoRelatedProductItem( $product, $productFile, $productKey ) {
-		$product['goto'] = $this->getGotoLink( $productFile, $productKey );
+	function addLinkIntoRelatedProductItem( $product, $productFile, $productKey ) {
+		$permalink = $this->getPermalink( $productFile, $productKey ); //link_trait.php - Permalink Trait
+		$product['goto'] = $this->getGotoLink( $productFile, $productKey, $product['affiliate_url'], $permalink );
 		return $product;
 	}
+}
 
-	function getProductContentByKey( $contents, $keySlug ) {
-		if ( ! array_key_exists( $keySlug, $contents ) )
-			die( "RelateProduct: Key not exists" );
-		return $contents[$keySlug];
+trait RandomRelatedProduct {
+	function randomRelatedProduct( $productContents ) {
+		$keys = $this->getProductKeys( $productContents );
+		$keys = $this->removeCurrentProduct( $keys );
+		$productKeys = $this->randomProductKeys( $keys );
+		return $this->getProductDetailFromKey( $productKeys, $productContents );
+	}
+
+	function getProductDetailFromKey( $productKeys, $productContents ) {
+		foreach ( $productKeys as $key ) {
+			$data[$key] = $productContents[$key];
+		}
+		return $data;
+	}
+
+	function randomProductKeys( $keys ) {
+		shuffle( $keys );
+		$productNumber = $this->getProductNumber( $keys );
+		return array_splice( $keys, 0, $productNumber );
+	}
+
+	function getProductNumber( $keys ) {
+		$num = count( $keys );
+		return $num < RELATED_PRODUCT_NUMBER ? $num : RELATED_PRODUCT_NUMBER;
+	}
+
+	function getProductKeys( $productContents ) {
+		return array_keys( $productContents );
+	}
+
+	function removeCurrentProduct( $keys ) {
+		unset( $keys[$this->productKey] );
+		return $keys;
+	}
+}
+
+trait GetProductContents{
+	function getProductContents( $productFilename ) {
+		$path = $this->getProductFilePath( $productFilename );
+		return $this->readProductContents( $path );
 	}
 
 	function readProductContents( $path ) {
 		return $this->dbCom->getContentFromSerializeTextFile( $path );
 	}
 
-	function getKeySlug( $key ) {
-		return Helper::clean_string( $key );
+	function getProductFilePath( $productFilename ) {
+		return $this->dbCom->setProductDirPath() . $productFilename . '.txt';
 	}
 }
 
-trait GetDataFromCategory {
-	private $randNumber = 12;
-
-	function getProductDataFromCategoryTextFile() {
-		$contentPath = $this->getCategoryContentPath();		
-		$contents = $this->readCategoryContent( $contentPath );
-		return $this->randomContents( $contents );
+trait GetProductFilename {
+	function getProductFilename( $productFiles ) {
+		return $this->randomFilename( $productFiles );
 	}
 
-	function randomContents( $contents ) {
-		if ( empty( $contents ) ) return null;
-		$randContents = null;
-		$randNumber =$this->checkRandNumberAvailable( $contents );
-		$randKeys = array_rand( $contents, $randNumber );
-		foreach ( $randKeys as $key ) {
-			$arr = explode( '|', $contents[$key] );
-			$filename = $arr[1];
-			$key = Helper::clean_string( $arr[2] );
-			$randContents[$key]['path'] = $this->getProductDir() . $filename . '.txt';
-			$randContents[$key]['filename'] = $filename;
-		}
-		return $randContents;
+	function randomFilename( $productFiles ) {
+		shuffle( $productFiles['items'] );
+		return $productFiles['items'][0];
+	}
+}
+
+trait GetDataFromCategories {
+	function getDataFromCategoriesFile( $catSlug ) {
+		$path = $this->getCategoriesFilePath();
+		$contents = $this->getCategoriesContent( $path );
+		return $this->getProductFilenameFromContentsByCatSlug( $contents, $catSlug );
 	}
 
-	function checkRandNumberAvailable( $contents ) {
-		$count = count( $contents );
-		return $count < $this->randNumber ? $count : $this->randNumber;
+	function getProductFilenameFromContentsByCatSlug( $contents, $catSlug ) {
+		return $contents[$catSlug];
 	}
 
-	function readCategoryContent( $contentPath ) {
-		return $this->dbCom->getContentFromNormalTextFile( $contentPath );
+	function getCategoriesContent( $path ) {
+		return $this->dbCom->getContentFromSerializeTextFile( $path );
 	}
 
-	function getCategoryContentPath() {
-		$categoryDir = $this->getCategoryDir();
-		$filename = $this->getCategoryFilename();
-		return $categoryDir . $filename;
-	}
-
-	function getCategoryFilename() {
-		return Helper::clean_string( $this->productDetail['category'] ) . '.txt';
-	}
-
-	function getCategoryDir() {
+	function getCategoriesFilePath() {
 		return $this->dbCom->setCategoryDirPath();
 	}
-	function getProductDir() {
-		return $this->dbCom->setProductDirPath();
-	}
 }
+

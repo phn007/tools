@@ -1,6 +1,6 @@
 /**!
  * MASONRY SECTION
- * -------------------------------------------------------------------------------------------
+ *
  */
 var $loadingIndicator;
 
@@ -44,7 +44,7 @@ $.fn.masonryImagesReveal = function( $items ) {
 
 /**!
  * ECHOJS SECTION
- * -------------------------------------------------------------------------------------------
+ *
  */
 window.echo = (function (window, document) {
 	'use strict';

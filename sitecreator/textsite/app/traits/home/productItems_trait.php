@@ -1,94 +1,111 @@
 <?php
 trait ProductItems {
-	use ProductContent;
-	use ProductData;
+	use GetProductPath;
+	use GetProductItems;
+	use DefineProductGroup;
 
-	private $productPath;
-	private $itemNumber = 15;
-	private $productData;
-	
 	function productItems() {
 		$cachePath = 'cache/home-products';
 		$cacheName = 'home-product-file';
 		$cacheTime = 300;
-		$c = new Cache();
-		$cache = $c->get( $cachePath, $cacheName, $cacheTime );
-		
-		if ( $cache == NULL ) {
-			$products = $this->getProductContents();
-			$products = $this->getProductData( $products );
-			$cache = $products;
-            $c->set( $cachePath, $cacheName, $cache );
-		}
-		return $this->addPermalinkIntoProductData( $cache );
-	}
-	
-	function addPermalinkIntoProductData( $cache ) {
-		$filename = key( $cache );
-		$products = $cache[$filename];
-		
-		foreach ( $products as $key => $product ) {
-			$keySlug   = Helper::clean_string( $product['keyword'] );
-        	$permalink = $this->getPermalink( $filename, $keySlug ); //Permalink Trait
-			$product['permalink'] = $permalink;
-			$data[$key] = $product;
-		}
-		return $data;
-	}	
-}
+		//$c = new Cache();
+		//$cache = $c->get( $cachePath, $cacheName, $cacheTime );
 
-trait ProductContent {
-	function getProductContents() {
-		$productFilePath = $this->getProductFilePath();
-		$filename = $this->getFilenameFromPath( $productFilePath );
-		$contents = $this->dbCom->getContentFromSerializeTextFile( $productFilePath );
-		$data[$filename] = $contents;
-		return $data;
-	}
+		//if ( $cache == NULL ) {
 
-	function getProductFilePath() {
-		$productDir = $this->dbCom->setProductDirPath();
-		$files = $this->dbCom->getTextFileList( $productDir );
-		return $this->dbCom->getRandomTextFilePath( $files );
-	}
-
-	function getFilenameFromPath( $productPath ) {
-		$arr = explode( '/', $productPath );
-        $textFile = end( $arr );
-        return str_replace( '.txt', '', $textFile );
+			$pathList = $this->GetProductPathFromCategoryListForHomepage(); //GetProductPath Trait
+			$productIems = $this->getProductItems( $pathList );
+			$productGroups = $this->defineProductGroup( $productIems );
+			$cache = $productGroups;
+			
+			//$c->set( $cachePath, $cacheName, $cache );
+		//}
+		return $cache;
 	}
 }
 
-trait ProductData {
-	function getProductData( $products ) {
-		$filename = key( $products );
-		$products = $products[$filename];
-		$productNames = $this->getProductNameList( $products );
-		foreach ( $productNames as $key )
-			$data[$filename][$key] = $products[$key];
-		return $data;
+trait GetProductPath {
+	function GetProductPathFromCategoryListForHomepage() {
+		$path = $this->getCategoryPath();
+		$this->checkFileExist( $path );
+		$paths = $this->readContentFromCategoryFile( $path );
+		$paths = $this->randomPaths( $paths );
+		return $this->selectProductPath( $paths );
 	}
 
-	function getProductNameList( $products ) {	
-		$keys = $this->getProductKeys( $products);
-		$num  = $this->getProductNumberByItemNumber( $keys ); 
-		return $this->randomProductKeys( $keys, $num );	
+	function selectProductPath( $paths ) {
+		$i = 0;
+		foreach ( $paths as $path ) {
+			if ( ++$i > 20 ) break;
+			$pathList[] = $path;
+		}
+		return $pathList;
 	}
 
-	function getProductKeys( $products ) {
-		return array_keys( $products );
+	function randomPaths( $items ) {
+		shuffle( $items );
+		return $items;
 	}
 
-	function getProductNumberByItemNumber( $keys ) {
-		$count = count( $keys );
-		$num   = $count > $this->itemNumber ? $this->itemNumber : $count;
-		return $num;
+	function readContentFromCategoryFile( $path ) {
+		return unserialize( file_get_contents( $path ) );
 	}
 
-	function randomProductKeys( $keys, $num ) {
-		$rand_number = array_rand( $keys, $num );
-       	foreach( $rand_number as $number )
-		   $rand_keys[] = $keys[$number];
-		return $rand_keys;
+	function checkFileExist( $path ) {
+		if ( ! file_exists( $path ) ) die( "categoryList for homepage does not exist" );
+	}
+
+	function getCategoryPath() {
+		return CONTENT_PATH . 'categoryList-for-homepage.txt';
+	}
+}
+
+trait GetProductItems {
+	function getProductItems( $pathList ) {
+		foreach ( $pathList as $path ) {
+			$productFilename = $this->getProductFilenameFromPath( $path );
+			$productItems[ $productFilename ] = $this->readProductContentFromFile( $path, $productFilename );
+		}
+		return $productItems;
+	}
+
+	function getProductFilenameFromPath( $path ) {
+		$arr = explode( '/', $path );
+		return str_replace( '.txt', '', end( $arr ) );
+	}
+
+	function readProductContentFromFile( $path, $productFilename ) {
+		$i = 0;
+		$items = unserialize( file_get_contents( BASE_PATH . $path ) );
+		foreach ( $items as $productKey => $item ) {
+			if ( ++$i > 9 ) break;
+			$item['permalink'] = $this->getPermalink( $productFilename, $productKey );
+			$itemList[ $productKey ] = $item;
+		}
+		return $itemList;
+	}
+}
+
+trait DefineProductGroup {
+	function defineProductGroup( $productItems ) {
+		$productItems = $this->shuffleAssocArray( $productItems );
+		$group1 = array_splice( $productItems, 0, 1 );
+		$group2 = array_splice( $productItems, 0, 1 );
+
+		return array(
+			'group-one' => $group1,
+			'group-two' => $group2,
+			'category-group' => $productItems,
+		);
+	}
+
+	function shuffleAssocArray( $productItems ) {
+		$keys = array_keys( $productItems );
+		shuffle( $keys );
+		$shuffleItems = array();
+		foreach( $keys as $key ) {
+		    $shuffleItems[$key] = $productItems[$key];
+		}
+		return $shuffleItems;
 	}
 }

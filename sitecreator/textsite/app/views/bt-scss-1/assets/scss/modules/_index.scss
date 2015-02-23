@@ -2,9 +2,19 @@
 // Placeholder selectors
 // ==========================================================================
 //@import 'extends';
-@import 'footer';
-//@import 'mynav';
-//@import 'sbtn';
-@import 'snav';
-@import 'navbar-custom';
 
+//main
+@import 'main/footer';
+@import 'main/snav';
+@import 'main/navbar-custom';
+
+//home
+@import 'home/product-list125-1';
+@import 'home/top-product-list';
+@import 'home/link-list-home';
+
+//product
+@import 'product/product-detail';
+@import 'product/related-products';
+@import 'product/breadcrumb';
+@import 'product/navmenu';

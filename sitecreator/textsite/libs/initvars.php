@@ -1,27 +1,30 @@
 <?php
+define( 'BASE_PATH', dirname( dirname( realpath( __FILE__ ) ) ) . '/' );
 define( 'APP_PATH', BASE_PATH . 'app/' );
+
+/*
+ * GET CONFIG VARIABLES
+ * ----------------------------------------------------------------------------
+*/
+$confPath = BASE_PATH . 'config/config.php';
+if ( ! file_exists( $confPath ) )
+	die( "config file does not exitst" );
+include $confPath;
+extract( $cfg );
+
+$scArr = explode( '#', $statcounter );
+$sc_project = $scArr[0];
+$sc_security = $scArr[1];
 
 /*
  * ตัวแปรที่ใช้ในการ Create Page
  * ----------------------------------------------------------------------------
 */
 define( 'CONTENT_PATH', BASE_PATH . 'contents/' );
-
-//Home URL
 define( 'HOME_URL', $domain . '/' );
-
-//Home Link ใช้ในการกำหนด url ในส่วนของ Head ( seo )
 define( 'HOME_LINK', HOME_URL );
-
-//Category Items
-define( 'CATEGORY_ITEM_PER_PAGE', $num_cat_item_per_page );
-define( 'EMPTY_BRAND_NAME', 'Default' );
-define( 'EMPTY_CATEGORY_NAME', 'Blank' );
-
-//Product
-define( 'RELATED_PRODUCT_NUM', 12 );
-//Logo
 define( 'LOGO_TEXT', $site_name );
+define( 'SITE_TYPE', $site_type );
 
 //Network
 define( 'NETWORK', $network );
@@ -38,6 +41,7 @@ define( 'SITE_DESC', $site_desc );
 define( 'CSS_PATH', THEME_URL . 'assets/css/' );
 define( 'JS_PATH', THEME_URL . 'assets/js/' );
 define( 'IMG_PATH', THEME_URL . 'assets/img/' );
+define( 'BLANK_IMG', IMG_PATH . 'blank.png' );
 
 //สำหรับจัดรูปแบบให้ URL
 define( 'PROD_ROUTE', $prod_route );
@@ -48,4 +52,5 @@ define( 'SC_PROJECT', $sc_project );
 define( 'SC_SECURITY', $sc_security );
 
 //TextSpinner
-define( 'TEXTSPIN_PATH',  BASE_PATH . 'files/textspinner/market-01/');
+define( 'TEXTSPIN_PATH', BASE_PATH . 'files/textspinner/market-01/' );
+

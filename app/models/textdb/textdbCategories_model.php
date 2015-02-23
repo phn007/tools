@@ -7,36 +7,21 @@ class TextdbCategoriesModel extends Controller {
 	private $projectName;
 	
 	//Main
-	function create( $projectName ) {
-		$this->projectName = $projectName;
-		$dirs = $this->getProjectDirectories();
-		$productDirs = $this->getProductDirectories( $dirs );
-		$files = $this->getProductTextFileGroupBySiteDirName( $productDirs );
-		$this->readProductDataAndWriteToTextFile( $files);
-	}
-
-	function getProjectDirectories() {
-		$path = TEXTSITE_PATH . $this->projectName . '/*';
-		$dirs =  glob( $path,  GLOB_ONLYDIR );
-		
-		if ( empty( $dirs ) )
-			die( 'Project Directory not found!!!' );
-		return $dirs;
-	}
-
-	function getProductDirectories( $dirs ) {
-		foreach ( $dirs as $dir )
-			$productDirs[] = $dir . '/contents/products';
-		return $productDirs;
-	}
-
-	function getProductTextFileGroupBySiteDirName( $productDirs ) {
-		foreach ( $productDirs as $path ) {
-			$arr = explode( '/', $path );
-			list(,,,$siteDirName ) = $arr;
-			$files[$siteDirName] = glob( $path . '/*.txt' );
+	function create( $siteConfigData ) {
+		foreach ( $siteConfigData as $config ) { 
+			extract( $config );
+			$productDir = $this->getProductDirectories( $project, $site_dir );
+			$files = $this->getProductTextFileGroupBySiteDirName( $productDir );
+			$this->readProductDataAndWriteToTextFile( $files, $project, $site_dir );
 		}
-		return $files;
+	}
+
+	function getProductDirectories( $project, $site_dir ) {
+		return TEXTSITE_PATH . $project . '/' . $site_dir . '/contents/products';
+	}
+
+	function getProductTextFileGroupBySiteDirName( $productDir ) {
+		return glob( $productDir . '/*.txt' );
 	}
 	
 	function printWriteCategoryProcess( $productFilename, $catTitle, $siteDirName, $catName ) {
@@ -50,74 +35,77 @@ class TextdbCategoriesModel extends Controller {
 }
 
 trait ReadProductDataAndWriteToTextFile {
-	function readProductDataAndWriteToTextFile( $files ) {
-		foreach ( $files as $siteDirName => $file ) {
-			foreach ( $file as $path ) {
-				$productFilename = $this->getFilenameFromPath( $path );
-				$content = $this->readProductDataFromTextFile( $path );
-				$this->writeCategoryTextFile( $siteDirName, $productFilename, $content );
-				$this->writeBrandTextFile( $siteDirName, $productFilename, $content );
-			}
+	private $categoryData;
+	private $brandData;
+
+	function readProductDataAndWriteToTextFile( $files, $project, $site_dir ) {;
+		foreach ( $files as $path ) {
+			$productFilename = $this->getFilenameFromProductFilePath( $path );
+			$content = $this->readProductDataFromTextFile( $path );
+			$this->filterProductFilenameForEachCategory( $productFilename, $content );
+		}
+		$catData = $this->categoryData;
+		$brandData = $this->brandData;
+		$this->clearData();
+
+		$catData = $this->parseData( $catData );
+		$brandData = $this->parseData( $brandData );
+
+		$this->writeTextFile( $catData, $project, $site_dir, 'categories' );
+		$this->writeTextFile( $brandData, $project, $site_dir, 'brands' );
+	}
+
+	function filterProductFilenameForEachCategory( $productFilename, $content  ) {
+		foreach ( $content as $data ) {
+			$catName = $data['category'];
+			$brandName = $data['brand'];
+			$this->categoryData[$catName][$productFilename] = null;
+			$this->brandData[$brandName][$productFilename] = null;
 		}
 	}
 
-	function getFilenameFromPath( $path ) {
+	function clearData() {
+		$this->categoryData = null;
+		$this->brandData = null;
+	}
+
+	function parseData( $catData ) {
+		foreach ( $catData as $catName => $productFileArray ) {
+			$productFileKeys = array_keys( $productFileArray );
+			$slug = Helper::clean_string( $catName );
+
+			$data[$slug] = array(
+				'name' => $catName,
+				'items' => $productFileKeys
+			); 
+		}
+		return $data;
+	}
+
+	function writeTextFile( $data, $project, $site_dir, $catDir ) {
+		$path = $this->setTextFilePath( $project, $site_dir, $catDir );
+		Helper::make_dir( $path );
+		$filename = $path . $catDir . '.txt';
+		$data = serialize( $data );
+		file_put_contents( $filename, $data );
+		$this->printReport( $filename );
+
+	}
+
+	function setTextFilePath( $project, $site_dir, $catDir ) {
+		return TEXTSITE_PATH . $project . '/' . $site_dir . '/contents/';
+	}
+
+	function printReport( $filename ) {
+		echo "Created " . $filename . "\n";
+	}
+
+	function getFilenameFromProductFilePath( $path ) {
 		$arr = explode( '/', $path );
 		return str_replace( '.txt', '', end( $arr ) );
 	}
 
 	function readProductDataFromTextFile( $path ) {
 		return unserialize( file_get_contents( $path ) );
-	}
-
-	function writeCategoryTextFile( $siteDirName, $productFilename, $content  ) {
-		$path = $this->setTextFilePath( $siteDirName, 'categories' );
-		Helper::make_dir( $path );
-
-		foreach ( $content as $keywordSlug => $data ) {
-			$catFilename = $this->getCategoryFilename( $data['category'] );
-			$file = $path . '/' . $catFilename;
-			$line = $this->getFileData( $catFilename, $productFilename, $data['category'], $data['keyword'] );
- 			
-			$fh = fopen( $file, 'a' );
-		    fwrite( $fh, $line );
-		    fclose( $fh );
-			
-			$catType = 'categories';
-			$catName = $data['category'];
-			$this->printWriteCategoryProcess( $productFilename, $catType, $siteDirName, $catName );
-		}
-	}
-
-	function writeBrandTextFile( $siteDirName, $productFilename, $content  ) {
-		$path = $this->setTextFilePath( $siteDirName, 'brands' );
-		Helper::make_dir( $path );
-
-		foreach ( $content as $keywordSlug => $data ) {
-			$catFilename = $this->getCategoryFilename( $data['brand'] );
-			$file = $path . '/' . $catFilename;
-			$line = $this->getFileData( $catFilename, $productFilename, $data['brand'], $data['keyword'] );
- 			
-			$fh = fopen( $file, 'a' );
-		    fwrite( $fh, $line );
-		    fclose( $fh );
-			
-			$catType = 'Brands';
-			$catName = $data['brand'];
-			$this->printWriteCategoryProcess( $productFilename, $catType, $siteDirName, $catName );
-		}
-	}
-
-	function setTextFilePath( $siteDirName, $catDir ) {
-		return TEXTSITE_PATH . $this->projectName . '/' . $siteDirName . '/contents/' . $catDir . '/';
-	}
-	
-	function getCategoryFilename( $catName ) {
-		$catFilename = Helper::clean_string( $catName );
-		return $catFilename . '.txt';
-	}
-	
-	function getFileData($cateFilename, $productFilename, $catName, $keyword ) {
-		return $catName . '|' . $productFilename . '|' . $keyword . PHP_EOL;
 	}
 }

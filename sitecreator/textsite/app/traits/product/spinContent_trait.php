@@ -4,7 +4,7 @@ trait SpinContent {
 
 	function setSpinContent() {
 		$c = new Cache();
-		$path = 'cache/spin-content';
+		$path = BASE_PATH . 'cache/spin-content';
 		$cacheFile = $this->productFile;
 		$cacheKey = $this->productKey;
 		$cache = $c->get_cache( $path, $cacheFile, $cacheKey ); //Retrieve data from cache
@@ -13,9 +13,8 @@ trait SpinContent {
 			$this->spinCom = $this->component( 'textspinner' );
 			$this->wordlib_path = TEXTSPIN_PATH . 'WordLibrary.csv';
 			$this->text_path = TEXTSPIN_PATH . '*.txt';
-			$text = $this->spin();
-			$cache = array( $cacheKey => $text );
-			$c->set_cache( $path, $cacheFile, $cache ); //Save data to cache
+			$cache = $this->spin();		
+			$c->set_cache( $path, $cacheFile, array( $cacheKey => $cache ) ); //Save data to cache
 		}
 		return $this->keywordReplacing( $cache, $this->productDetail['keyword'] );
 	}

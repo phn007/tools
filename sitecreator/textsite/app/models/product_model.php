@@ -4,7 +4,8 @@ include APP_PATH . 'traits/product/spinContent_trait.php';
 include APP_PATH . 'traits/product/relatedProducts_trait.php';
 include APP_PATH . 'traits/product/navmenuProducts_trait.php';
 include APP_PATH . 'traits/product/productSeoTags_trait.php';
-include APP_PATH . 'traits/permalink_trait.php';
+include APP_PATH . 'traits/link_trait.php';
+include APP_PATH . 'traits/networkLink_trait.php';
 
 /**
 * Product Model
@@ -14,7 +15,7 @@ class ProductModel extends AppComponent {
 	use SpinContent;
 	use RelatedProducts;
 	use NavmenuProduct;
-	use Permalink, CategoryLink, GotoLink;
+	use Permalink, CategoryLink, GotoLink, ProsperentAPI, Viglink;
 	use ProductSeoTags;
 
 	private $productFile;
@@ -28,8 +29,11 @@ class ProductModel extends AppComponent {
 	private $spinContent;
 
 	private $relatedProducts;
-	private $permalink;
+	//private $permalink;
 	private $seoTags;
+
+	private $menuUrl;
+	private $menuState;
 
 	function __set( $name, $value ) {
       	$this->{$name} = $value;
@@ -37,6 +41,11 @@ class ProductModel extends AppComponent {
 
    	function __get( $name ) {
       	return $this->{$name};
+   	}
+
+   	function defineParameter( $params ) {
+		if ( isset( $params[0] ) ) $this->productFile = $params[0];
+		if ( isset( $params[1] ) ) $this->productKey = str_replace( FORMAT, '', $params[1] );
    	}
 
 	function getProductDetail() {
@@ -52,33 +61,32 @@ class ProductModel extends AppComponent {
 	}
 
 	function getNavmenu() {
-		$this->setNavmenu(); //Navmenu Traits
-	}
-
-	function permalink() {
-		$this->permalink = $this->getPermalink( $this->productFile, $this->productKey );
+		$menu = $this->setNavmenu(); //Navmenu Traits
+		$this->menuUrl = $menu['url'];
+		$this->menuState = $menu['state'];
 	}
 
 	function getSeoTags() {
 		$this->getkeywordTags();
-		$this->seoTags = $this->getProductSeoTags();
+		return $this->getProductSeoTags(); //ProductSeoTags Trait
 	}
 
 	function getKeywordTags() {
-		$this->tags = createKeywordTags( $this->productKey );
+		$this->tags = $this->createKeywordTags( $this->productKey );
+	}
+
+	function createKeywordTags( $keyword ) {
+		$tags = explode( '-', $keyword);
+		$tags = array_filter( $tags );
+		$i = 1;
+		foreach ( $tags as $tag ) {
+			$num = strlen ( $tag );
+			if ( $num > 1 ) {
+				$data[ 'tag' . $i ] = $tag;
+				$i++;
+			}
+		}
+		return $data;
 	}
 }
 
-function createKeywordTags( $keyword ) {
-	$tags = explode( '-', $keyword);
-	$tags = array_filter( $tags );
-	$i = 1;
-	foreach ( $tags as $tag ) {
-		$num = strlen ( $tag );
-		if ( $num > 1 ) {
-			$data[ 'tag' . $i ] = $tag;
-			$i++;
-		}
-	}
-	return $data;
-}

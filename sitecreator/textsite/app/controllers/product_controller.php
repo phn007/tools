@@ -3,16 +3,13 @@
 * Product detail page
 */
 class ProductController extends Controller {
-
 	function index( $params ) {
-		
-		$this->productPage = true;
+		$this->currentPage = 'product-page';
 		$this->layout = 'layout';
 		$this->view = 'index';
 		
 		$model = $this->model( 'product' );
-		$model->productFile = $params[0];
-		$model->productKey  = $params[1];
+		$model->defineParameter( $params );
 
 		$model->getProductDetail();
 		$this->productDetail = $model->productDetail;
@@ -24,14 +21,8 @@ class ProductController extends Controller {
 		$this->relatedProducts = $model->relatedProducts;
 
 		$model->getNavmenu();
-		$this->menuUrl = $model->menuUrl;
-		$this->menuState = $model->menuState;
+		$this->menu = array( 'url' => $model->menuUrl, 'state' => $model->menuState );
 
-		$model->permalink();
-		$this->permalink = $model->permalink;
-
-		// $model->getSeoTags();
-		// $this->seoTags = $model->seoTags;
-		$this->seoTags = '';
+		$this->seoTags = $model->getSeoTags();
 	}
 }

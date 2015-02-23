@@ -12,10 +12,10 @@ class AppIndex
 		define( 'FILES_PATH', WT_BASE_PATH . 'files/' );
 
 		//define( "HOST_PATH", 'C:\xampp\htdocs/' );
-		define( "HOST_PATH", '/var/www/' );
+		//define( "HOST_PATH", '/var/www/' );
 
 		//Site Generator
-		define( "CALL_CREATOR", 'sitecreator' );
+		//define( "CALL_CREATOR", 'sitecreator' );
 		define( 'SITE_CREATOR_PATH', WT_BASE_PATH . 'sitecreator/');
 
 
@@ -30,24 +30,13 @@ class AppIndex
 		define( 'EMPTY_CATEGORY_NAME', 'Blank' );
 
 		include 'libs/controller.php';
-		include 'libs/component.php';
 		include 'libs/router.php';
 		include 'libs/database.php';
 		include 'libs/helper.php';
 		include 'libs/networkSupport.class.php';
 		include CONSOLE_PATH . 'Lite.php';
-		//include SITE_CREATOR_PATH . 'config/permalink.php';
 
-
-		if ( $options['controller'] == 'site' )
-		{
-			webtools\libs\Router::dispatch( $options );
-		}
-		else
-		{
-			webtools\libs\Router::dispatchTestNew( $options );
-		}
+		webtools\libs\Router::dispatch( $options );
 	}
 }
 new AppIndex( $options );
-

@@ -2,43 +2,4 @@
 // Placeholders
 // ==========================================================================
 
-//Mynav Items
-%mynav-item-disp {
-	margin-top: em(20px);
-	margin-bottom: em(30px);
-	display: inline-block;
-	
-}
-
-%mynav-item-link {
-	font-size: em(18px);
-	font-weight: $font-weight--light;
-	display: block;
-	padding: em(8px, 18px);
-	border-bottom: 1px solid transparent;
-	text-decoration: none;
-}
-%mynav-item-on {
-	color: palette(black);
-	border-color: $color-primary;
-}
-
-//Sbtn ( scss Button )
-%sbtn {
-	display: inline-block;
-	margin: 1rem; 
-	padding: .938em 1.875em;
-	border: .094em solid;
-	border-radius: .625em;
-	box-shadow: 0 .375em .313em -.313em rgba(black,.8), inset 0 .063em $off-wht, inset 0 -.188em rgba(black,.15);
-	color: #FFF;
-	font: bold 1.8rem sans-serif;
-	@include trans(0.2s ease-in-out); 
-	text: {
-		transform: uppercase;
-		decoration: none;
-		shadow: 0 .063em rgba(black,.3);
-	}
-  cursor:pointer;
-}
 

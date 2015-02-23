@@ -3,8 +3,9 @@
 // ==========================================================================
 @import "compass/reset";
 @import "compass/css3";
-//@import "compass/typography";
 @import "compass/utilities/color/contrast";
+@import "compass/layout/sticky-footer";
+@import "compass/typography/text/force-wrap";
 
 // ==========================================================================
 // Utilities
@@ -40,5 +41,6 @@
 // States
 // ==========================================================================
 //@import "states/index";
+
 
 

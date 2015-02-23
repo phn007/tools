@@ -2,7 +2,14 @@
 /**
 * HTML
 */
-class Html {
+Class Html {
+	public static function get( $name, $id, $data=null ) {
+		$html = new CreateHtml( $name, $id );
+		return $html->get( $data );
+	}
+}
+
+class CreateHtml {
 	use ClassFile;
 	use Components;
 
@@ -42,29 +49,6 @@ class Html {
 	}
 }
 
-trait Components {
-	function header() {
-		return array(
-			'dir' => 'main',
-			'id' => array( 1 => 'header' )
-		);
-	}
-
-	function footer() {
-		return array(
-			'dir' => 'main',
-			'id' => array( 1 => 'footer' )
-		);
-	}
-
-	function initHome() {
-		return array(
-			'dir' => 'home',
-			'id' => array( 1 => 'inithome' )
-		);
-	}
-}
-
 trait ClassFile {
 	function checkClassFile() {
 		$method = $this->name;
@@ -90,5 +74,59 @@ trait ClassFile {
 
 	function setClassFile( $dir ) {
 		$this->file = dirname( __FILE__ ) . '/' . $dir . '/' . $this->classname . '.php';
+	}
+}
+
+trait Components {
+	function main() {
+		return array('dir' => 'main',
+		'id' => array(
+				'header' => 'header',
+				'footer' => 'footer',
+				'headerDefault' => 'headerdefault',
+				'footerDefault' => 'footerdefault'
+			)
+		);
+	}
+
+	function homepage() {
+		return array(
+			'dir' => 'home',
+			'id' => array(
+				'topProductList' => 'topProductList',
+				'productList125' => 'productList125_1',
+				'categoryLinkList' => 'categoryLinkList'
+			)
+		);
+	}
+
+	function productpage() {
+		return array(
+			'dir' => 'product',
+			'id' => array(
+				'breadcrumb' => 'breadcrumb_1',
+				'productDetail' => 'productDetail_1',
+				'relatedProducts' => 'relatedProducts_1',
+				'navmenu' => 'navmenu_1'
+			)
+		);
+	}
+
+	function categorypage() {
+		return array(
+			'dir' => 'category',
+			'id' => array(
+				'categoryItems' => 'categoryItems_1'
+			)
+		);
+	}
+
+	function brandpage() {
+		return array(
+			'dir' => 'brand',
+			'id' => array(
+				'brandItems' => 'brandItems_1'
+			)
+		);
 	}
 }

@@ -34,7 +34,7 @@ trait SetupConfig {
 	function convertMerchantToDbName( $merchant ) {
 		//แปลงชื่อ merchant ให้เป็นชื่อ database
       	$dbName = Helper::clean_string( $merchant );
-      	$dbName = Network::setDatabaseNameForEachNetwork( $this->getNetwork(), $dbName );
+      	$dbName = Network::setDatabaseNameForEachNetwork( $this->getNetwork(), $dbName ); //libs/neworkSupport.class.php
       	return $dbName;
 	}
 
@@ -45,7 +45,6 @@ trait SetupConfig {
 }
 
 trait ReadConfigFile {
-
 	private $conf;
 
 	function readConfigFile() { 
@@ -115,6 +114,7 @@ trait ReadConfigFile {
 			$data['hostname']      = $this->getHostname();
 			$data['site_category'] = $this->getSiteCategory();
 		}
+
 		return $data;
 	}
 }

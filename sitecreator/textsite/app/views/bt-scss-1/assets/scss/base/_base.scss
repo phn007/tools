@@ -7,6 +7,9 @@
 	box-sizing: border-box;
 }
 
+//sticky footer
+@include sticky-footer(72px, "#container", "#root-footer", "#main-footer");
+
 body {
 	color: palette( primary, light );
 	//background-color: $labbaster;
@@ -31,16 +34,10 @@ h2 {
 	color: palette( primary );
 }
 
-
-.text-light {
-	color: palette( primary, x-light );
+#main-content {
+	margin-top: em( 20px );
+	padding: 0;
+	//border: 1px solid red;
 }
 
-.btn {
-	@include bg-colors( $ui-colors );
-}
 
-.sitename {
-	font-size: em( 28px );
-	color: palette( primary, xx-light );
-}

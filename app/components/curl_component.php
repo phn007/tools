@@ -38,8 +38,7 @@ class CurlComponent extends CUrlOptions
 /**
 * CURL OPTIONS
 */
-class CurlOptions
-{
+class CurlOptions {
 	protected $ch;
 
 	protected function url( $url ) {

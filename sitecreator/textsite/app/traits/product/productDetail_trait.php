@@ -6,26 +6,44 @@ trait ProductDetail {
 		$productPath = $this->productPath();
 		$productItemList = $this->productItemList( $productPath );
 		$productItem = $this->productItem( $productItemList );
+		$productItem = $this->addPermalinkIntoProductItem( $productItem );
 		$productItem = $this->addGotoLinkIntoProductItem( $productItem );
-		return $this->addBrandLinkIntoProductItem( $productItem );
+		$productItem = $this->addBrandLinkIntoProductItem( $productItem );
+		$productItem = $this->addCategoryLinkIntoProductItem( $productItem );
+		return $productItem;
+	}
+
+	function addPermalinkIntoProductItem( $productItem ) {
+		$productItem['permalink'] = $this->getPermalink( $this->productFile, $this->productKey );
+		return $productItem;
+	}
+
+	function addCategoryLinkIntoProductItem( $productItem ) {
+		$filename = Helper::clean_string( $productItem['category'] );
+		$productItem['categoryLink'] = $this->getCategoryLink( 'category', $filename ) . FORMAT; //permalink trait
+		return $productItem;
 	}
 
 	function addBrandLinkIntoProductItem( $productItem ) {
 		$filename = Helper::clean_string( $productItem['brand'] );
-		$productItem['brandLink'] = $this->getCategoryLink( 'brand', $filename );
+		$productItem['brandLink'] = $this->getCategoryLink( 'brand', $filename ) . FORMAT; //permalink trait
 		return $productItem;
 	}
 
 	function addGotoLinkIntoProductItem( $productItem ) {
-		$productItem['goto'] = $this->getGotoLink( $this->productFile, $this->productKey );
+		$link = $this->getGotoLink( $this->productFile, $this->productKey, $productItem['affiliate_url'], $productItem['permalink'] ); //permalink trait
+		$productItem['goto'] = $link;
 		return $productItem;
  	}
 
 	function productItem( $productItemList ) {
-		if ( array_key_exists( $this->productKey, $productItemList ) ) 
+		try {
+			if ( !array_key_exists( $this->productKey, $productItemList ) ) 
+				throw new CustomException( 'Product Key Not Found.' );
 			return $productItemList[$this->productKey];
-		else
-			die( 'Product Key Not Found' . "\n" );
+		} catch( CustomException $e ) {
+			$e->handle();
+		}
 	}
 
 	function productItemList( $productPath ) {

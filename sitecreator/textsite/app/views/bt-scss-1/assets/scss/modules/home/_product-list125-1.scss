@@ -1,0 +1,93 @@
+.pdl125-1 {	
+	overflow: auto;
+	&__headtitle {
+		margin-top:em(20px);
+		margin-bottom: em( 20px );
+		padding: 0;
+		
+		h2 {
+			font-size: em( 20px );
+			font-weight: $font-weight--bold;
+			text-transform: uppercase;
+			margin: 0;
+			padding: 0;
+		}
+
+		&--linetext {
+			$bg-color-text:  palette( primary, xxx-light );
+			$line-color:  palette( primary, xx-light );
+			@include lineAfterText( $bg-color-text, $line-color );
+		}
+		&--shop-all {
+			margin-top:em(20px);
+			padding: em(5px) 0 em(5px) em( 10px );
+			
+			a {
+				display: block;
+				color: palette( primary, base );
+				text-transform: uppercase;
+				font-weight: $font-weight--bold;
+				&:hover {
+					color: palette( secondary, base );
+					text-decoration: none;
+				}
+			}
+		}
+	}
+	
+	&__item {
+		margin-bottom: em(5px);
+		padding: 0px;
+		min-height: em(155px);
+		//border: 1px solid red;
+		&__img {
+			border: 2px solid palette( primary, xx-light );
+			background-color: #fff;
+			margin-bottom: em(5px);
+			position: relative;
+			img {
+				width: 125px;
+				height: 125px;
+				background: #fff url( ../img/ajax-loader.gif ) no-repeat center center;
+			}
+		}
+		
+		&__list {
+			a {
+				text-decoration: none;
+			}
+			
+			h3 {
+				margin: 0;
+				padding: 0;
+				font-size: em( 16px );
+				font-weight: $font-weight--bold;
+				@include force-wrap;
+				a {
+					color: palette( primary, dark );
+					&:hover {
+						color: palette( secondary, base );
+					}
+				}
+			}
+
+			&__price {
+				margin-bottom: em( 5px );
+				color: palette( secondary, base );
+				font-weight: $font-weight--bold;
+			}
+			
+			&__btn {
+				width: em( 100px );
+				background-color: palette( primary, x-light );
+				text-align: center;
+				a {
+					color: #fff;
+				}
+				&:hover {
+					background-color: palette( secondary, base );
+				}
+			}
+		}
+	}
+}

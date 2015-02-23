@@ -34,9 +34,19 @@ class SeoTagsComponent {
 		return '<meta name="robots" content="' . $content . '" />';
 	}
 	
-	function linkTag( $url ) {
+	function linkCanonical( $url ) {
 		return '<link rel="canonical" href="' . $url . '" />';
 	}
+
+	function linkNext( $url ) {
+		return '<link rel="next" href="' . $url . '" />';
+	}
+
+	function linkPrev( $url ) {
+		return '<link rel="prev" href="' . $url . '" />';
+	}
+
+	//facebook
 	
 	function propertyLocale( $content ) {
 		return '<meta property="og:locale" content="' . $content . '" />';

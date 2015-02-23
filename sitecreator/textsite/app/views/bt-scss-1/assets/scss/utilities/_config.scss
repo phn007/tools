@@ -27,28 +27,18 @@ $coral          : #ff784f;
 $purple-majesty : #9279c3;
 $scooter        : #39add1;
 $tuna			: #38383F;
-$labaster		: #F8F7F7;
+
 
 //Color Usage
 $color-primary   : $tuna;
-$color-secondary : $scooter;
+$color-secondary : $coral;
 $color-accent    : $emerald;
 $color-shadow    : rgba($black, .2);
 
 // Color Palette Modifiers
-//$tuna-palette: (
-//	xxx-light : lighten( $tuna, 75% ), //background-color, font-color-white
-//	xx-light  : lighten( $tuna, 52% ), //header-font-color
-//	x-light   : lighten( $tuna, 38% ), //text-light-color
-//	light     : lighten( $tuna, 20% ), //normal-text-color
-//	base      : lighten( $tuna, 14% ), //header-text-color
-//	dark      : lighten( $tuna, 8% ),
-//	x-dark    : $tuna, //base color
-//	xx-dark   : darken( $tuna, 10% )
-//);
 
-$palette: (
-	xxx-light : lighten( $color-primary, 80% ), //background-color, font-color-white
+$primary-palette: (
+	xxx-light : lighten( $color-primary, 72% ), //background-color, font-color-white
 	xx-light  : lighten( $color-primary, 58% ), //header-font-color
 	x-light   : lighten( $color-primary, 45% ), // text-light-color
 	light     : lighten( $color-primary, 22% ), // namal-text-color
@@ -58,8 +48,15 @@ $palette: (
 	xx-dark   : darken( $color-primary, 10% )
 );
 
+$secondary-palette: (
+	light     : lighten( $color-secondary, 16% ),
+	base      : $color-secondary,
+	dark      : darken( $color-secondary, 20% )
+);
+
 $color-palettes: (
-	primary  : $palette,
+	primary   : $primary-palette,
+	secondary : $secondary-palette,
 );
 
 

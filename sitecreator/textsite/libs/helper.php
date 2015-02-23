@@ -1,5 +1,6 @@
 <?php
 class Helper {
+	use ImageSize;
 
 	public static function make_dir( $path ) {
 		if ( ! file_exists( $path ) ) {
@@ -29,9 +30,41 @@ class Helper {
 	}
 
 	public static function image_size( $img_url, $img_size ) {
-		//img_size ( 75x75, 125x125, 250x250, 500x500 )
-		$img = explode( '/', $img_url );
+		if ( 'prosperent-api' == NETWORK ) return self::prosperentApiImage( $img_url, $img_size );
+		if ( 'viglink' == NETWORK ) return img_url;
+	}
+
+	public static function showImage( $imgUrl, $imgSize=null, $alt ) {
+		if ( 'prosperent-api' == NETWORK )
+			return self::prosperentApiImgTag( $imgUrl, $imgSize, $alt ); //ImageSize Trait
+		if ( 'viglink' == NETWORK )
+			return self::viglinkImgTag( $imgUrl, $imgSize, $alt ); //ImageSize Trait
+	}
+}
+
+trait ImageSize {
+	function prosperentApiImage( $img_url, $img_size ) {
+		$img = explode( '/', $img_url );//img_size ( 75x75, 125x125, 250x250, 500x500 )
 		$img[4] = $img_size;
 		return implode( '/', $img );
+	}
+
+	function viglinkImgTag( $imgUrl, $imgSize, $alt ) {
+		if ( !empty( $imgSize ) ) {
+			$arr = explode( 'x', $imgSize );
+			$width = $arr[0]; $height = $arr[1];
+			return '<img src="' . BLANK_IMG . '" data-echo="' . $imgUrl . '" width="' . $width . '" height="' . $height . '" alt="' . $alt . '">';
+		}
+		return '<img src="' . BLANK_IMG . '" data-echo="' . $imgUrl . '" alt="' . $alt . '">';
+	}
+
+	function prosperentApiImgTag( $imgUrl, $imgSize, $alt ) {
+		if ( !empty( $imgSize ) ) {
+			$img = explode( '/', $imgUrl );//img_size ( 75x75, 125x125, 250x250, 500x500 )
+			$img[4] = $imgSize;
+			$imgUrl = implode( '/', $img );
+			return '<img src="' . BLANK_IMG .'" data-echo="' . $imgUrl . '" alt="' . $alt . '">';
+		}
+		return '<img src="' . BLANK_IMG .'" data-echo="' . $imgUrl . '" alt="' . $alt . '">';
 	}
 }

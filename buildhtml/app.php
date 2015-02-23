@@ -1,16 +1,12 @@
 <?php
+$params = array();
 
 if ( isset( $argv[1] ) ) $projectName = $argv[1];
 if ( isset( $argv[2] ) ) $siteDirName = $argv[2];
 if ( isset( $argv[3] ) ) $controller = $argv[3];
 if ( isset( $argv[4] ) ) $action = $argv[4];
-if ( isset( $argv[5] ) ) $productFile = $argv[5];
-if ( isset( $argv[6] ) ) $productKey = $argv[6];
-
-if ( !empty( $productFile ) && !empty( $productKey ) )
-	$params = array( $productFile, $productKey );
-else
-	$params = null;
+if ( isset( $argv[5] ) ) $params[0] = $argv[5];
+if ( isset( $argv[6] ) ) $params[1] = $argv[6];
 
 $dir = '../textsite/';
 $textsiteDir = $dir . $projectName . '/' . $siteDirName . '/';
@@ -24,8 +20,9 @@ extract( $cfg );
 $scArr = explode( '#', $statcounter );
 $sc_project = $scArr[0];
 $sc_security = $scArr[1];
-include $textsiteDir . 'initvars.php';
 
+include $textsiteDir . 'config/define-site-config.php';
+include $textsiteDir . 'libs/initvars.php';
 include $textsiteDir . 'libs/object.php';
 include $textsiteDir . 'libs/controller.php';
 include $textsiteDir . 'libs/component.php';

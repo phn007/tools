@@ -10,12 +10,7 @@ trait SeoTags {
 			'description' => SITE_DESC,
 			'linkTag' => HOME_LINK,
 			'author' => AUTHOR,
-			'propertyLocale' => 'en_US',
-			'propertyType' => 'website',
-			'propertyTitle' => SITE_NAME,
-			'propertyDescription' => SITE_DESC,
-			'propertyUrl' => HOME_LINK,
-			'propertySiteName' => SITE_NAME,
+			'robots' => 'index, follow'
 		);
 		return $tags;
 	}

@@ -6,7 +6,8 @@ trait Server {
 			$project  = $config['project'];
 			$siteDir  =  $config['site_dir'];
 			$hostname = str_replace( 'http://', '', $key );
-			$path = dirname( WT_BASE_PATH ) . '/' . $siteType . '/' . $project . '/' . $siteDir;
+			//$path = dirname( WT_BASE_PATH ) . '/' . $siteType . '/' . $project . '/' . $siteDir;
+			$path = TEXTSITE_PATH . '/' . $project . '/' . $siteDir;
 			shell_exec( 'php -S ' . $hostname . ' -t ' . $path . ' ' . $path . '/r.php' );
 			die();
 		}

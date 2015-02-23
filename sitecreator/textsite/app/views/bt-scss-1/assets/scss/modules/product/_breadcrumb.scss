@@ -1,0 +1,14 @@
+.breadcrumb {
+	border: 1px solid darken(palette( primary, xxx-light ), 5% );
+	background-color: lighten( palette( primary, xxx-light ), 1% );
+	
+	a {
+		font-size: em(12px);
+		color: palette( primary, light );
+		font-weight: $font-weight--bold;
+		&:hover {
+			text-decoration: none;
+			color: palette( secondary, base );
+		}
+	}
+}

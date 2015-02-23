@@ -1,23 +1,16 @@
 <?php
-class HomeController extends Controller
-{
+class HomeController extends Controller {
 	function index() {
 		$this->layout = 'application';
 		$this->view = 'index';
-		$this->homePage = true;
+		$this->currentPage = 'home-page';
 		$this->homeMenuState = true;
 
 		$model = $this->model( 'home' );
-
-		if ( ! $model->checkProductContentExist() ) {
-			$this->defaultPage = true;
-			return false;
-		}
-
-		$model->process();
-		$this->productItems = $model->productItems;
-		$this->categoryList = $model->categoryList;
-		$this->brandList = $model->brandList;
-		$this->seoTags = $model->seoTags;
+		if ( ! $model->checkProductContentExist() ) return false;
+		$this->productItems = $model->homeProducts();
+		$this->categoryList = $model->homeCategoryList();		
+		$this->brandList = $model-> homeBrandList();
+		$this->seoTags = $model->homeSeoTags();
 	}
 }

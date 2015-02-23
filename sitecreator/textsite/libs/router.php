@@ -79,7 +79,7 @@ class Map extends Object {
 		{
 			$msg = '<span style="color:red">The file';
 			$msg .= '<strong>' . $name . '_controller.php</strong>';
-			$msg .= 'could not be found at';
+			$msg .= 'could not be found at ';
 			$msg .= '<pre>' . $controller_path . '</pre></span>';
 			die( $msg );
 			//header( 'location:' . HOME_URL . 'error' );
@@ -159,21 +159,21 @@ class Map extends Object {
 		return $view_layout_main;
 	}
 
-	public static function view_path( $controller, $action )
-	{
-		if ( empty( self::$user_vars['view'] ) )
-		{
+	public static function view_path( $controller, $action ) {
+		if ( empty( self::$user_vars['view'] ) ) {
 			$msg = '<span style="color:red">The view file of<strong> ' . $controller . ' controller</strong>';
 			$msg .= ' is not defined';
 			die( $msg );	
 		}
+
 		$view_path = APP_PATH . 'views/' . THEME_NAME . '/' . $controller . '/' . self::$user_vars['view'] . '.php';
-		
-		if ( ! file_exists( $view_path ) ) 
-		{
-			$msg = '<span style="color:red">The file <strong>' . $action . '.php</strong>';
-			$msg .= ' could not be found at <pre>' . $view_path . '</pre></span>';
-			die( $msg );
+		try {
+			if ( ! file_exists( $view_path ) ) {
+				$msg = 'The file ' . $action . '.php could not be found at ' . $view_path;
+				throw new CustomException( $msg );
+			}
+		} catch( CustomException $e ) {
+			$e->handle();
 		}
 		return $view_path;
 	}

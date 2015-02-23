@@ -1,4 +1,5 @@
 <?php
+ini_set('memory_limit', '1024M');
 use webtools\controller;
 use webtools\libs\Helper;
 include WT_APP_PATH . 'traits/textdb/separateCategory_trait.php';
@@ -6,13 +7,11 @@ include WT_APP_PATH . 'traits/textdb/mysqldb_trait.php';
 
 class TextdbProductsModel extends Controller {
 	use MySQLDatabase;
-
 	use RunThroughQueryResult;
-	use CategorySlug;
+	use FilterCategoryName;
 	use ProductDataGroupByCategory;
 	use SeparateCategoryForProsperentNetwork ;
 	use WriteTextDatabase;
-
 	use PrintTextDbProductResult;
 
 	private $projectName;
@@ -45,12 +44,18 @@ class TextdbProductsModel extends Controller {
 			$dbName = $data['db_name'];
 			$this->network = $data['network'];
 			$productNumber = $merchantProductNumber[$merchant];
-			$sqls = $this->createSQLString( $productNumber ); //MySQLDatabase Trait
+			$sqls = $this->createSQLString( $productNumber ); //MySQLDatabase Trait			
 			$this->runThroughMysqlStrings( $dbName, $sqls );
 		}
-
 		$this->writeTextDbAtRest();
 		$this->printConclusionTotal( $totalProducts ); //PrintTextDbProductResult Trait
+	}
+
+	function runThroughMysqlStrings( $dbName, $sqls ) {
+		foreach ( $sqls as $sql ) {
+			$queryResult = $this->getQueryResult( $dbName, $sql ); //MySQLDatabase Trait
+			$this->runThroughQueryResult( $queryResult ); //RunThroughQueryResult Trait
+		}
 	}
 
 	function writeTextDbAtRest() {
@@ -64,18 +69,7 @@ class TextdbProductsModel extends Controller {
 		return ceil( $totalProducts / $siteNumber );
 	}
 
-	function runThroughMysqlStrings( $dbName, $sqls ) {
-		foreach ( $sqls as $sql ) {
-			$queryResult = $this->getQueryResult( $dbName, $sql ); //MySQLDatabase Trait
-			$this->runThroughQueryResult( $queryResult ); //RunThroughQueryResult Trait
-		}
-	}
-
-	function addIdNumberIntoCategory( $row, $catSlug ) {
-		if ( $this->categoryId[$catSlug] !== NULL )
-			$row['category'] = $row['category'] . '-' . $this->categoryId[$catSlug];
-		return $row['category'];
-	}
+	
 }
 
 trait RunThroughQueryResult {
@@ -85,6 +79,7 @@ trait RunThroughQueryResult {
 			$this->countProductNumberPerSite++;
 
 			$row = $this->checkEmptyCategoryAndBrand( $row );
+			$row = $this->filterCategoryName( $row );
 			$keywordSlug = $this->getKeywordSlug( $row['keyword'] );
 			$catSlug = $this->getCategorySlug( $row ); //CategorySlug Trait
 			$brandSlug = $this->getBrandSlug( $row );
@@ -110,17 +105,41 @@ trait RunThroughQueryResult {
 		return Helper::clean_string( $row['brand'] );
 	}
 
+	function getCategorySlug( $row ) {
+		return Helper::clean_string( $row['category'] );
+	}
+
 	function initialCategoryIdVariable( $catSlug ) {
 		if ( !isset( $this->categoryId[$catSlug]) )
 			$this->categoryId[$catSlug] = null;
 	}
 }
 
+trait ProductDataGroupByCategory {
+	function parseProductDataGroupByCategory( $catSlug, $keywordSlug, $row ) {
+		$productData = $this->getProductData( $row );
+		$this->productDataGroupByCategory[$catSlug][$keywordSlug] = $productData;
+	}
+
+	function getProductData( $row ) {
+		$data = array(
+			'affiliate_url' => $row['affiliate_url'],
+			'image_url'     => $row['image_url'],
+			'keyword'       => $row['keyword'],
+			'description'   => $row['description'],
+			'category'      => $row['category'],
+			'price'         => $row['price'],
+			'merchant'      => $row['merchant'],
+			'brand'         => $row['brand']
+		);
+		return $data;
+	}
+}
+
 trait WriteTextDatabase {
 	function writeSpecificNumOfProductPerCategory( $catSlug ) {
 		$this->initialCountCategoryVariable( $catSlug );
-		if ( ++$this->countCategory[$catSlug] >= 1000  )
-		{
+		if ( ++$this->countCategory[$catSlug] >= 1000  ) {
 			$this->filename = $this->getTextDBFilename( $catSlug );
 			$this->writeTextDatabase( $this->productDataGroupByCategory[$catSlug] );
 			$this->categoryId[$catSlug] = $this->categoryId[$catSlug] + 1;
@@ -192,47 +211,20 @@ trait WriteTextDatabase {
 	}
 }
 
-
-trait CategorySlug {
-	function getCategorySlug( $row ) {
-		if ( $this->network == 'viglink' )
-			$catSlug = $this->getCategorySlugFromViglink( $row );
-		if ( $this->network == 'prosperent-api' )
-			$catSlug = $this->getCategorySlugFromProsperntApi( $row );
-		return $catSlug;
+trait FilterCategoryName {
+	function filterCategoryName( $row ) {
+		if ( $this->network == 'prosperent-api' ) {
+			$catName = $this->getCategoryFromProsperentApi( $row );
+			$row['category'] = $catName;
+		}
+		return $row;
 	}
 
-	function getCategorySlugFromViglink( $row ) {
-		return Helper::clean_string( $row['category'] );
-	}
-
-	function getCategorySlugFromProsperntApi( $row ) {
-		$catName = $this->getSeparatedCategory( $row['merchant'], $row['category'] ); //SeparateCategoryForProsperentNetwork Trait
-		$catSlug = Helper::clean_string( $catName );
-		return $catSlug;
+	function getCategoryFromProsperentApi( $row ) {
+		return $this->getSeparatedCategory( $row['merchant'], $row['category'] ); //SeparateCategoryForProsperentNetwork Trait
 	}
 }
 
-trait ProductDataGroupByCategory {
-	function parseProductDataGroupByCategory( $catSlug, $keywordSlug, $row ) {
-		$productData = $this->getProductData( $row );
-		$this->productDataGroupByCategory[$catSlug][$keywordSlug] = $productData;
-	}
-
-	function getProductData( $row ) {
-		$data = array(
-			'affiliate_url' => $row['affiliate_url'],
-			'image_url'     => $row['image_url'],
-			'keyword'       => $row['keyword'],
-			'description'   => $row['description'],
-			'category'      => $row['category'],
-			'price'         => $row['price'],
-			'merchant'      => $row['merchant'],
-			'brand'         => $row['brand']
-		);
-		return $data;
-	}
-}
 
 trait PrintTextDbProductResult {
 	function printWriteTotalProduct( $products, $file ) {

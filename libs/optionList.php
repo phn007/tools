@@ -48,7 +48,13 @@ class OptionList {
 		$functions['functions'] = array( 
 			'homepage' => array(),
 			'productpage' => array(),
-			'assets' => array()
+			'categorypage' => array(),
+			'brandpage' => array(),
+			'categoriespage' => array(),
+			'brandspage' => array(),
+			'staticpage' => array(),
+			'files' => array(),
+			'all' => array()
 		);
 		return array( $action => $functions );
 	}

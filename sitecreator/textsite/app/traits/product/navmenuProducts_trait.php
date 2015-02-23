@@ -1,227 +1,97 @@
 <?php 
 trait NavmenuProduct {
+	use ArrayFunctions;
+	use GetFilePosition;
 	use PositionOfFileList;
-	use PositionOfProductItem;
-	use CheckNextItemAndFile;
+	use GetProductFileAndProductKey;
+	use CheckItemAndFile;
 	use NavmenuUrl;
-
-	private $menuUrl; //output
-	private $menuState = array(); //output
+	use MenuState;
 
 	function setNavmenu() {
 		$this->dbCom = $this->component( 'textdatabase' );
+		$filePosition = $this->navGetFilePosition(); //GetFilePosition Trait
+		$data = $this->getProductFileAndProductKey( $filePosition ); //GetProductFileAndProductKey Trait
+		$urls = $this->menuUrl = $this->getNavmenuUrl( $data );//NavmenuUrl Trait;
+		$menuState = $this->setMenuState( $urls ); //MenuState Trait
+		return array(
+			'url' => $urls,
+			'state' => $menuState
+		);
+	}	
+}
 
-		$this->initialNextProductFile();
-		$this->initialPrevProductFile();
-		$this->initialNavmenuState();
-
-		$this->navGetFilePosition();
-		$this->navGetProductItemPosition();
-		
-		$this->checkNextItem();
-		$this->checkPrevItem();
-		$this->menuUrl = $this->getNavmenuUrl();
+trait MenuState {
+	function setMenuState( $urls ) {
+		$menuState = $this->initialNavmenuState();
+		$menuState = $this->setNextState( $urls, $menuState );
+		$menuState = $this->setPrevState( $urls, $menuState );
+		$menuState = $this->setFirstState( $urls, $menuState );
+		$menuState = $this->setLastState( $urls, $menuState );
+		return $menuState;
 	}
 
-	function initialNextProductFile() {
-		$this->nextProductFile = $this->productFile;
+	function setNextState( $urls, $menuState ) {
+		if ( $urls['nextUrl'] == null ) $menuState['next'] = false;
+		return $menuState;
 	}
 
-	function initialPrevProductFile() {
-		$this->prevProductFile = $this->productFile;
+	function setLastState( $urls, $menuState ) {
+		if ( $urls['nextUrl'] == null ) $menuState['last'] = false;
+		return $menuState;
+	}
+
+	function setPrevState( $urls, $menuState ) {
+		if ( $urls['prevUrl'] == null ) $menuState['prev'] = false;
+		return $menuState;
+	}
+
+	function setFirstState( $urls, $menuState ) {
+		if ( $urls['prevUrl'] == null ) $menuState['first'] = false;
+		return $menuState;
 	}
 
 	function initialNavmenuState() {
-		$this->menuState['first'] = true;
-		$this->menuState['prev']  = true;
-		$this->menuState['next']  = true;
-		$this->menuState['last']  = true;
+		$menuState['first'] = true;
+		$menuState['prev']  = true;
+		$menuState['next']  = true;
+		$menuState['last']  = true;
+		return $menuState;
 	}
+}
 
+trait GetFilePosition {
 	function navGetFilePosition() {
 		$filePath = $this->navGetProductDir();
 		$files = $this->navGetProductFileList( $filePath );
-		$this->setFilePosition( $files );
-	}
-
-	function navGetProductItemPosition() {
-		$productPath = $this->navGetFilePath( $this->productFile );
-		$productItems = $this->navGetProductItemList( $productPath );
-		$this->setProductItemPosition( $productItems );
-	}
-
-	function navGetProductFileList( $path ) {
-		$this->dbCom->checkExistTextFilePath( $path );
-		return $this->dbCom->readTextFileFromDirectory( $path );
-	}
-
-	function navGetProductItemList( $productPath ) {
-		$this->dbCom->checkExistTextFilePath( $productPath );
-		return $this->dbCom->getContentFromSerializeTextFile( $productPath );
+		natsort( $files );
+		return $this->setFilePosition( $files ); //PositionOfFileList trait
 	}
 
 	function navGetProductDir() {
 		return $this->dbCom->setProductDirPath();
 	}
 
-	function navGetFilePath( $filename ) {
-		return $this->navGetProductDir() . $filename . '.txt';
-	}
-}
-
-trait NavmenuUrl {
-	function getNavmenuUrl() {
-		return array(
-			'firstUrl' => $this->setFistUrl(),
-			'lastUrl'  => $this->setLastUrl(),
-			'nextUrl'  => $this->setNextUrl(),
-			'prevUrl'  => $this->setPreviousUrl()
-		);
-	}
-
-	function setFistUrl() {
-		$productFile = $this->productFile;
-		$productKey = $this->firstItem;
-		return $this->setUrl( $productFile, $productKey );
-	}
-
-	function setLastUrl() {
-		$productFile = $this->productFile;
-		$productKey = $this->lastItem;
-		return $this->setUrl( $productFile, $productKey );
-	}
-
-	function setNextUrl() {
-		$productFile = $this->nextProductFile;
-		$productKey = $this->nextItem;
-		return $this->setUrl( $productFile, $productKey );
-	}
-
-	function setPreviousUrl() {
-		$productFile = $this->prevProductFile;
-		$productKey = $this->prevItem;
-		return $this->setUrl( $productFile, $productKey );
-	}
-
-	function setUrl( $productFile, $productKey ) {
-		return $this->getPermalink( $productFile, $productKey ); //permalink_trait.php
-	}
-}
-
-trait CheckNextItemAndFile {
-
-	function checkNextItem() {
-		if ( empty( $this->nextItem ) )
-			$this->checkNextFile();
-	}
-
-	function checkNextFile() {
-		if( $this->nextFile['key'] > $this->lastFile['key'] )
-			$this->setNextStop();
-		else
-			$this->setNextContinue();
-	}
-
-	function setNextContinue() {
-		$nextFilePath = $this->nextFile['path'];
-		$productItemOfNextFile = $this->navGetProductItemList( $nextFilePath ); //NavmenuProduct Trait
-		$this->nextItem = $this->getFirstKeyOfProductItem( $productItemOfNextFile ); //PositionOfProductItem Trait
-		$this->nextProductFile = $this->nextFile['filename'];
-	}
-
-	function setNextStop() {
-		$this->nextItem = $this->lastItem;
-		$this->menuState['next'] = false;
-		$this->menuState['last'] = false;
-	}
-
-	function checkPrevItem() {
-		if ( empty( $this->prevItem ) )
-			$this->checkPrevFile();
-	}
-
-	function checkPrevFile() {
-		if( $this->prevFile['key'] < $this->firstFile['key'] )
-			$this->setPrevStop();
-		else
-			$this->setPrevContinue();
-	}
-
-
-	function setPrevContinue() {
-		$prevFilePath = $this->prevFile['path'];
-		$productItemOfPrevFile = $this->navGetProductItemList( $prevFilePath ); //NavmenuProduct Trait
-		$this->prevItem = $this->getLastKeyOfProductItem( $productItemOfPrevFile ); //PositionOfProductItem Trait
-		$this->prevProductFile = $this->prevFile['filename'];
-	}
-
-	function setPrevStop() {
-		$this->prevItem = $this->firstItem;
-		$this->menuState['first'] = false;
-		$this->menuState['prev'] = false;
-	}
-
-}
-
-trait PositionOfProductItem {
-
-	function setProductItemPosition( $productItems ) {
-		$this->firstItem = $this->getFirstKeyOfProductItem( $productItems );
-		$this->lastItem = $this->getLastKeyOfProductItem( $productItems );
-		$this->currentItem = $this->getCurrentKeyOfProductItem();
-		$this->nextItem = $this->getNextKeyOfProductItem( $productItems );
-		$this->prevItem = $this->getPreviousKeyOfProductItem( $productItems );
-	}
-
-	function getFirstKeyOfProductItem( $productItems ) {
-		reset( $productItems );
-      	return key( $productItems );
-	}
-
-	function getCurrentKeyOfProductItem() {
-		return $this->productKey;
-	}
-
-	function getLastKeyOfProductItem( $productItems ) {
-		end( $productItems );
-      	return key( $productItems );
-	}
-
-	function getNextKeyOfProductItem( $productItems ) {
-		$this->setNextArray( $productItems, $this->currentItem );
-		next( $productItems );
-      	return key( $productItems );
-	}
-
-	function getPreviousKeyOfProductItem( $productItems ) {
-		$this->setPreviousArray( $productItems, $this->currentItem );
-		prev( $productItems );
-      	return key( $productItems );
-	}
-
-	function setNextArray( &$array, $key ) {
-		reset( $array );
-		while ( key( $array ) !== $key ) {
-			if ( next( $array ) === false ) throw new Exception('Invalid key');
-		}
-	}
-
-	function setPreviousArray( &$array,$key ) {
-		end( $array );
-		while ( key( $array ) !== $key ) {
-			if ( prev( $array ) === false ) throw new Exception('Invalid key');
-		}
+	function navGetProductFileList( $path ) {
+		$this->dbCom->checkExistTextFilePath( $path );
+		return $this->dbCom->readTextFileFromDirectory( $path );
 	}
 }
 
 trait PositionOfFileList {
-
 	function setFilePosition( $files ) {
-		$this->firstFile = $this->getFirstPositionOfFileList( $files );
-		$this->lastFile = $this->getLastPositionOfFileList( $files );
-		$this->currentFile = $this->getCurrentPositionOfFileList( $files );
-		$this->nextFile = $this->getNexPositionOfFileList( $files );
-		$this->prevFile = $this->getPreviousPositionOfFileList( $files );
+		return array(
+			'firstFile' => $this->getFirstPositionOfFileList( $files ),
+			'lastFile' => $this->getLastPositionOfFileList( $files ),
+			'currentFile' => $this->getCurrentPositionOfFileList( $files ),
+			'nextFile' => $this->getNexPositionOfFileList( $files ),
+			'prevFile' => $this->getPreviousPositionOfFileList( $files )
+		);
+	}
+
+	function getCurrentPositionOfFileList( $files ) {
+		$currentKey = $this->getCurrentKey( $files );
+		return $this->getPositionOfFileList( $files, $currentKey );
 	}
 
 	function getFirstPositionOfFileList( $files ) {
@@ -234,14 +104,14 @@ trait PositionOfFileList {
 		return $this->getPositionOfFileList( $files, $lastKey );
 	}
 
-	function getPreviousPositionOfFileList( $files ) {
-		$prevKey = $this->getPreviousKey();
-		return $this->getPositionOfFileList( $files, $prevKey );
+	function getNexPositionOfFileList( $files ) {
+		$nextKey = $this->getNextKey( $files );
+		return $this->getPositionOfFileList( $files, $nextKey );
 	}
 
-	function getNexPositionOfFileList( $files ) {
-		$nextKey = $this->getNextKey();
-		return $this->getPositionOfFileList( $files, $nextKey );
+	function getPreviousPositionOfFileList( $files ) {
+		$prevKey = $this->getPreviousKey( $files );
+		return $this->getPositionOfFileList( $files, $prevKey );
 	}
 
 	function getPositionOfFileList( $files, $key ) {
@@ -254,19 +124,10 @@ trait PositionOfFileList {
 		);
 	}
 
-	function getCurrentPositionOfFileList( $files ) {
-		$path = $this->navGetFilePath( $this->productFile );
-		$filename = $this->getFilenameFromCategoryPath( $path );
-		$key = $this->findArrayKeyByValue( $path, $files );
-		return array(
-			'key' => $key,
-			'filename' => $filename,
-			'path' => $path,
-		);
-	}
-
-	function countFileNumber( $files ) {
-		return count( $files );
+	function getCurrentKey( $files ) {
+		$currentFileName = $this->productFile; //productFile from product model
+		$path = $this->navGetFilePath( $currentFileName );
+		return $this->findArrayKeyByValue( $path, $files );
 	}
 
 	function getLastKey( $files ) {
@@ -274,12 +135,202 @@ trait PositionOfFileList {
 		return $countNumber - 1;
 	}
 
-	function getNextKey() {
-		return $this->currentFile['key'] + 1;
+	function getNextKey( $files ) {
+		$currentKey = $this->getCurrentKey( $files );
+		return $this->setNextArray( $files , $currentKey ); //SetArrayKey Trait
 	}
 
-	function getPreviousKey() {
-		return $this->currentFile['key'] - 1;
+	function getPreviousKey( $files ) {
+		$currentKey = $this->getCurrentKey( $files );
+		return $this->setPreviousArray( $files, $currentKey ); //SetArrayKey Trait
+	}
+
+	function getFilenameFromCategoryPath( $path ) {
+		$arr = explode( '/', $path );
+		$filename = end( $arr );
+		return str_replace( '.txt', '', $filename );
+	}
+
+	function navGetFilePath( $filename ) {
+		return $this->navGetProductDir() . $filename . '.txt';
+	}
+
+	function countFileNumber( $files ) {
+		return count( $files );
+	}
+}
+
+
+trait GetProductFileAndProductKey {
+	function getProductFileAndProductKey( $filePosition ) {
+		return array(
+			'current' => $this->getCurrentFileAndKey( $filePosition ),
+			'first' => $this->getFirstFileAndKey( $filePosition ),
+			'last' => $this->getLastFileAndkey( $filePosition ),
+			'next' => $this->getNextFileAndKey( $filePosition ),
+			'prev' => $this->getPrevFileAndKey( $filePosition )
+		);
+	}
+
+	function getCurrentFileAndKey( $filePosition ) {
+		return array(
+			'productFile' => $filePosition['currentFile']['filename'],
+			'productKey' =>  $this->productKey
+		);
+	}
+
+	function getFirstFileAndKey( $filePosition ) {
+		$firstFilePath = $filePosition['firstFile']['path'];
+		$productItems = $this->getProductItemList( $firstFilePath );
+		$firstKey = $this->setFirstArray( $productItems );
+
+		return array(
+			'productFile' => $filePosition['firstFile']['filename'],
+			'productKey' => $firstKey
+		);
+	}
+
+	function getLastFileAndkey( $filePosition ) {
+		$lastFilePath = $filePosition['lastFile']['path'];
+		$productItems = $this->getProductItemList( $lastFilePath );
+		$lastKey = $this->setLastArray( $productItems );
+
+		return array(
+			'productFile' => $filePosition['lastFile']['filename'],
+			'productKey' => $lastKey
+		);
+	}
+
+	function getNextFileAndKey( $filePosition ) {
+		return $this->checkNextItemAndFile( $filePosition ); //CheckItemAndFile Trait
+	}
+
+	function getPrevFileAndKey( $filePosition ) {
+		return $this->checkPrevItemAndFile( $filePosition ); //CheckItemAndFile Trait
+	}
+
+	function getCurrentProductItemList( $filePosition ) {
+		$currentFilePath = $filePosition['currentFile']['path'];
+		return $this->getProductItemList( $currentFilePath );
+	}
+
+	function getProductItemList( $productPath ) {
+		$this->dbCom->checkExistTextFilePath( $productPath );
+		return $this->dbCom->getContentFromSerializeTextFile( $productPath );
+	}
+	
+}
+
+trait CheckItemAndFile {
+	function checkNextItemAndFile( $filePosition ) {
+		$currentFileAndKey = $this->getCurrentFileAndKey( $filePosition ); //PositionOfProductItem Trait
+		$currentKey = $currentFileAndKey['productKey'];
+		$lastKey = $this->getLastKeyFromProductItems( $filePosition['currentFile']['path'] );
+
+		if ( $currentKey == $lastKey ) {
+			if ( $this->isLastFile( $filePosition ) ) {
+				$productFile = null;
+				$productKey = null;
+			} else {
+				$productFile = $filePosition['nextFile']['filename'];
+				$productKey = $this->getFirstKeyFromProductItems( $filePosition['nextFile']['path'] );
+			}	
+		} else {
+			$productFile = $filePosition['currentFile']['filename'];
+			$productKey = $this->getNextKeyFromProductItems( $filePosition['currentFile']['path'], $currentKey );
+		}
+
+		return array(
+			'productFile' => $productFile,
+			'productKey' => $productKey
+		);
+	}
+
+	function checkPrevItemAndFile( $filePosition ) {
+		$currentFileAndKey = $this->getCurrentFileAndKey( $filePosition ); //PositionOfProductItem Trait
+		$currentKey = $currentFileAndKey['productKey'];
+		$firstKey = $this->getFirstKeyFromProductItems( $filePosition['currentFile']['path'] );
+
+		if ( $currentKey == $firstKey ) {
+			if ( $this->isFirstFile( $filePosition ) ) {
+				$productFile = null;
+				$productKey = null;
+			} else {
+				$productFile = $filePosition['prevFile']['filename'];
+				$productKey = $this->getLastKeyFromProductItems( $filePosition['prevFile']['path'] );
+			}
+		} else {
+			$productFile = $filePosition['currentFile']['filename'];
+			$productKey = $this->getPrevKeyFromProductItems( $filePosition['currentFile']['path'], $currentKey );
+		}
+
+		return array(
+			'productFile' => $productFile,
+			'productKey' => $productKey
+		);
+	}
+
+	function isFirstFile( $filePosition ) {
+		$currentFilename = $filePosition['currentFile']['filename'];
+		$firstFilename = $filePosition['firstFile']['filename'];
+		if ( $currentFilename == $firstFilename ) return true;
+	}
+
+	function isLastFile( $filePosition ) {
+		$currentFilename = $filePosition['currentFile']['filename'];
+		$lastFilename = $filePosition['lastFile']['filename'];
+		if ( $currentFilename == $lastFilename ) return true;
+	}
+
+	function getPrevKeyFromProductItems( $filePath, $currentKey ) {
+		$productItems = $this->getProductItemList( $filePath );
+		return $this->setPreviousArray( $productItems, $currentKey );
+	}
+
+	function getNextKeyFromProductItems( $filePath, $currentKey ) {
+		$productItems = $this->getProductItemList( $filePath );
+		return $this->setNextArray( $productItems, $currentKey );
+	}
+
+	function getLastKeyFromProductItems( $filePath ) {
+		$productItems = $this->getProductItemList( $filePath );
+		return $this->setLastArray( $productItems );
+	}
+
+	function getFirstKeyFromProductItems( $filePath ) {
+		$productItems = $this->getProductItemList( $filePath );
+		return $this->setFirstArray( $productItems );
+	}
+
+}
+
+trait ArrayFunctions {
+	function setFirstArray( $array ) {
+		reset( $array );
+		return key( $array );
+	}
+
+	function setLastArray( $array ) {
+		end( $array );
+		return key( $array );
+	}
+
+	function setNextArray( $array, $key ) {
+		reset( $array );
+		while ( key( $array ) !== $key ) {
+			if ( next( $array ) === false ) throw new Exception('Invalid key');
+		}
+		next( $array );
+		return key( $array );
+	}
+
+	function setPreviousArray( $array,$key ) {
+		end( $array );
+		while ( key( $array ) !== $key ) {
+			if ( prev( $array ) === false ) throw new Exception('Invalid key');
+		}
+		prev( $array );
+      	return key( $array );
 	}
 
 	function getArrayValueByKey( $key, $files ) {
@@ -292,10 +343,22 @@ trait PositionOfFileList {
 	function findArrayKeyByValue( $value, $array ) {
 		return array_search( $value, $array );
 	}
+}
 
-	function getFilenameFromCategoryPath( $path ) {
-		$arr = explode( '/', $path );
-		$filename = end( $arr );
-		return str_replace( '.txt', '', $filename );
+
+trait NavmenuUrl {
+	function getNavmenuUrl( $data ) {
+		return array(
+			'firstUrl' => $this->setUrl( $data['first'] ),
+			'lastUrl'  => $this->setUrl( $data['last'] ),
+			'prevUrl'  => $this->setUrl( $data['prev'] ),
+			'currentUrl'  => $this->setUrl( $data['current'] ),
+			'nextUrl'  => $this->setUrl( $data['next'] )
+		);
+	}
+
+	function setUrl( $data ) {
+		if ( $data['productFile'] == null && $data['productKey'] == null ) return null;
+		return $this->getPermalink( $data['productFile'], $data['productKey'] ); //permalink_trait.php
 	}
 }

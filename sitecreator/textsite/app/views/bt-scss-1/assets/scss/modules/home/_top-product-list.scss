@@ -1,0 +1,229 @@
+.bestsell {
+	//border: 1px solid blue;
+	padding: 0;
+	margin: 0;
+	
+	h2 {
+		//border: 1px solid blue;
+		padding: em(10px);
+		margin: 0 0 em( 10px ) 0;
+		background-color: palette( primary, dark );
+		color: palette( primary, xx-light );
+	}
+	
+	&__item {
+		padding: em( 10px );
+		margin: 0 0 em( 20px ) 0;
+		background-color: palette( primary, xx-light );
+		//border: 1px solid red;
+		@include transition-duration(.3s);
+  		@include transition-timing-function(ease-in);
+		
+		&:hover {
+			background-color: palette( primary, x-dark );
+			h3 {
+				a {
+					color: palette( primary, x-light );	
+				}
+			}
+		}
+		
+		&--img {
+			padding: 0;
+			margin: 0 0 em(5px) 0;
+			//border: 1px solid green;
+			img {
+				width: 75px;
+				height: 75px;
+				background: #fff url( ../img/ajax-loader.gif ) no-repeat center center;
+			}
+		}
+		
+		&--content {
+			padding: 0 0 0 em( 5px );
+			margin: 0;
+			//border: 1px solid pink;
+			h3 {
+				margin: 0 0 em( 2px );
+				font-size: em( 12px );
+				font-weight: $font-weight--bold;
+				a {
+					color: palette( primary, dark );
+					text-decoration: none;
+					&:hover {
+						color: palette( secondary, base );
+					}
+				}
+			}
+			
+			&--price {
+				color: palette( secondary, base );
+				font-weight: $font-weight--bold;
+				margin-bottom: em( 2px );
+			}
+			&--btn {
+				display: blcok;
+				width: em( 100px );
+				padding: 3px 10px 3px 10px;
+				background-color: palette( primary, xxx-light );
+				border-radius: em( 5px );
+				text-align: center;
+				color: palette( primary, light );
+
+				&:hover {
+					background-color: palette( secondary, base );
+					text-decoration: none;
+					color: palette( primary, xxx-light );
+				}
+			}
+			
+			hr {
+				padding: 0;
+				margin-top: 0;
+				margin-bottom: em( 8px );
+				border-top-color: palette( primary, xx-light );
+			}
+		}
+		
+	}
+}
+
+.recomm {
+	padding: 0;
+	margin: 0;
+	position: relative;	
+	
+	h2 {
+		//border: 1px solid blue;
+		padding: em(10px);
+		margin: 0 0 em(10px) em(10px);
+		background-color: palette( primary, dark );
+		color: palette( primary, xx-light );
+	}	
+	.view {
+		width: 250px;
+		height: 250px;
+		overflow: hidden;
+		position: relative;
+		text-align: center;
+		cursor: default;
+		margin-bottom: em(20px);
+
+		.mask {
+			width: 250px;
+			height: 250px;
+			position: absolute;
+			overflow: hidden;
+			top: 0;
+			left: 0;
+		}
+
+		img {
+			display: block;
+			position: relative;
+			width: 250px;
+			height: 250px;
+			background: #fff url( ../img/ajax-loader.gif ) no-repeat center center;
+		}
+
+		h2 {
+			text-transform: uppercase;
+			color: #fff;
+			text-align: center;
+			position: relative;
+			font-size: 17px;
+			padding: 10px;
+			background: rgba(0, 0, 0, 0.4);
+			margin: 20px 0 0 0;
+		}
+
+		p {
+			font-size: 18px;
+			font-weight: $font-weight--bold;
+			position: relative;
+			color: #fff;
+			padding: 10px 20px 20px;
+			text-align: center;
+		}
+
+
+		.info {
+			display: inline-block;
+			text-decoration: none;
+			padding: 7px 14px;
+			background: #000;
+			color: #fff;
+			text-transform: uppercase;
+			box-shadow: 0 0 1px #000;
+
+			&:hover {
+				box-shadow: 0 0 5px #000;
+			}
+		}
+
+	}
+
+	//Effect Style
+	.effect {
+		img {
+			transition: all 0.2s linear;
+		}
+		.mask {
+			-ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=0)";
+			filter: alpha(opacity=0);
+			opacity: 0;
+			background-color: rgba(0,0,0,0.4);
+			transition: all 0.4s ease-in-out;
+		}
+
+		h2 {
+			transform: translateY(-100px);
+			-ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=0)";
+			filter: alpha(opacity=0);
+			opacity: 0;
+			transition: all 0.2s ease-in-out;
+		}
+
+		p {
+			transform: translateY(0px);
+			-ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=0)";
+			filter: alpha(opacity=0);
+			opacity: 0;
+			transition: all 0.2s linear;
+		}
+		&:hover {
+			img {
+				transform: scale(1.1,1.1);
+			}
+
+			.mask {
+				-ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=100)";
+				filter: alpha(opacity=100);
+				opacity: 1;
+			}
+
+			h2, p, .info {
+				-ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=100)";
+				filter: alpha(opacity=100);
+				opacity: 1;
+				transform: translateY(0px);
+			}
+
+			p {
+				transition-delay: 0.1s;
+			}
+
+			.info {
+				transition-delay: 0.2s;
+			}
+		}
+		info {
+			-ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=0)";
+			filter: alpha(opacity=0);
+			opacity: 0;
+			transition: all 0.2s ease-in-out;
+		}
+	}	
+	
+}//recomm
+

@@ -1,57 +1,57 @@
 <?php
 trait CategoryList {
-	use CategoryData;
+	use SelectCategoryList;
 
-	private $showNumber = 100;
+	private $showNumber = 50;
 	private $typeName;
 
-	function categoryList( $typeName ) {
-		$this->typeName = $typeName;
-		$categoryDir = $this->getCategoryDirPath();
-		$files = $this->dbCom->getTextFileList( $categoryDir );
-		$listNumber = $this->setShowNumber( $files );
-		$files = $this->getFileByListNumber( $files, $listNumber );
-		
-		foreach ( $files as $path ) {
-			$categoryList[] = $this->getCategoryData( $path );
+	function categoryList( $catTypeName ) {
+		$path = $this->categoryFilePath( $catTypeName );
+		$catItems = $this->readContentFromCategoriesFile( $path );
+		return $this->selectCategoryList( $catItems, $catTypeName );
+	}
+
+	function readContentFromCategoriesFile( $path ) {
+		return unserialize( file_get_contents( $path ) );	
+	}
+
+	function categoryFilePath( $catTypeName ) {
+		if ( 'category' == $catTypeName ) $filename = 'categories';
+		elseif ( 'brand' == $catTypeName ) $filename = 'brands';
+		return CONTENT_PATH . $filename . '.txt';
+	}	
+}
+
+trait SelectCategoryList {
+	function selectCategoryList( $catItems, $catTypeName ) {
+		$itemKeys = $this->randomAndSelectKeys( $catItems );
+		return $this->getCatNameAndCatLink( $itemKeys, $catItems, $catTypeName );
+	}
+
+	function getCatNameAndCatLink( $itemKeys, $catItems, $catTypeName ) {
+		foreach ( $itemKeys as $key ) {
+			$catName = $this->formatCatName( $catItems[$key]['name'] );
+			$catLink = $this->getCategoryLink( $catTypeName, $key );
+			$categoryList[$catName] = $catLink;
 		}
 		return $categoryList;
 	}
-	
-	function getCategoryDirPath() {
-		if ( 'category' == $this->typeName )
-			return $this->dbCom->setCategoryDirPath();
-		elseif ( 'brand' == $this->typeName )
-			return $this->dbCom->setBrandDirPath();
+
+	function formatCatName( $key ) {
+		$key = strtolower( $key );
+		return ucfirst( $key );
 	}
-	
-	function getFileByListNumber( $files, $listNumber ) {
-		return array_slice( $files, 0, $listNumber );
+
+	function randomAndSelectKeys( $catItems ) {
+		$keys = array_keys( $catItems );
+		$number = $this->getShowNumber( $keys );
+		shuffle( $keys );
+		return array_splice( $keys, 0, $number );
 	}
-	
-	function setShowNumber( $files ) {
-		$count = count( $files );
-     	return $count < $this->showNumber ? $count : $this->showNumber;
+
+	function getShowNumber( $keys ) {
+		$keyNumber = count( $keys );
+		return $keyNumber < $this->showNumber ? $keyNumber : $this->showNumber;
 	}
 }
 
-trait CategoryData {
-	function getCategoryData( $path ) {
-		$this->dbCom->checkExistTextFilePath( $path );	
-		$files = $this->readCategoryContent( $path );
-		$categoryContent = $this->separateCategoryContent( $files );
-		
-		list( $categoryName ) = $categoryContent;
-		$catSlug = Helper::clean_string( $categoryName );
-		$categoryLink = $this->getCategoryLink( $this->typeName, $catSlug ); //CategoryLink Trait
-		return array( 'categoryName' => $categoryName, 'categorylink' => $categoryLink );
-	}
-
-	function readCategoryContent( $path) {
-		return file( $path );
-	}
-
-	function separateCategoryContent( $files ) {
-		return explode( '|', $files[0] );
-	}
-}

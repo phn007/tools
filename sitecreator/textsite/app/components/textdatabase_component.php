@@ -2,20 +2,24 @@
 class TextDatabaseComponent {
 	
 	function checkExistTextFilePath( $path ) {
-		if ( ! file_exists( $path ) )
-			trigger_error( 'My Debug: ' . $path . ' TextFile path does not exist' , $error_type = E_USER_ERROR );
+		try {
+			if ( ! file_exists( $path ) ) throw new CustomException( 'TextFile path does not exist.' );
+		} catch( CustomException $e ) {
+			$e->handle();
+		}
 	}
 	
 	function getContentFromSerializeTextFile( $textFilePath ) {
+		$this->checkExistTextFilePath( $textFilePath );
 		$contents  = file_get_contents( $textFilePath );
         return unserialize( $contents );
 	}
 
-	function getContentFromNormalTextFile( $path ) {
-		$this->checkExistTextFilePath( $path );
-		$files = file( $path );
-		return array_map( 'trim', $files );
-	}
+	// function getContentFromNormalTextFile( $path ) {
+	// 	$this->checkExistTextFilePath( $path );
+	// 	$files = file( $path );
+	// 	return array_map( 'trim', $files );
+	// }
 	
 	function getRandomTextFilePath( $files ) {
 		shuffle( $files );
@@ -31,11 +35,15 @@ class TextDatabaseComponent {
 	}
 	
 	function setCategoryDirPath() {
-		return CONTENT_PATH . 'categories/';
+		return CONTENT_PATH . 'categories.txt';
 	}
 	
 	function setBrandDirPath() {
-		return CONTENT_PATH . 'brands/';
+		return CONTENT_PATH . 'brands.txt';
+	}
+
+	function setCategoryNameListPath() {
+		return CONTENT_PATH . 'categoryList.txt';
 	}
 	
 	function getTextFileList( $path ) {

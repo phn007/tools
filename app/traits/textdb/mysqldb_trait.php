@@ -34,11 +34,10 @@ trait MySQLDatabase {
 	
 	function createSQLString( $productNumber ) {
 		//$cols = "id,catalogId,affiliate_url,image_url,keyword,description,category,price,merchant,brand";
-		if ( $productNumber > 10000 ) {
-			$round = ceil( $productNumber / 10000 );
+		$num_limit  = 2000;
+		if ( $productNumber > $num_limit ) {
+			$round = ceil( $productNumber / $num_limit );
 			$start = 0;
-			$num_limit  = 10000;
-
 			for ( $i = 0; $i < $round; $i++ ) {
 				$limit   = ( $start ) . ', ' . $num_limit;
 				$start   = $start + $num_limit;

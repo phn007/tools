@@ -1,21 +1,19 @@
 <?php
-
 //Shop Redirect to merchant
-Map::get( '/shop/(.*)', 'shop#index' );
-
 Map::get( '/', 'home#index' );
-Map::get( '/index', 'home#index' );
 
-Map::get( '/categories', 'category#categories' );
-Map::get( '/brands', 'category#brands' );
+Map::get( '/categories' . FORMAT, 'categories#categories' );
+Map::get( '/brands' . FORMAT, 'categories#brands' );
+Map::get( '/categories/(.*)' . FORMAT, 'categories#categories' );
+Map::get( '/brands/(.*)' . FORMAT, 'categories#brands' );
 
-Map::get( '/category/(.*)', 'category#category' );//
-Map::get( '/brand/(.*)', 'category#brand' );
+Map::get( '/category/(.*)' . FORMAT, 'category#category' );
+Map::get( '/brand/(.*)' . FORMAT, 'category#brand' );
 
-Map::get( '/allproducts/(.*)', 'allproducts#index' );
+Map::get( '/about' . FORMAT, 'staticpage#about' );
+Map::get( '/contact' . FORMAT, 'staticpage#contact' );
+Map::get( '/privacy-policy' . FORMAT, 'staticpage#privacy' );
 
-Map::get( '/about.html', 'page#about' );
-Map::get( '/contact.html', 'page#contact' );
-Map::get( '/privacy-policy.html', 'page#privacy_policy' );
-
-Map::get( '/welcome', 'error#index' );
+Map::get( '/shop/(.*)', 'shop#index' );
+Map::get( '/error', 'error#index' );
+Map::get( '/(.*)', 'product#index' );
