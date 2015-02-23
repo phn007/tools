@@ -16,7 +16,7 @@ class Breadcrumb {
 	}
 
 	function category( $category, $categoryLink ) {
-		echo '<a title="' . $category . '" href="' . $categoryLink . FORMAT . '">' . $category . '</a>';
+		echo '<a title="' . $category . '" href="' . $categoryLink . '">' . $category . '</a>';
 	}
 
 	function home() {
