@@ -1,13 +1,13 @@
 <?php
 include APP_PATH . 'traits/categories/categories_trait.php';
-include APP_PATH . 'traits/categories/categoriesMenuPage_trait.php';
+include APP_PATH . 'traits/categories/categoriesPaginator_trait.php';
 include APP_PATH . 'traits/categories/categoriesSeoTags_trait.php';
 include APP_PATH . 'traits/link_trait.php';
 
 class CategoriesModel extends AppComponent {
 	use Categories;
 	use CategoryLink;
-	use CategoriesMenuPage;
+	use CategoriesPaginator;
 	use CategoriesSeoTags;
 
 	private $pathType;
@@ -25,8 +25,8 @@ class CategoriesModel extends AppComponent {
 		return $this->categories( $params );
 	}
 
-	function getMenu( $params ) {
-		return $this->getMenuPage( $params, $this->lastPage );
+	function getPagination( $params ) {
+		return $this->setPagination( $params, $this->lastPage );
 	}
 
 	function getSeoTags( $menu, $category, $catType, $params ) {

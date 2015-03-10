@@ -17,11 +17,14 @@ class ProductController extends Controller {
 		$model->getSpinContent();
 		$this->spinContent = $model->spinContent;
 
+		$model->getLastestSerach();
+		$this->lastestSearch = $model->lastestSearch;
+
 		$model->getRelatedProducts();
 		$this->relatedProducts = $model->relatedProducts;
 
-		$model->getNavmenu();
-		$this->menu = array( 'url' => $model->menuUrl, 'state' => $model->menuState );
+		$model->getPagination();
+		$this->paging = array( 'url' => $model->pagingUrl, 'state' => $model->pagingState );
 
 		$this->seoTags = $model->getSeoTags();
 	}

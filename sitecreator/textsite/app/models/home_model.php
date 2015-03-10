@@ -43,7 +43,7 @@ class HomeModel extends AppComponent
 			'title' => SITE_NAME,
 			'description' => SITE_DESC,
 			'author' => AUTHOR,
-			'robots' => 'index, follow'
+			//'robots' => 'index, follow'
 		);
 		return $seoCom->createSeoTags( $tags );
 	}

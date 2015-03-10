@@ -78,7 +78,7 @@ trait GetProductItems {
 		$i = 0;
 		$items = unserialize( file_get_contents( BASE_PATH . $path ) );
 		foreach ( $items as $productKey => $item ) {
-			if ( ++$i > 9 ) break;
+			if ( ++$i > 12 ) break;
 			$item['permalink'] = $this->getPermalink( $productFilename, $productKey );
 			$itemList[ $productKey ] = $item;
 		}

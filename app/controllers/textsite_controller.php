@@ -39,7 +39,7 @@ class TextsiteController extends Controller {
 			if ( 'sitemap' == $function  	 || 'siteall' == $function || 'all' == $function ) $model->sitemap();
 			if ( 'sitemapindex' == $function || 'siteall' == $function || 'all' == $function ) $model->sitemapIndex();
 			if ( 'robots' == $function   	 || 'siteall' == $function || 'all' == $function ) $model->robots();
-			if ( 'logo' == $function 		 || 'siteall' == $function || 'all' == $function ) $model->logo();
+			//if ( 'logo' == $function 		 || 'siteall' == $function || 'all' == $function ) $model->logo();
 			if ( 'theme' == $function ) $model->theme();
 		}
 	}

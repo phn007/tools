@@ -1,8 +1,9 @@
 <?php
 include APP_PATH . 'traits/product/productDetail_trait.php';
 include APP_PATH . 'traits/product/spinContent_trait.php';
+include APP_PATH . 'traits/product/lastestSearch_trait.php';
 include APP_PATH . 'traits/product/relatedProducts_trait.php';
-include APP_PATH . 'traits/product/navmenuProducts_trait.php';
+include APP_PATH . 'traits/product/paginatorProducts_trait.php';
 include APP_PATH . 'traits/product/productSeoTags_trait.php';
 include APP_PATH . 'traits/link_trait.php';
 include APP_PATH . 'traits/networkLink_trait.php';
@@ -13,8 +14,9 @@ include APP_PATH . 'traits/networkLink_trait.php';
 class ProductModel extends AppComponent {
 	use ProductDetail;
 	use SpinContent;
+	use LastestSearch;
 	use RelatedProducts;
-	use NavmenuProduct;
+	use PaginatorProducts;
 	use Permalink, CategoryLink, GotoLink, ProsperentAPI, Viglink;
 	use ProductSeoTags;
 
@@ -29,11 +31,10 @@ class ProductModel extends AppComponent {
 	private $spinContent;
 
 	private $relatedProducts;
-	//private $permalink;
 	private $seoTags;
 
-	private $menuUrl;
-	private $menuState;
+	private $pagingUrl;
+	private $pagingState;
 
 	function __set( $name, $value ) {
       	$this->{$name} = $value;
@@ -49,21 +50,25 @@ class ProductModel extends AppComponent {
    	}
 
 	function getProductDetail() {
-		$this->productDetail = $this->setProductDetail(); //ProductDetail Traits
+		$this->productDetail = $this->setProductDetail(); //ProductDetail Trait
 	}
 
 	function getSpinContent() {
-		$this->spinContent = $this->setSpinContent(); //SpinContent Traits
+		$this->spinContent = $this->setSpinContent(); //SpinContent Trait
+	}
+
+	function getLastestSerach() {
+		$this->lastestSearch = $this->setLastestSearch(); //LastestSearch Trait;
 	}
 
 	function getRelatedProducts() {
 		$this->relatedProducts = $this->setRelatedProducts(); //RelatedProducts Trait
 	}
 
-	function getNavmenu() {
-		$menu = $this->setNavmenu(); //Navmenu Traits
-		$this->menuUrl = $menu['url'];
-		$this->menuState = $menu['state'];
+	function getPagination() {
+		$paging = $this->setPagination(); //PaginatorProducts Trait
+		$this->pagingUrl = $paging['url'];
+		$this->pagingState = $paging['state'];
 	}
 
 	function getSeoTags() {

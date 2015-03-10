@@ -6,9 +6,9 @@ class CategoriesController extends Controller {
       	$this->view = 'index';
       	$model = $this->model( 'categories' );
       	$this->categories = $model->getCategoryList( $params );
-      	$this->menu = $model->getMenu( $params );
+      	$this->paging = $model->getPagination( $params );
       	$this->catType = 'Categories';
-      	$this->seoTags = $model->getSeoTags( $this->menu, $this->categories, $this->catType, $params );
+      	$this->seoTags = $model->getSeoTags( $this->paging, $this->categories, $this->catType, $params );
 	}
 
 	function brands( $params ) {
@@ -17,8 +17,8 @@ class CategoriesController extends Controller {
       	$this->view = 'index';
       	$model = $this->model( 'categories' );
       	$this->categories = $model->getBrandList( $params );
-      	$this->menu = $model->getMenu( $params );
+      	$this->paging = $model->getPagination( $params );
       	$this->catType = 'Brands';
-      	$this->seoTags = $model->getSeoTags( $this->menu, $this->categories, $this->catType, $params );
+      	$this->seoTags = $model->getSeoTags( $this->paging, $this->categories, $this->catType, $params );
 	}
 }

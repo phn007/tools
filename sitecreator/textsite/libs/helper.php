@@ -40,8 +40,26 @@ class Helper {
 		if ( 'viglink' == NETWORK )
 			return self::viglinkImgTag( $imgUrl, $imgSize, $alt ); //ImageSize Trait
 	}
+
+	public static function getSearchKey( $keyword ) {
+		$arr = explode( ' ', $keyword );
+		$count = count( $arr );
+		$start = $count - 3;
+		if ( $start < 0 ) $start = 0;
+		$arr = array_slice( $arr, $start, $count );
+		return implode( ' ', $arr );
+	}
+
+
 }
 
+
+
+
+/**
+ * TRAIT SECTION
+ * =======================================================================================
+ */
 trait ImageSize {
 	function prosperentApiImage( $img_url, $img_size ) {
 		$img = explode( '/', $img_url );//img_size ( 75x75, 125x125, 250x250, 500x500 )

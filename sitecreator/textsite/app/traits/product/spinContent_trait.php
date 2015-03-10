@@ -16,6 +16,7 @@ trait SpinContent {
 			$cache = $this->spin();		
 			$c->set_cache( $path, $cacheFile, array( $cacheKey => $cache ) ); //Save data to cache
 		}
+
 		return $this->keywordReplacing( $cache, $this->productDetail['keyword'] );
 	}
 

@@ -27,7 +27,7 @@ class AppIndex
 		define( 'TEXTSPIN_PATH', FILES_PATH . 'textspinner/');
 
 		define( 'EMPTY_BRAND_NAME', 'Default' );
-		define( 'EMPTY_CATEGORY_NAME', 'Blank' );
+		define( 'EMPTY_CATEGORY_NAME', 'General' );
 
 		include 'libs/controller.php';
 		include 'libs/router.php';

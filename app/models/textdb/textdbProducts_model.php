@@ -93,7 +93,8 @@ trait RunThroughQueryResult {
 
 	function checkEmptyCategoryAndBrand( $row ) {
       	if ( empty( $row['category'] ) ) $row['category'] = EMPTY_CATEGORY_NAME;
-      	if ( empty( $row['brand'] ) ) $row['brand'] = EMPTY_BRAND_NAME;
+      	if ( empty( $row['brand'] ) ) $row['brand'] = $row['merchant'];
+      	//if ( empty( $row['brand'] ) ) $row['brand'] = EMPTY_BRAND_NAME;
 		return $row;
 	}
 
