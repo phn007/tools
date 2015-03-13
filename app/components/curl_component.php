@@ -2,8 +2,7 @@
 /**
 * CURL
 */
-class CurlComponent extends CUrlOptions
-{
+class CurlComponent extends CUrlOptions {
 	function getRequest( $options ) {
 		$this->init();
 		$this->setOptions( $options );

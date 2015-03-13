@@ -6,7 +6,7 @@ include WT_APP_PATH . 'traits/scraper/pageInfo_trait.php';
 include WT_APP_PATH . 'traits/scraper/productItems_trait.php';
 include WT_APP_PATH . 'traits/scraper/database_trait.php';
 include WT_APP_PATH . 'extensions/scraper-class/_simpleHtmlDom.php';
-include WT_APP_PATH . 'extensions/scraper-class/scraper.php';
+include WT_APP_PATH . 'extensions/scraper-class/_scraper.php';
 
 class ScraperModel extends Controller {
 
@@ -30,11 +30,10 @@ class ScraperModel extends Controller {
    	}
 
 	function initialVariables( $params, $options ) {
-
 		$this->params = $params;
 		$this->options = $options;
 		$this->LoadMerchantScraper( $this->merchantName );
-		$this->scraper = new Scraper();
+		$this->scraper = new Scraper(); //app/extensions/scraper-class
 	}
 
 	function getUrlDataFromCsvFile() { //urls_trait.php

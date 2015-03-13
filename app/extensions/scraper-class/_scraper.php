@@ -55,4 +55,4 @@ class Scraper {
 		$productItems = new ProductItems();
 		return $productItems->get( $html );
 	}
-}
+}	

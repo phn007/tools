@@ -60,7 +60,7 @@ class DefinePageUrl {
 class ProductItems {
 
 	function get( $html ) {
-		$fashion_results = $html->find( 'div=[class=fashion-results]', 0 );
+		$fashion_results = $html->find( 'div[class=fashion-results]', 0 );
 		if ( !$fashion_results ) return false;
 
 		$fashion_item = $fashion_results->find( 'div[class=fashion-item]' );
@@ -87,4 +87,34 @@ class ProductItems {
 		$price = $number * 0.03 ;
 		return number_format( ( float )$price, 2, '.', '' ); 
 	}
+}
+
+/**
+ * PRODUCT DETAIL SECTION
+ * =============================================================================
+ */
+class ProductDetail {
+
+	function get( $html ) {
+		$this->description( $html );
+		$this->brand( $html );
+	}
+
+	function description( $html ) {
+		$title = $html->find( 'h2[id=product-details-header]', 0 )->plaintext;
+		$desc = $html->find( 'div[class=accordion-content] p', 0 )->plaintext;
+		$feature = $html->find( 'div[class=accordion-content] ul[class=style-features]', 0 )->innertext;
+
+		$detail  = '<h2>' . $title . '</h2>';
+		$detail .= '<p>' . $desc . '</p>';
+		$detail .= '<ul>' . $feature . '</ul>';
+		return $detail;
+	}
+
+	function brand( $html ) {
+		$brand = null;
+		if ( $brand = $html->find( 'section[id=brand-title] h2', 0 )->plaintext ) return $brand;
+		return $brand;
+	}
+
 }

@@ -4,6 +4,14 @@ use webtools\controller;
 include WT_APP_PATH . 'traits/setupConfig_trait.php';
 include WT_APP_PATH . 'traits/textsite/siteInfo_trait.php';
 
+
+/**
+ * Example Commandline
+ * -------------------
+ * php textsite -c bb-prosp.ini create all
+ * php textsite -c bb-prosp.ini -r create code
+ * php textsite -c bb-prosp.ini textdb
+*/
 class TextsiteController extends Controller {
 	use SetupConfig;
 	use SiteInfomation;
@@ -44,12 +52,22 @@ class TextsiteController extends Controller {
 		}
 	}
 
+	/**
+	 * Example commandline
+	 * -------------------
+	 * php textsite -c bb-prosp.ini server start
+	 */
 	function server( $function, $params, $options ) {
 		$this->initialSetupConfig( $options ); //SetupConfig Trait
 		$model = $this->model( 'textsite' );
 		if ( 'start' == $function ) $model->serverStart( $this->getSiteConfigData() );
 	}
 
+	/**
+	 * Example commandline
+	 * -------------------
+	 * php textsite -c bb-prosp.ini show config
+	 */
 	function show( $function, $params, $options ) {
 		$this->initialSetupConfig( $options ); //SetupConfig Trait
 		if ( 'config' == $function ) {

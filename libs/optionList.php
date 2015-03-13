@@ -79,6 +79,13 @@ class OptionList {
 			'db' => array( 'merchant' ),
 			'tb' => array( 'merchant' )
 		);
-		return array( $getAction => $getFunctions, $delAction => $delFunction );
+
+		$getDetailAction = 'getdetail';
+		$getDetailFunctions['functions'] = array( '*' => array( 'merchant' ) );
+		return array( 
+			$getAction => $getFunctions, 
+			$delAction => $delFunction,
+			$getDetailAction => $getDetailFunctions
+		);
 	}
 }

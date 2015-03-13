@@ -2,6 +2,11 @@
 use webtools\controller;
 include WT_APP_PATH . 'traits/setupConfig_trait.php';
 
+/**
+ * Example commandline
+ * -------------------
+ * php prospapi -c bb-prosp.ini get all
+ */
 class ProspApiController extends Controller {
 	use SetupConfig;
 

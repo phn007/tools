@@ -2,6 +2,11 @@
 use webtools\controller;
 include WT_APP_PATH . 'traits/setupConfig_trait.php';
 
+/**
+ * Example commandline
+ * -------------------
+ * php html -c bb-prosp.ini build all
+ */
 class HtmlController extends Controller {
 	use SetupConfig;
 
