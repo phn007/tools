@@ -25,7 +25,7 @@ trait ProspProduct {
 			$data =  $response['data'];
 			if ( ! $data ) return false;
 			foreach ( $data as $key => $value ) {
-				$this->insertProductTable( $this->conn, $value );
+				$this->insertProductTable( $this->conn, $value ); //ProspDatabase trait
 				$this->printProductResult( $row, $value );
 			}
 		}

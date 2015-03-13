@@ -23,7 +23,6 @@ class UrlFormat {
 * LastPageNumber
 */
 class LastPageNumber {
-	
 	function get( $html ) {
 		$ul = $html->find( 'ul[class=numbers]', 0 );
 		if ( ! $ul ) return false;
@@ -43,7 +42,6 @@ class LastPageNumber {
 * Set Page Url Format
 */
 class DefinePageUrl {
-
 	function set( $pageinfo, $currentPage ) {
 		$url = $pageinfo['catUrl'];
 		if ( $currentPage != 1 ) {
@@ -58,7 +56,6 @@ class DefinePageUrl {
 * Parsing Product Items from webpage
 */
 class ProductItems {
-
 	function get( $html ) {
 		$fashion_results = $html->find( 'div[class=fashion-results]', 0 );
 		if ( !$fashion_results ) return false;
@@ -94,27 +91,27 @@ class ProductItems {
  * =============================================================================
  */
 class ProductDetail {
-
 	function get( $html ) {
-		$this->description( $html );
-		$this->brand( $html );
+		$detail = $this->getProductDesc( $html ) . $this->getFeature( $html );
+		return array(
+			'detail' => $detail,
+			'brand' => $this->getBrand( $html )
+		);
 	}
 
-	function description( $html ) {
-		$title = $html->find( 'h2[id=product-details-header]', 0 )->plaintext;
-		$desc = $html->find( 'div[class=accordion-content] p', 0 )->plaintext;
-		$feature = $html->find( 'div[class=accordion-content] ul[class=style-features]', 0 )->innertext;
-
-		$detail  = '<h2>' . $title . '</h2>';
-		$detail .= '<p>' . $desc . '</p>';
-		$detail .= '<ul>' . $feature . '</ul>';
-		return $detail;
+	function getProductDesc( $html ) {
+		if ( $desc = $html->find( 'div[class=accordion-content] p', 0 ) ) $desc = $desc->plaintext;
+		return isset( $desc ) ? '<p>' . $desc . '</p>' : null;
 	}
 
-	function brand( $html ) {
-		$brand = null;
-		if ( $brand = $html->find( 'section[id=brand-title] h2', 0 )->plaintext ) return $brand;
-		return $brand;
+	function getFeature( $html ) {
+		if ( $feature = $html->find( 'div[class=accordion-content] ul[class=style-features]', 0 ) ) 
+			$feature = $feature->innertext;
+		return isset( $feature ) ? '<ul>' . $feature . '</ul>' : null;
 	}
 
+	function getBrand( $html ) {
+		if ( $brand = $html->find( 'section[id=brand-title] h2', 0 ) ) $brand = $brand->plaintext;
+		return isset( $brand ) ? $brand : null;
+	}
 }

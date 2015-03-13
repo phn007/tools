@@ -43,8 +43,8 @@ trait ProductDatabase {
 	}
 
 	function databaseName() {
-		return 'vl_' . $this->merchantName . '_test';
-		// return 'vl_' . $this->merchantName;
+		//return 'vl_' . $this->merchantName . '_test';
+		return 'vl_' . $this->merchantName;
 	}
 
 	function deleteDatabase() {

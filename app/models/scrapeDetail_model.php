@@ -9,15 +9,87 @@ class scrapeDetailModel extends Controller {
 	use ProductDatabase;
 	use GetContentFromWebPage;
 	use ScrapeProductDetial;
+	use UpdateDatabase;
+
+	private $queryLimit = 20;
 
 	function getProductDetail( $merchant ) {
 		$this->merchantName = $merchant;
 		$this->LoadMerchantScraper( $this->merchantName );
 		$this->merchantUrl = setMerchantUrl(); //merchantName_scraper.php (ex. nordstrom_scraper.php, zappos_scraper.php)
+		$this->initialMySQLDatabase();
 		
-		$productUrls = $this->selectProductUrlsFromDatabase();
-		$result = $this->getContentFromWebPage( $productUrls );
-		$result = $this->scrapeProductDetail( $result );
+		$next = true;
+		do {
+			$productUrls = $this->selectProductUrlsFromDatabase();
+			if ( count( $productUrls ) != 0 ) {
+				$result = $this->getContentFromWebPage( $productUrls );
+				$result = $this->scrapeProductDetail( $result );
+				$this->updateDatabase( $result );
+			} else 
+				$next = false;
+		} while ( $next );
+		$this->printEndProcess();
+	}
+
+	function printEndProcess() {
+		echo "\nFINISHED...\n";
+	}
+
+	function initialMySQLDatabase() {
+		$this->db = new Database();
+		$this->conn = $this->db->connectDatabase(); 
+		$this->dbName = $this->databaseName(); //database_trait.php
+		$this->db->selectDatabase( $this->conn, $this->dbName );
+	}
+}
+
+trait UpdateDatabase {
+	function updateDatabase( $result ) {
+		foreach ( $result as $id => $content ) {
+			$detailMsg = $this->updateDetail( $id, $content );
+			$brandMsg = $this->updateBrand( $id, $content );
+			$this->updateStatus( $id, $content );			
+			$this->printUpdate( $id, $detailMsg, $brandMsg );
+		}
+	}
+
+	function updateDetail( $id, $content ) {
+		if ( !empty( $content['detail'] ) ) {
+			$sql = "UPDATE products SET description='" . mysqli_real_escape_string( $this->conn, $content['detail'] ) . "' WHERE id='". $id ."'";
+			$output = $this->update( $sql );
+			return "detail: " . $output;
+		} else {
+			return 'detail: Empty';
+		}
+	}
+
+	function updateBrand( $id, $content ) {
+		if ( !empty( $content['brand'] ) ) {
+			$sql = "UPDATE products SET brand='" . mysqli_real_escape_string( $this->conn, $content['brand'] ) . "' WHERE id='". $id ."'";
+			$output = $this->update( $sql );
+			return 'brand: ' . $output;
+		} else {
+			return 'brand: Empty!';
+		}
+	}
+
+	function updateStatus( $id, $content ) {
+		$status = empty( $content['detail'] ) ? 2 : 1;
+		$sql = "UPDATE products SET status='" . $status . "' WHERE id=" . $id;
+		$this->update( $sql );
+	}
+
+	function printUpdate( $id, $detailMsg=null, $brandMsg=null ) {
+		echo $this->merchantName . ': ' . $id . '. ' . $detailMsg . ', ' . $brandMsg . "\n";
+	}
+
+	function update( $sql ) {
+		if ( $this->conn->query( $sql ) === TRUE ) {
+		    return  "Record updated successfully";
+		} else {
+		    return "Error updating record: " . $this->conn->error;
+		}
 	}
 }
 
@@ -47,6 +119,7 @@ trait GetContentFromWebPage {
 		$options = array(
 			CURLOPT_USERAGENT => $this->setUserAgent(),
 			CURLOPT_HTTPHEADER => $this->setHeader(),
+			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_REFERER => $this->merchantUrl
 		);
 		return MultiCurl::request( $productUrls, $options );
@@ -61,16 +134,10 @@ trait GetContentFromWebPage {
 	}
 }
 
-
-
 trait SelectProductUrls {
 	function selectProductUrlsFromDatabase() {
-		$db = new Database();
-		$conn = $db->connectDatabase(); 
-		$dbName = $this->databaseName(); //database_trait.php
-		$db->selectDatabase( $conn, $dbName );
-		$sql = $this->createSql( $dbName );
-		return $this->getQueryResult( $conn, $dbName, $sql );
+		$sql = $this->createSql( $this->dbName );
+		return $this->getQueryResult( $this->conn, $this->dbName, $sql );
 	}
 
 	function getQueryResult( $conn, $dbName, $sql ) {
@@ -85,10 +152,9 @@ trait SelectProductUrls {
 	}
 
 	function createSql( $dbName ) {
-		return "SELECT id,affiliate_url FROM products WHERE status = 0 LIMIT 1";
+		return "SELECT id,affiliate_url FROM products WHERE status = 0 LIMIT " . $this->queryLimit;
 	}
 }
-
 
 class MultiCurl {
 	static function request( $data, $options = array() ) {
