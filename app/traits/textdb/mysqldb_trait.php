@@ -11,7 +11,7 @@ trait MySQLDatabase {
 	
 	function countTotalProducts( $merchantData ) {
 		$total = 0;
-		foreach ( $merchantData as $merchant => $data ) {
+		foreach ( $merchantData as $merchant => $data ) {;
 			$num = $this->countProducts( $data['db_name'] );
 			$merchantProductNumber[$merchant] = $num; 
 			$total = $total + $num;

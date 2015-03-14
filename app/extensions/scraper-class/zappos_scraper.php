@@ -2,11 +2,11 @@
 function setMerchantUrl() {
 	return 'http://www.zappos.com';
 }
+
 /**
 * UrlFormat
 */
 class UrlFormat {
-
 	function get( $html ) {
 		$div = $html->find( 'div[class=pagination]', 0 );
 		if ( ! $div ) return false;
@@ -22,7 +22,6 @@ class UrlFormat {
 * LastPageNumber
 */
 class LastPageNumber {
-	
 	function get( $html ) {
 		$div = $html->find( 'div[class=pagination]', 0 );
 		if ( ! $div ) return false;
@@ -47,7 +46,6 @@ class LastPageNumber {
 * Set Page Url Format
 */
 class DefinePageUrl {
-
 	function set( $pageinfo, $currentPage ) {
 		$url = $pageinfo['catUrl'];
 		$urlFormat = $pageinfo['urlFormat'];
@@ -64,7 +62,6 @@ class DefinePageUrl {
 * Parsing Product Items from webpage
 */
 class ProductItems {
-
 	function get( $html ) {
 
 		$div = $html->find( 'div[id=searchResults]', 0 );
@@ -89,5 +86,15 @@ class ProductItems {
 			);
 		}
 		return $data;
+	}
+}
+
+/**
+ * PRODUCT DETAIL SECTION
+ * =============================================================================
+ */
+class ProductDetail {
+	function get( $html ) {
+		
 	}
 }

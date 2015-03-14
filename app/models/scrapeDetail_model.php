@@ -14,18 +14,18 @@ class scrapeDetailModel extends Controller {
 	private $queryLimit = 20;
 
 	function getProductDetail( $merchant ) {
-		$this->merchantName = $merchant;
-		$this->LoadMerchantScraper( $this->merchantName );
+		$this->merchantName = $merchant; 
+		$this->LoadMerchantScraper( $this->merchantName ); //Controller
 		$this->merchantUrl = setMerchantUrl(); //merchantName_scraper.php (ex. nordstrom_scraper.php, zappos_scraper.php)
 		$this->initialMySQLDatabase();
 		
 		$next = true;
 		do {
-			$productUrls = $this->selectProductUrlsFromDatabase();
+			$productUrls = $this->selectProductUrlsFromDatabase(); //SelectProductUrls Trait
 			if ( count( $productUrls ) != 0 ) {
-				$result = $this->getContentFromWebPage( $productUrls );
-				$result = $this->scrapeProductDetail( $result );
-				$this->updateDatabase( $result );
+				$result = $this->getContentFromWebPage( $productUrls ); //GetContentFromWebPage Trait
+				$result = $this->scrapeProductDetail( $result ); //ScrapeProductDetial Trait
+				$this->updateDatabase( $result ); //UpdateDatabase Trait
 			} else 
 				$next = false;
 		} while ( $next );

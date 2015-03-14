@@ -33,7 +33,7 @@ class ScraperModel extends Controller {
 		$this->params = $params;
 		$this->options = $options;
 		$this->LoadMerchantScraper( $this->merchantName );
-		$this->scraper = new Scraper(); //app/extensions/scraper-class
+		$this->scraper = new Scraper(); //app/extensions/_scraper.php
 	}
 
 	function getUrlDataFromCsvFile() { //urls_trait.php

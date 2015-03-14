@@ -6,7 +6,7 @@ include WT_APP_PATH . 'traits/textsite/siteInfo_trait.php';
 
 
 /**
- * Example Commandline
+ * Create Textsite
  * -------------------
  * php textsite -c bb-prosp.ini create all
  * php textsite -c bb-prosp.ini -r create code
@@ -53,7 +53,7 @@ class TextsiteController extends Controller {
 	}
 
 	/**
-	 * Example commandline
+	 * Run Server
 	 * -------------------
 	 * php textsite -c bb-prosp.ini server start
 	 */
@@ -64,7 +64,7 @@ class TextsiteController extends Controller {
 	}
 
 	/**
-	 * Example commandline
+	 * Show Config
 	 * -------------------
 	 * php textsite -c bb-prosp.ini show config
 	 */
@@ -76,5 +76,22 @@ class TextsiteController extends Controller {
 				echo "\n";
 			}
 		}
+	}
+
+	/**
+	 * Calculate Domain Number
+	 * -------------------
+	 * php textsite -c bb-prosp.ini calc byproducts productNumberPerDomain
+	 * php textsite -c bb-prosp.ini calc byproducts 100000
+	 * php textsite -c bb-prosp.ini calc bydomains domainNumberToCals
+	 * php textsite -c bb-prosp.ini calc bydomains 10
+	 */
+	function calc( $function, $params, $options  ) {
+		$this->initialSetupConfig( $options ); //SetupConfig Trait
+		$merchantData = $this->getMerchantData();
+
+		$model = $this->model( 'textdb/calculateDomainNumber' );
+		if ( 'byproducts' == $function ) $model->calcByProducts( $merchantData, $params['number'] );
+		if ( 'bydomains' == $function ) $model->calcByDomains( $merchantData, $params['number'] );
 	}
 }//class

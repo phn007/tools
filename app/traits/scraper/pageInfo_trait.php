@@ -16,7 +16,7 @@ trait PageInfo {
 		$params = $this->setPageInfoParams();
 		$curl = $this->component( 'curl' );
 		$output = $curl->getRequest( $params );
-		$pageinfo = $this->scraper->getPageInfo( $output['content'] );
+		$pageinfo = $this->scraper->getPageInfo( $output['content'] ); //app/extensions/_scraper.php
 		$pageinfo['catUrl'] = $this->item['url'];
 		$this->savePageInfo( $pageinfo );
 		return $pageinfo;

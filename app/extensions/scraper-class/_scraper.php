@@ -22,6 +22,17 @@ class Scraper {
         );
 	}
 
+	private function parseUrlFormat( $html ) {
+		$urlformat = new UrlFormat();
+		return $urlformat->get( $html );
+	}
+
+	private function parseLastPageNumber( $html ) {
+		$lastPageNumber = new LastpageNumber();
+		return $lastPageNumber->get( $html );
+	}
+
+
 	function setPageUrl( $pageinfo, $currentPage ) {
 		$pageUrl = new DefinePageUrl();
 		return $pageUrl->set( $pageinfo, $currentPage );
@@ -39,16 +50,6 @@ class Scraper {
 		$html = str_get_html( $content );
 		if ( !$html ) die( "Empty Html Content: Make Log File" );
 		return $html;
-	}
-
-	private function parseUrlFormat( $html ) {
-		$urlformat = new UrlFormat();
-		return $urlformat->get( $html );
-	}
-
-	private function parseLastPageNumber( $html ) {
-		$lastPageNumber = new LastpageNumber();
-		return $lastPageNumber->get( $html );
 	}
 
 	private function parseProductItems( $html ) {

@@ -36,10 +36,14 @@ class OptionList {
 		$showAction = 'show';
 		$showFunction['functions'] = array( 'config' => array() );
 
+		$calculateAction = 'calc';
+		$calculateFunction['functions'] = array( '*' => array('number') );
+
 		return array( 
 			$createAction => $createFunction, 
 			$serverAction => $serverFunction,
-			$showAction => $showFunction
+			$showAction => $showFunction,
+			$calculateAction => $calculateFunction
 		);
 	}
 
