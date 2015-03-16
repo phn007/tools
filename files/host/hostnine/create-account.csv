@@ -1,0 +1,3 @@
+ACCOUNT,DOMAIN,USERNAME,PASSWORD,LOCATION,PACKAGE
+maxcom,test1.create,tcreate01,1111111,(ASIA) Singapore,Package-01
+maxcom,test2.create,tcreate02,1111112,(ASIA) Singapore,Package-01

@@ -92,4 +92,32 @@ class OptionList {
 			$getDetailAction => $getDetailFunctions
 		);
 	}
+
+	function hostnine() {
+		$accountAction = 'accounts';
+		$accountFunction['functions'] = array(
+			'get' => array( 'account', 'domain' ),
+			'create' => array( 'account', 'domain', 'username', 'password', 'location', 'package' ),
+			'view' => array(),
+			'terminate' => array( 'account', 'domain' )
+		);
+
+		$locationAction = 'locations';
+		$locationFunction['functions'] = array( 'get' => array() );
+
+		$packageAction = 'packages';
+		$packageFunction['functions'] = array( 'get' => array( 'account' ) );
+
+		return array(
+			$accountAction => $accountFunction,
+			$locationAction => $locationFunction,
+			$packageAction => $packageFunction
+		);
+	}
+
+	function statcounter() {
+		$action = 'project';
+		$functions['functions'] = array( 'add' => array() );
+		return array( $action => $functions );
+	}
 }

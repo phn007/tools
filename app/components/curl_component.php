@@ -21,16 +21,20 @@ class CurlComponent extends CUrlOptions {
 		}
 	}
 
-	private function init() {
+	function init() {
 		$this->ch = curl_init();
 	}
 
-	private function exec() {
+	function exec() {
 		return curl_exec ( $this->ch );
 	}
 
-	private function getInfo() {
+	function getInfo() {
 		return curl_getinfo( $this->ch );
+	}
+
+	function getEffectiveUrl() {
+		return curl_getinfo( $this->ch, CURLINFO_EFFECTIVE_URL );
 	}
 }
 
@@ -70,5 +74,21 @@ class CurlOptions {
 
 	protected function referer( $referer ) {
 		curl_setopt( $this->ch, CURLOPT_REFERER, $referer );
+	}
+
+	protected function cookiejar( $filename ) {
+		curl_setopt( $this->ch, CURLOPT_COOKIEJAR, $filename );
+	}
+
+	protected function sslVerifyPeer( $value ) {
+		curl_setopt( $this->ch, CURLOPT_SSL_VERIFYPEER, $value );
+	}
+
+	protected function postfields( $postData ) {
+		curl_setopt( $this->ch, CURLOPT_POSTFIELDS, $postData );
+	}
+
+	protected function post( $value ) {
+		curl_setopt( $this->ch, CURLOPT_POST, $value );
 	}
 }
