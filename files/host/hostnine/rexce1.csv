@@ -1,7 +1,4 @@
 ACCOUNT,DOMAIN,USERNAME,PASSWORD,LOCATION,PACKAGE
-maxcom,test1.create,tcreate01,1111111,(ASIA) Singapore,Package-01
-maxcom,test2.create,tcreate02,1111112,(ASIA) Singapore,Package-01
-,,,,,
 rexce,akalu.rexce.com,rexce01,p2h5a1n1,(US) Central,package-01
 rexce,iss.rexce.com,rexce02,p2h5a1n1,(US) West,package-01
 rexce,tonr.rexce.com,rexce03,p2h5a1n1,(US) East,package-01
