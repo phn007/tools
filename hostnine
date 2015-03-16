@@ -30,6 +30,7 @@ try {
          ),
 
          'usage' => array(
+            '[options] [action] [function] [param 1] [param 2]',
             'accounts get accountname domain.com',
             '-s rtotal_disk -d accounts get accountname all',
             '-f create-account.csv accouonts create',

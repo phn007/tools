@@ -30,11 +30,12 @@ try {
          ),
 
          'usage' => array(
-            '[options] [arg] [param 1] [param 2]',
-            '-c example-folder showconfig',
-            '--config=example-folder showconfig',
-            '-f -c example/config.ini showconfig',
-            '-f --config=example/config.ini showconfig'
+            '[options] [action] [function] [param 1] [param 2]',
+            '-c filename.ini get all',
+            '-c filename.ini get category',
+            '-c filename.ini get brand',
+            '-c filename.ini get product',
+
          ),
 
         'options' => array(
@@ -42,13 +43,13 @@ try {
                'long' => 'config',
                'type' => 'mandatory',
                'short' => 'c',
-               'desc' => array('path', 'file/directory' )
+               'desc' => array('path', 'configs/filename.ini' )
             )
          ),
 
         'parameters' => array(
-            '<param1> funciton ( showconfig, getproduct, textdb, create, run )',
-            '<param2> sub function ( code, logo, htaccess )'
+            '',
+            ''
          ),
         );
 

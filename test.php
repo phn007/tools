@@ -26,3 +26,11 @@
 // } catch (customException $e) {
 //   $e->handle();
 // }
+
+$zip = new ZipArchive;
+if ( $zip->open("archive.zip") === TRUE ) {
+	$zip->extractTo(".");
+	echo "Success";
+} else {
+	echo "Error!";
+}

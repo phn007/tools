@@ -31,23 +31,21 @@ try {
          ),
 
          'usage' => array(
-            '[options] [arg] [param 1] [param 2]',
-            '-c example-folder showconfig',
-            '--config=example-folder showconfig',
-            '-f -c example/config.ini showconfig',
-            '-f --config=example/config.ini showconfig',
-            '-f -c example/config.ini getproduct',
-            '-f -c example/config.ini countproducts',
-            '-f -c example/config.ini textdb',
-            '-f -c example/config.ini create all',
-            '-f -c example/config.ini create code',
-            '-f -c example/config.ini create textdb',
-            '-f -c example/config.ini create logo',
-            '-f -c example/config.ini create htaccess',
-            '-f -c example/config.ini create sitemap',
-            '-f -c example/config.ini create sitemap_index',
-            '-f -c example/config.ini create robots',
-            '-f -c example/config.ini --dev sitedev create code',
+            '[options] [action] [function] [param 1] [param 2]',
+            '-c filename.ini create all',
+            '-c filename.ini create code',
+            '-c filename.ini create config',
+            '-c filename.ini create htaccess',
+            '-c filename.ini create sitemap',
+            '-c filename.ini create sitemapindex',
+            '-c filename.ini create robots',
+            '-c filename.ini create logo',
+            '-c filename.ini create theme',
+            '-c filename.ini -r create code',
+            '-c filename.ini server start',
+            '-c filename.ini show config',
+            '-c filename.ini calc byproducts 100000',
+            '-c filename.ini calc bydomains 10'
          ),
 
         'options' => array(
@@ -56,7 +54,7 @@ try {
                'long' => 'config',
                'type' => 'mandatory',
                'short' => 'c',
-               'desc' => array('path', 'file/directory' )
+               'desc' => array('path', 'configs/filename.ini' )
             ),
 
             array(

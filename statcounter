@@ -30,7 +30,7 @@ try {
          ),
 
          'usage' => array(
-            '[options] [arg] [param 1] [param 2]',
+            '[options] [action] [function] [param 1] [param 2]',
             '-f product-list.csv project add',
          ),
 

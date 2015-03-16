@@ -30,11 +30,11 @@ try {
          ),
 
          'usage' => array(
-            '[options] [arg] [param 1] [param 2]',
-            '-c example-folder showconfig',
-            '--config=example-folder showconfig',
-            '-f -c example/config.ini showconfig',
-            '-f --config=example/config.ini showconfig'
+            '[options] [action] [function] [param 1] [param 2]',
+            '-c csvfile.csv get merchant-name row page',
+            '-c csvfile.csv get nordstrom 0 0',
+            '-c urls.csv get nordstrom 1-10 0',
+
          ),
 
         'options' => array(
@@ -42,13 +42,13 @@ try {
                'long' => 'config',
                'type' => 'mandatory',
                'short' => 'c',
-               'desc' => array('path', 'file/directory' )
+               'desc' => array('path', 'files/scraper/merchant-name/filename.csv' )
             )
          ),
 
         'parameters' => array(
-            '<param1> funciton ( showconfig, getproduct, textdb, create, run )',
-            '<param2> sub function ( code, logo, htaccess )'
+            '<param1> row nuber )',
+            '<param2> page number )'
          ),
         );
 
