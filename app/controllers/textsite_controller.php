@@ -7,9 +7,9 @@ include WT_APP_PATH . 'traits/textsite/siteInfo_trait.php';
 /**
  * Create Textsite
  * -------------------
- * php textsite -c bb-prosp.ini create all
- * php textsite -c bb-prosp.ini -r create code
- * php textsite -c bb-prosp.ini textdb
+ * php textsite -c bb-prosp create all
+ * php textsite -c bb-prosp -r create code
+ * php textsite -c bb-prosp create textdb
 */
 class TextsiteController extends Controller {
 	use SetupConfig;
@@ -54,7 +54,7 @@ class TextsiteController extends Controller {
 	/**
 	 * Run Server
 	 * -------------------
-	 * php textsite -c bb-prosp.ini server start
+	 * php textsite -c bb-prosp server start
 	 */
 	function server( $function, $params, $options ) {
 		$this->initialSetupConfig( $options ); //SetupConfig Trait
@@ -65,7 +65,7 @@ class TextsiteController extends Controller {
 	/**
 	 * Show Config
 	 * -------------------
-	 * php textsite -c bb-prosp.ini show config
+	 * php textsite -c bb-prosp show config
 	 */
 	function show( $function, $params, $options ) {
 		$this->initialSetupConfig( $options ); //SetupConfig Trait
@@ -80,15 +80,14 @@ class TextsiteController extends Controller {
 	/**
 	 * Calculate Domain Number
 	 * -------------------
-	 * php textsite -c bb-prosp.ini calc byproducts productNumberPerDomain
-	 * php textsite -c bb-prosp.ini calc byproducts 100000
-	 * php textsite -c bb-prosp.ini calc bydomains domainNumberToCals
-	 * php textsite -c bb-prosp.ini calc bydomains 10
+	 * php textsite -c bb-prosp calc byproducts productNumberPerDomain
+	 * php textsite -c bb-prosp calc byproducts 100000
+	 * php textsite -c bb-prosp calc bydomains domainNumberToCals
+	 * php textsite -c bb-prosp calc bydomains 10
 	 */
 	function calc( $function, $params, $options  ) {
 		$this->initialSetupConfig( $options ); //SetupConfig Trait
 		$merchantData = $this->getMerchantData();
-
 		$model = $this->model( 'textdb/calculateDomainNumber' );
 		if ( 'byproducts' == $function ) $model->calcByProducts( $merchantData, $params['number'] );
 		if ( 'bydomains' == $function ) $model->calcByDomains( $merchantData, $params['number'] );

@@ -33,6 +33,7 @@ try {
          'usage' => array(
             '[options] [action] [function] [param 1] [param 2]',
             '-c filename create all',
+            '-c filename create textdb',
             '-c filename create code',
             '-c filename create config',
             '-c filename create htaccess',
