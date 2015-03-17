@@ -39,7 +39,7 @@ function homePage( $productItems=null, $categoryList=null, $brandList=null ) {
 	if ( isset( $productItems ) ) {
 		$topProductList = Html::get( 'homepage', 'topProductList', $productItems );
 		$productList = Html::get( 'homepage', 'productList', $productItems );
-	}
+	}	
 	if ( isset( $categoryList ) && isset( $brandList ) ) {
 		$categoryLinkList = Html::get( 'homepage', 'categoryLinkList', array( $categoryList, $brandList ) );
 	}

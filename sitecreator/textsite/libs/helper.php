@@ -61,13 +61,13 @@ class Helper {
  * =======================================================================================
  */
 trait ImageSize {
-	function prosperentApiImage( $img_url, $img_size ) {
+	static function prosperentApiImage( $img_url, $img_size ) {
 		$img = explode( '/', $img_url );//img_size ( 75x75, 125x125, 250x250, 500x500 )
 		$img[4] = $img_size;
 		return implode( '/', $img );
 	}
 
-	function viglinkImgTag( $imgUrl, $imgSize, $alt ) {
+	static function viglinkImgTag( $imgUrl, $imgSize, $alt ) {
 		if ( !empty( $imgSize ) ) {
 			$arr = explode( 'x', $imgSize );
 			$width = $arr[0]; $height = $arr[1];
@@ -76,7 +76,7 @@ trait ImageSize {
 		return '<img src="' . BLANK_IMG . '" data-echo="' . $imgUrl . '" alt="' . $alt . '">';
 	}
 
-	function prosperentApiImgTag( $imgUrl, $imgSize, $alt ) {
+	static function prosperentApiImgTag( $imgUrl, $imgSize, $alt ) {
 		if ( !empty( $imgSize ) ) {
 			$img = explode( '/', $imgUrl );//img_size ( 75x75, 125x125, 250x250, 500x500 )
 			$img[4] = $imgSize;

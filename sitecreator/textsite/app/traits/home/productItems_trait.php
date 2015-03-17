@@ -8,18 +8,16 @@ trait ProductItems {
 		$cachePath = 'cache/home-products';
 		$cacheName = 'home-product-file';
 		$cacheTime = 300;
-		//$c = new Cache();
-		//$cache = $c->get( $cachePath, $cacheName, $cacheTime );
+		$c = new Cache();
+		$cache = $c->get( $cachePath, $cacheName, $cacheTime );
 
-		//if ( $cache == NULL ) {
-
+		if ( $cache == NULL ) {
 			$pathList = $this->GetProductPathFromCategoryListForHomepage(); //GetProductPath Trait
 			$productIems = $this->getProductItems( $pathList );
 			$productGroups = $this->defineProductGroup( $productIems );
 			$cache = $productGroups;
-			
-			//$c->set( $cachePath, $cacheName, $cache );
-		//}
+			$c->set( $cachePath, $cacheName, $cache );
+		}
 		return $cache;
 	}
 }

@@ -60,7 +60,7 @@ trait ClassFile {
 		$this->setClassFile( $dir );
 
 		if ( ! file_exists( $this->file ) ) 
-			die( 'File ' . $this->file . ' not found !!!' );
+			die( 'File ' . $this->file . ' not found!!!' );
 	}
 
 	function checkClassNameExist( $class ) {
