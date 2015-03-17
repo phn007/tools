@@ -63,6 +63,11 @@ try {
                'type' => 'noarg',
                'desc' => array('add route: r.php to root' )
             ),
+            array(
+               'short' => 'z',
+               'type' => 'noarg',
+               'desc' => array('zip files' )
+            )
          ),
 
         'parameters' => array(

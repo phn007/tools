@@ -37,6 +37,8 @@ function zipData($source, $destination) {
 					$zip->addFromString(basename($source), file_get_contents($source));
 				}
 			}
+			echo $destination . ' zip: successfully...';
+			echo "\n";
 			return $zip->close();
 		}
 	}

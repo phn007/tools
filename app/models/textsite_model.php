@@ -10,6 +10,7 @@ include WT_APP_PATH . 'traits/textsite/sitemapIndex_trait.php';
 include WT_APP_PATH . 'traits/textsite/robots_trait.php';
 include WT_APP_PATH . 'traits/textsite/logo_trait.php';
 include WT_APP_PATH . 'traits/textsite/server_trait.php';
+include WT_APP_PATH . 'traits/textsite/zip_trait.php';
 
 class TextsiteModel extends Controller {
 	use Code;
@@ -20,6 +21,7 @@ class TextsiteModel extends Controller {
 	use Robots;
 	use Logo;
 	use Server;
+	use ZipFiles;
 
 	private $config;
 	private $cloneCom;
@@ -69,5 +71,9 @@ class TextsiteModel extends Controller {
 
 	function serverStart( $siteConfigData ) {
 		$this->runServer( $siteConfigData );
+	}
+
+	function zipFiles() {
+		$this->runZipFiles();
 	}
 }

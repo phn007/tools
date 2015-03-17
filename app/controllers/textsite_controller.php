@@ -47,6 +47,8 @@ class TextsiteController extends Controller {
 			if ( 'sitemapindex' == $function || 'siteall' == $function || 'all' == $function ) $model->sitemapIndex();
 			if ( 'robots' == $function   	 || 'siteall' == $function || 'all' == $function ) $model->robots();
 			//if ( 'logo' == $function 		 || 'siteall' == $function || 'all' == $function ) $model->logo();
+			if ( array_key_exists( 'z' , $options ) ) $model->zipFiles();
+			if ( 'zip' == $function ) $model->zipFiles();
 			if ( 'theme' == $function ) $model->theme();
 		}
 	}
@@ -92,4 +94,5 @@ class TextsiteController extends Controller {
 		if ( 'byproducts' == $function ) $model->calcByProducts( $merchantData, $params['number'] );
 		if ( 'bydomains' == $function ) $model->calcByDomains( $merchantData, $params['number'] );
 	}
+
 }//class

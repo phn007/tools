@@ -27,10 +27,10 @@
 //   $e->handle();
 // }
 
-$zip = new ZipArchive;
-if ( $zip->open("archive.zip") === TRUE ) {
-	$zip->extractTo(".");
-	echo "Success";
-} else {
-	echo "Error!";
-}
+// $zip = new ZipArchive;
+// if ( $zip->open("archive.zip") === TRUE ) {
+// 	$zip->extractTo(".");
+// 	echo "Success";
+// } else {
+// 	echo "Error!";
+// }

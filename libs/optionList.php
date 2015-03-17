@@ -27,7 +27,8 @@ class OptionList {
 			'robots'    => array(),
 			'siteall'   => array(),
 			'all'       => array(),
-			'theme'     => array()
+			'theme'     => array(),
+			'zip'       => array()
 		);
 
 		$serverAction = 'server';
