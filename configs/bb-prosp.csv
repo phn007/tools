@@ -1,0 +1,4 @@
+SITE_DIR,SITE_NAME,PREFIX_SID,URL_FORMAT,THEME_NAME,DOMAIN,STATCOUNTER
+bb-prosp1,BB-PROSP,h2-rexce_rexce-sub1-bb,.html,bb,http://localhost:8003,11111111#aaaaaaa
+bb-prosp2,BB-PROSP2,h2-rexce_rexce-sub2-bb,.html,bb,http://localhost:8003/2,11111111#bbbbbb
+bb-prosp3,BB-PROSP3,h2-rexce_rexce-sub3-bb,.html,bb,http://localhost:8003/3,11111111#ccccccc

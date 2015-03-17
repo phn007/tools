@@ -4,7 +4,6 @@ use webtools\controller;
 include WT_APP_PATH . 'traits/setupConfig_trait.php';
 include WT_APP_PATH . 'traits/textsite/siteInfo_trait.php';
 
-
 /**
  * Create Textsite
  * -------------------

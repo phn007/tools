@@ -32,20 +32,20 @@ try {
 
          'usage' => array(
             '[options] [action] [function] [param 1] [param 2]',
-            '-c filename.ini create all',
-            '-c filename.ini create code',
-            '-c filename.ini create config',
-            '-c filename.ini create htaccess',
-            '-c filename.ini create sitemap',
-            '-c filename.ini create sitemapindex',
-            '-c filename.ini create robots',
-            '-c filename.ini create logo',
-            '-c filename.ini create theme',
-            '-c filename.ini -r create code',
-            '-c filename.ini server start',
-            '-c filename.ini show config',
-            '-c filename.ini calc byproducts 100000',
-            '-c filename.ini calc bydomains 10'
+            '-c filename create all',
+            '-c filename create code',
+            '-c filename create config',
+            '-c filename create htaccess',
+            '-c filename create sitemap',
+            '-c filename create sitemapindex',
+            '-c filename create robots',
+            '-c filename create logo',
+            '-c filename create theme',
+            '-c filename -r create code',
+            '-c filename server start',
+            '-c filename show config',
+            '-c filename calc byproducts 100000',
+            '-c filename calc bydomains 10'
          ),
 
         'options' => array(

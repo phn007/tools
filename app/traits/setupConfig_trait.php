@@ -1,22 +1,31 @@
 <?php
+include WT_BASE_PATH . 'libs/csvReader.php';
+
 use webtools\libs\Helper;
 use webtools\libs\Network;
 
 trait SetupConfig {
 	use ReadConfigFile;
+	use ReadSiteConfig;
+	use ReadSiteConfigFromCsv;
 
-	private $filename;
+	private $iniFilename;
+	private $csvFilename;
 
 	function initialSetupConfig( $options ) {
-		$this->filename = $this->getConfigFileName( $options );
+		$this->iniFilename = $this->getConfigFileName( $options );
 		$this->readConfigFile();
+
+		$this->csvFilename = $this->getCsvFilename( $options );
+		$this->readCsvFile();
+	}
+
+	function getCsvFilename( $options ) {
+		return $options['config'] . '.csv';
 	}
 
 	function getConfigFileName( $options ) {
-		$filename = null;
-		if ( isset( $options['config'] ) )
-			$filename = $options['config'];
-		return $filename;
+		return $options['config']  . '.ini';
 	}
 	
 	function getMerchantData() {
@@ -39,7 +48,7 @@ trait SetupConfig {
 	}
 
 	function getProjectName() {
-      $arr = explode( '/', $this->filename );
+      $arr = explode( '/', $this->iniFilename );
       return str_replace( '.ini', '', end( $arr ) );
     }
 }
@@ -48,7 +57,7 @@ trait ReadConfigFile {
 	private $conf;
 
 	function readConfigFile() { 
-		$this->conf = new Config_Lite( CONFIG_PATH . $this->filename ); 
+		$this->conf = new Config_Lite( CONFIG_PATH . $this->iniFilename ); 
 	}
 
 	function getNetwork() {
@@ -75,38 +84,54 @@ trait ReadConfigFile {
 		return $this->conf->get( null, 'clear_database' );
 	}
 
-	function getDomains() {
-		return $this->conf->get( 'site_config', 'domain' );
+	function getMerchants() {
+		return $this->conf->get( 'merchant' );
+	}
+}
+
+trait ReadSiteConfigFromCsv {
+	function readCsvFile() {
+		$path = $this->getCsvPath( $this->csvFilename );
+		$csv = new CSVReader();
+		$csv->useHeaderAsIndex();
+		$this->csvData = $csv->data( $path );
+	}
+
+	function getCsvPath( $filename ) {
+		return WT_BASE_PATH . 'configs/' . $filename;
 	}
 
 	function getSiteNumber() {
 		return count( $this->getDomains() );
 	}
 
-	function getMerchants() {
-		return $this->conf->get( 'merchant' );
+	function getDomains() {
+		foreach ( $this->csvData as $data ) {
+			$domains[] = $data['domain'];
+		}
+		return $domains;
 	}
 
 	function getSiteDirNames() {
-		return $this->conf->get( 'site_config', 'site_dir' );
+		foreach ( $this->csvData as $data ) {
+			$siteDirs[] = $data['site_dir'];
+		}
+		return $siteDirs;
 	}
 
+	/**
+	 * Set SiteConfig Group By DomainName
+	 */
 	function getSiteConfigData() {
-		$siteConfig = $this->conf->get( 'site_config' );
-		return $this->setSiteConfigGroupByDomainName( $siteConfig );
+		foreach ( $this->csvData as $siteConfig ) {
+			$group[$siteConfig['domain']] = $this->setSiteConfigGroup( $siteConfig );
+		}
+		return $group;
 	}
 
-	function setSiteConfigGroupByDomainName( $siteConfig ) {
-		$data = null;
-		foreach ( $siteConfig['domain'] as $keyNumber => $domain )
-			$data[$domain] = $this->setConfigGroup( $siteConfig, $keyNumber );
-		return $data;
-	}
-
-	private function setConfigGroup( $siteConfig, $keyNumber ) {
-		$configKeys = array_keys( $siteConfig );
-		foreach ( $configKeys as $name ) {
-			$data[$name] = $siteConfig[$name][$keyNumber];
+	function setSiteConfigGroup( $siteConfig ) {
+		foreach ( $siteConfig as $key => $value ) {
+			$data[$key] = $value;
 			$data['site_type']     = $this->getSiteType();
 			$data['project']       = $this->getProjectName();
 			$data['network']       = $this->getNetwork();
@@ -114,7 +139,49 @@ trait ReadConfigFile {
 			$data['hostname']      = $this->getHostname();
 			$data['site_category'] = $this->getSiteCategory();
 		}
-
 		return $data;
 	}
 }
+
+trait ReadSiteConfig {
+	//SITE CONFIG
+	// function getSiteConfigData() {
+	// 	$siteConfig = $this->conf->get( 'site_config' );
+	// 	return $this->setSiteConfigGroupByDomainName( $siteConfig );
+	// }
+
+	// function setSiteConfigGroupByDomainName( $siteConfig ) {
+	// 	$data = null;
+	// 	foreach ( $siteConfig['domain'] as $keyNumber => $domain )
+	// 		$data[$domain] = $this->setConfigGroup( $siteConfig, $keyNumber );
+	// 	return $data;
+	// }
+
+	// private function setConfigGroup( $siteConfig, $keyNumber ) {
+	// 	$configKeys = array_keys( $siteConfig );
+	// 	foreach ( $configKeys as $name ) {
+	// 		$data[$name] = $siteConfig[$name][$keyNumber];
+	// 		$data['site_type']     = $this->getSiteType();
+	// 		$data['project']       = $this->getProjectName();
+	// 		$data['network']       = $this->getNetwork();
+	// 		$data['api_key']       = $this->getApiKey();
+	// 		$data['hostname']      = $this->getHostname();
+	// 		$data['site_category'] = $this->getSiteCategory();
+	// 	}
+
+	// 	return $data;
+	// }
+
+	// function getDomains() {
+	// 	return $this->conf->get( 'site_config', 'domain' );
+	// }
+
+	// function getSiteNumber() {
+	// 	return count( $this->getDomains() );
+	// }
+
+	// function getSiteDirNames() {
+	// 	return $this->conf->get( 'site_config', 'site_dir' );
+	// }	
+}
+
