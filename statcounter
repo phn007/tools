@@ -36,10 +36,10 @@ try {
 
         'options' => array(
             array(
-               'long' => 'csvfile',
+               'long' => 'statconfig csvfile',
                'type' => 'mandatory',
-               'short' => 'f',
-               'desc' => array('csvfile path', 'files/statcounter/filename.csv' )
+               'short' => 'c',
+               'desc' => array('csvfile path', 'configs/filename.csv' )
             )
          ),
 

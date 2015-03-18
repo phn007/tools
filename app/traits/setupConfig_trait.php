@@ -8,9 +8,11 @@ trait SetupConfig {
 	use ReadConfigFile;
 	use ReadSiteConfig;
 	use ReadSiteConfigFromCsv;
+	use ReadStatTextFile;
 
 	private $iniFilename;
 	private $csvFilename;
+	private $statTextFilename;
 
 	function initialSetupConfig( $options ) {
 		$this->iniFilename = $this->getConfigFileName( $options );
@@ -18,6 +20,13 @@ trait SetupConfig {
 
 		$this->csvFilename = $this->getCsvFilename( $options );
 		$this->readCsvFile();
+
+		$this->statTextFilename = $this->getStatTextFilename( $options );
+		$this->readStatTextFile();
+	}
+
+	function getStatTextFilename( $options ) {
+		return $options['config'] . '-stat.txt';
 	}
 
 	function getCsvFilename( $options ) {
@@ -51,6 +60,31 @@ trait SetupConfig {
       $arr = explode( '/', $this->iniFilename );
       return str_replace( '.ini', '', end( $arr ) );
     }
+}
+
+trait ReadStatTextFile {
+	function readStatTextFile() {
+		$path = $this->getStatTextFilePath();
+		$this->statData = $this->readTextFile( $path );
+	}
+
+	function readTextFile( $path ) {
+		$contents = file( $path );
+		$contents = array_map( 'trim', $contents );
+		foreach ( $contents as $content ) {
+			$arr = explode( '|', $content );
+			$domain = $arr[0];
+			$scCode = $arr[1];
+			$data[$domain] = $scCode;
+		}
+		return $data;
+	}
+
+	function getStatTextFilePath() {
+		$path = FILES_PATH . 'statcounter/' . $this->statTextFilename;
+		if ( !file_exists( $path ) ) die( 'Statcounter File: ' . $this->statTextFilename . ' not found' );
+		return $path;
+	}
 }
 
 trait ReadConfigFile {
@@ -138,6 +172,11 @@ trait ReadSiteConfigFromCsv {
 			$data['api_key']       = $this->getApiKey();
 			$data['hostname']      = $this->getHostname();
 			$data['site_category'] = $this->getSiteCategory();
+
+			if ( 'domain' == $key ) {
+				$data['statcounter'] = $this->statData[$value];
+			}
+			  
 		}
 		return $data;
 	}

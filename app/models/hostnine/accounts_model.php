@@ -151,8 +151,8 @@ trait GetCsvData {
 	}
 
 	function getCsvPath( $filename ) {
-		$path = FILES_PATH . 'host/hostnine/' . $filename;
-		if ( !file_exists( $path ) ) die( $filename . '.csv not found' );
+		$path = WT_BASE_PATH . 'configs/' . $filename;
+		if ( !file_exists( $path ) ) die( $filename . ' not found' );
 		return $path; 
 	}
 }

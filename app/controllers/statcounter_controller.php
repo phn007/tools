@@ -5,7 +5,7 @@ include WT_APP_PATH . 'traits/setupConfig_trait.php';
 class StatcounterController extends Controller {
 
 	/**
-	 * php statcounter -f project-list.csv project add
+	 * php statcounter -c project-list project add
 	 */
 	function project( $function, $params, $options ) {
 		$model = $this->model( 'statcounter' );

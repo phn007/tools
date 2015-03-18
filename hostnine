@@ -43,10 +43,10 @@ try {
 
         'options' => array(
             array(
-               'long' => 'csvfile',
+               'long' => 'csvfile config',
                'type' => 'mandatory',
-               'short' => 'f',
-               'desc' => array('Domain list', 'files/host/hostnine/filename.csv' )
+               'short' => 'c',
+               'desc' => array('Domain list', 'configs/filename.csv' )
             ),
             array(
                'long' => 'sort',

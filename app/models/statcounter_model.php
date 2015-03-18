@@ -3,16 +3,14 @@ use webtools\controller;
 use webtools\libs\Helper;
 
 include WT_BASE_PATH . 'libs/TablePrinter.php'; 
-include WT_BASE_PATH . 'libs/csvReader.php'; 
 include WT_APP_PATH . 'extensions/scraper-class/_simpleHtmlDom.php';
 
-class statcounterModel extends Controller {
+class statcounterModel {
 	function add( $options ) {
 		if ( ! array_key_exists( 'csvfile', $options ) ) die();
 
 		$csvfile = $this->getCsvData( $options['csvfile'] );
 		$prevUsername = null;
-
 		foreach ( $csvfile as $data ) {
 			if ( $prevUsername != $data['username'] ) 
 				$loginResult = $this->login( $data['username'], $data['password'] );
@@ -96,8 +94,8 @@ class CsvData {
 	}
 
 	function getCsvPath( $filename ) {
-		$path = FILES_PATH . 'statcounter/' . $filename;
-		if ( !file_exists( $path ) ) die( $filename . '.csv not found' );
+		$path = CONFIG_PATH . $filename;;
+		if ( !file_exists( $path ) ) die( $filename . ' not found' );
 		return $path; 
 	}
 }

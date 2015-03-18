@@ -37,7 +37,7 @@ class TextsiteController extends Controller {
 			$config['site_desc']   = $this->getSiteDescription( $config['site_category'] ); //SiteInfomation Trait
 			$config['site_author'] = $this->getSiteAuthor();
 			$config['prod_route']  = $this->getProdRoute();
-			$config['num_cat_item_per_page'] = 48;
+			//$config['num_cat_item_per_page'] = 48;
 
 			$model->initialTextsite( $config, $options );
 			if ( 'code' == $function     	 || 'siteall' == $function || 'all' == $function ) $model->code();
