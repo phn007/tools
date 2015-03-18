@@ -121,4 +121,10 @@ class OptionList {
 		$functions['functions'] = array( 'add' => array() );
 		return array( $action => $functions );
 	}
+
+	function ftp() {
+		$uploadAction = 'action';
+		$uploadFunctions['functions'] = array( 'upload' => array() );
+		return array( $uploadAction => $uploadFunctions );
+	}
 }

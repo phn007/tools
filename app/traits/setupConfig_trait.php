@@ -174,9 +174,9 @@ trait ReadSiteConfigFromCsv {
 			$data['site_category'] = $this->getSiteCategory();
 
 			if ( 'domain' == $key ) {
-				$data['statcounter'] = $this->statData[$value];
-			}
-			  
+				$data['domain'] = 'http://' . $data['domain'];
+				$data['statcounter'] = $this->statData['http://' . $value];
+			}  
 		}
 		return $data;
 	}

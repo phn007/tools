@@ -12,6 +12,7 @@ class statcounterModel {
 		$csvfile = $this->getCsvData( $options['csvfile'] );
 		$prevUsername = null;
 		foreach ( $csvfile as $data ) {
+			$data['domain'] = 'http://' . $data['domain']; // add http:// to domain
 			if ( $prevUsername != $data['username'] ) 
 				$loginResult = $this->login( $data['username'], $data['password'] );
 

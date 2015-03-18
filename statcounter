@@ -31,12 +31,12 @@ try {
 
          'usage' => array(
             '[options] [action] [function] [param 1] [param 2]',
-            '-f product-list.csv project add',
+            '-c product-list.csv project add',
          ),
 
         'options' => array(
             array(
-               'long' => 'statconfig csvfile',
+               'long' => 'config',
                'type' => 'mandatory',
                'short' => 'c',
                'desc' => array('csvfile path', 'configs/filename.csv' )

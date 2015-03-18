@@ -75,6 +75,9 @@ trait CreateAccount {
 
 	function createAccount( $apiKey, $list ) {
 		$params = $this->getCreateAccountParams( $apiKey, $list );
+
+		print_r( $params );
+		die();
 		$newAccount = $this->resellercentralQuery( 'createAccount', $params ); //see, resellerCentralQuery_trait
 		$this->printCreateResult( $list['domain'], $newAccount );
 	}
@@ -82,7 +85,7 @@ trait CreateAccount {
 	function getCreateAccountParams( $apiKey, $list ) {
 		return array(
 			'api_key' => $apiKey, 
-			'domain' => trim( $list['domain'] ), 
+			'domain' => 'http://' . trim( $list['domain'] ), 
 			'username' => trim( $list['username'] ),
 			'password' => trim( $list['password'] ), 
 			'location' => trim( $list['location'] ),
