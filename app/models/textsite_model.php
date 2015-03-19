@@ -11,6 +11,7 @@ include WT_APP_PATH . 'traits/textsite/robots_trait.php';
 include WT_APP_PATH . 'traits/textsite/logo_trait.php';
 include WT_APP_PATH . 'traits/textsite/server_trait.php';
 include WT_APP_PATH . 'traits/textsite/zip_trait.php';
+include WT_APP_PATH . 'traits/textsite/deleteDatabase_trait.php';
 
 class TextsiteModel extends Controller {
 	use Code;
@@ -22,6 +23,7 @@ class TextsiteModel extends Controller {
 	use Logo;
 	use Server;
 	use ZipFiles;
+	use DeleteDatabase;
 
 	private $config;
 	private $cloneCom;
@@ -75,5 +77,9 @@ class TextsiteModel extends Controller {
 
 	function zipFiles() {
 		$this->runZipFiles();
+	}
+
+	function deleteDatabase( $dbs ) {
+		$this->runDeleteDatabase( $dbs );
 	}
 }

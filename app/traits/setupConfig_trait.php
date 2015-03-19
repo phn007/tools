@@ -49,6 +49,13 @@ trait SetupConfig {
 		return $data;
 	}
 
+	function getDatabaseNames() {
+		foreach ( $this->getMerchants() as $merchant ) {
+            $dbs[] = $this->convertMerchantToDbName( $merchant );
+        }
+        return $dbs;
+	}
+
 	function convertMerchantToDbName( $merchant ) {
 		//แปลงชื่อ merchant ให้เป็นชื่อ database
       	$dbName = Helper::clean_string( $merchant );

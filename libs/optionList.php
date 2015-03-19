@@ -40,11 +40,15 @@ class OptionList {
 		$calculateAction = 'calc';
 		$calculateFunction['functions'] = array( '*' => array('number') );
 
+		$delDbAction = 'db';
+		$delDbFunction['functions'] = array( 'del' => array() );
+
 		return array( 
 			$createAction => $createFunction, 
 			$serverAction => $serverFunction,
 			$showAction => $showFunction,
-			$calculateAction => $calculateFunction
+			$calculateAction => $calculateFunction,
+			$delDbAction  => $delDbFunction
 		);
 	}
 

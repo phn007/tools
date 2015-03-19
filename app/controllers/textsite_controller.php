@@ -95,4 +95,11 @@ class TextsiteController extends Controller {
 		if ( 'bydomains' == $function ) $model->calcByDomains( $merchantData, $params['number'] );
 	}
 
+	function DB(  $function, $params, $options  ) {
+		$this->initialSetupConfig( $options );
+		$dbs = $this->getDatabaseNames();
+		$model = $this->model( 'textsite' );
+		if ( $function == 'del' ) $model->deleteDatabase( $dbs );
+	}
+
 }//class
