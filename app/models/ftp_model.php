@@ -14,17 +14,17 @@ class FtpModel extends Controller {
 	function upload( $options, $siteConfigData ) {
 		$hostData = $this->getHostConfigData ( $options );
 
-		$end = 2;
+		//$end = 2;
 		$i = 1;
 		foreach ( $siteConfigData as $domain => $data ) {
 			$ftp = new FTPClient();
 			$this->connectAndLogin( $ftp, $domain, $hostData );
-			$this->uploadSiteZipFormat( $ftp, $data );
 			$this->uploadUnzipScript( $ftp );
+			$this->uploadSiteZipFormat( $ftp, $data );
 			$this->displayListOfFilesInDirectory( $ftp );
 			print_r( $ftp->getMessages() );	
 			$i++;
-			if ( $i == $end ) break;	
+			//if ( $i == $end ) break;	
 		}
 
 		$j = 1;
@@ -33,7 +33,7 @@ class FtpModel extends Controller {
 			print_r( $result );
 
 			$j++;
-			if ( $j == $end ) break;
+			//if ( $j == $end ) break;
 		}
 
 
