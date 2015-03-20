@@ -11,6 +11,7 @@ class FtpController extends Controller {
 	function action( $function, $params, $options ) {
 		$this->initIniConfig( $options );
 		$this->initCsvConfig( $options );
+		$this->iniStatConfig( $options );
 		$siteConfigData = $this->getSiteConfigData();
 
 		$model = $this->model( 'ftp' );

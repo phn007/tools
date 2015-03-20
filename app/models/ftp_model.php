@@ -21,22 +21,35 @@ class FtpModel extends Controller {
 			$this->connectAndLogin( $ftp, $domain, $hostData );
 			$this->uploadUnzipScript( $ftp );
 			$this->uploadSiteZipFormat( $ftp, $data );
+			$this->displayLogMessage( $ftp, $domain );
+			$result = $this->runUnzip( $data );
 			$this->displayListOfFilesInDirectory( $ftp );
-			print_r( $ftp->getMessages() );	
+			echo "\n";
+			
 			$i++;
 			//if ( $i == $end ) break;	
 		}
 
-		$j = 1;
-		foreach ( $siteConfigData as $data ) {
-			$result = $this->runUnzip( $data );
-			print_r( $result );
+		// $j = 1;
+		// foreach ( $siteConfigData as $data ) {
+		// 	$result = $this->runUnzip( $data );
+		// 	print_r( $result );
 
-			$j++;
-			//if ( $j == $end ) break;
-		}
+		// 	$j++;
+		// 	//if ( $j == $end ) break;
+		// }
 
 
+	}
+
+	function displayLogMessage( $ftp, $domain ) {
+		echo "-------------------------------------\n";
+		echo "Uploading Files to " . $domain . "\n";
+		echo "-------------------------------------\n";
+		foreach ( $ftp->getMessages() as $line ) {
+			echo $line;
+			echo "\n";
+		}	
 	}
 }
 
@@ -87,7 +100,14 @@ trait UploadSiteZip {
 	function displayListOfFilesInDirectory( $ftp ) {
 		$ftp->changeDir( $this->root );
 		$files = $ftp->getDirListing();
-		print_r( $files );
+
+		echo "----------\n";
+		echo "Files List\n";
+		echo "----------\n";
+		foreach ( $files as $file ) {
+			echo $file;
+			echo "\n";
+		}
 	}
 }
 

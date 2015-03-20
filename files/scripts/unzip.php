@@ -4,9 +4,8 @@ foreach ($_POST as $file) {
 	$target_path  = $file['target_path'];
 	$unzip_result = unzip( $open_path, $target_path );
 }
-echo "Display files after unzip\n";
-echo "========================="
-displayFileAndDirectory();
+
+//displayFileAndDirectory();
 
 function unzip( $open_path, $target_path ) {
 	$zip = new ZipArchive(); # extension=php_zip.dll - php.ini
@@ -20,13 +19,13 @@ function unzip( $open_path, $target_path ) {
 	unlink( $open_path ); #deletes the zip file. We no longer need it.
 }
 
-function displayFileAndDirectory() {
-	if ( $handle = opendir('.') ) {
-		while ( false !== ( $entry = readdir( $handle ) ) ) {
-			if ( $entry != "." && $entry != "..") {
-			    echo "$entry\n";
-			}
-		}
-		closedir($handle);
-	}
-}
+// function displayFileAndDirectory() {
+// 	if ( $handle = opendir('.') ) {
+// 		while ( false !== ( $entry = readdir( $handle ) ) ) {
+// 			if ( $entry != "." && $entry != "..") {
+// 			    echo "$entry\n";
+// 			}
+// 		}
+// 		closedir($handle);
+// 	}
+// }
