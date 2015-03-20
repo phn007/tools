@@ -5,8 +5,15 @@ trait ZipFiles {
 	function runZipFiles() {
 		$source = $this->getZipSourcePath();
 		$destination = $this->getZipDestinationPath();
-		zipData( $source, $destination );
+		chdir( $source );
+		zipData( '.', $destination );
+		//$this->zipDataByShellCommand( $destination );
+	}
 
+	function zipDataByShellCommand( $destination ) {
+		$command = 'zip -r ' . $destination . ' ' . './*';
+		echo shell_exec( $command );
+		
 	}
 
 	function getZipSourcePath() {
@@ -14,6 +21,6 @@ trait ZipFiles {
 	}
 
 	function getZipDestinationPath() {
-		return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir'] . '.zip';;
+		return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir'] . '.zip';
 	}
 }

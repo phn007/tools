@@ -20,7 +20,8 @@ class AppIndex
 
 
 		define( 'TEXTDB_PATH', '../textdb/' );
-		define( 'TEXTSITE_PATH', '../textsite/' );
+		//define( 'TEXTSITE_PATH', '../textsite/' );
+		define( 'TEXTSITE_PATH', dirname( WT_BASE_PATH ) . '/textsite/' );
 		define( 'CONFIG_PATH', WT_BASE_PATH . 'configs/' );
 
 		//TextSpinner
