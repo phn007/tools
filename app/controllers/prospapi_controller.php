@@ -19,9 +19,6 @@ class ProspApiController extends Controller {
 		$model = $this->model( 'prospapi' );
 		$model->connectDatabase();
 
-
-		die();
-
 		foreach ( $merchants as $merchant => $data ) {
 			$dbName = $data['db_name'];
 			$clearStatus = $data['clear_db'];
