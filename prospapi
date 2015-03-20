@@ -31,10 +31,10 @@ try {
 
          'usage' => array(
             '[options] [action] [function] [param 1] [param 2]',
-            '-c filename.ini get all',
-            '-c filename.ini get category',
-            '-c filename.ini get brand',
-            '-c filename.ini get product',
+            '-c filename get all',
+            '-c filename get category',
+            '-c filename get brand',
+            '-c filename get product',
 
          ),
 

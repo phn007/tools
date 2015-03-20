@@ -5,7 +5,7 @@ include WT_APP_PATH . 'traits/setupConfig_trait.php';
 /**
  * Example commandline
  * -------------------
- * php prospapi -c bb-prosp.ini get all
+ * php prospapi -c bb-prosp get all
  */
 class ProspApiController extends Controller {
 	use SetupConfig;
@@ -18,6 +18,9 @@ class ProspApiController extends Controller {
 		$merchants = $this->getMerchantData();
 		$model = $this->model( 'prospapi' );
 		$model->connectDatabase();
+
+
+		die();
 
 		foreach ( $merchants as $merchant => $data ) {
 			$dbName = $data['db_name'];

@@ -4,12 +4,21 @@ class database
 {
    function connectDatabase()
    {
-      $hostname = 'localhost';
-      //$hostname = '127.0.0.1';
+      //$hostname = 'localhost';
+      $hostname = '127.0.0.1';
       $username = 'root';
       $password = 'p2h5a1n1';
-
       $conn = mysqli_connect( $hostname, $username, $password ) or die ( 'could not connect to database' );
+
+
+
+      if ( $conn ) {
+         echo "Yes, Connected";
+      } else {
+         echo "Could Not connect";
+      }
+
+      die();
       return $conn;
    }
 
