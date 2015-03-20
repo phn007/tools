@@ -9,7 +9,8 @@ class FtpController extends Controller {
 	 * php ftp -c bb-prosp action upload
 	 */
 	function action( $function, $params, $options ) {
-		$this->initialSetupConfig( $options ); //SetupConfig Trait
+		$this->initIniConfig( $options );
+		$this->initCsvConfig( $options );
 		$siteConfigData = $this->getSiteConfigData();
 
 		$model = $this->model( 'ftp' );

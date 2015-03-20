@@ -12,9 +12,10 @@ class ProspApiController extends Controller {
 
 	function get( $function, $params, $options ) {
 		//setupConfig_trait.php
-		$this->initialSetupConfig( $options );
-		$merchants = $this->getMerchantData();
+		$this->initIniConfig( $options );
+		$this->initCsvConfig( $options );
 
+		$merchants = $this->getMerchantData();
 		$model = $this->model( 'prospapi' );
 		$model->connectDatabase();
 

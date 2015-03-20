@@ -16,7 +16,11 @@ class TextsiteController extends Controller {
 	use SiteInfomation;
 	
 	function create( $function, $params, $options ) {
-		$this->initialSetupConfig( $options ); //SetupConfig Trait
+		//SetupConfig Trait
+		$this->initIniConfig( $options );
+		$this->initCsvConfig( $options );
+		$this->iniStatConfig( $options );
+
 		$merchantData   = $this->getMerchantData();
 		$siteNumber     = $this->getSiteNumber();
 		$projectName    = $this->getProjectName();
@@ -59,9 +63,19 @@ class TextsiteController extends Controller {
 	 * php textsite -c bb-prosp server start
 	 */
 	function server( $function, $params, $options ) {
-		$this->initialSetupConfig( $options ); //SetupConfig Trait
+		//SetupConfig Trait
+		$this->initIniConfig( $options );
+		$this->initCsvConfig( $options );
+
+		$siteDirs = $this->getSiteDirNames();
+		$domains = $this->getDomains();
+		$config = array(
+			'project' => $this->getProjectName(),
+			'siteDir' => $siteDirs[0],
+			'hostname'  => $domains[0]
+		);
 		$model = $this->model( 'textsite' );
-		if ( 'start' == $function ) $model->serverStart( $this->getSiteConfigData() );
+		if ( 'start' == $function ) $model->serverStart( $config );
 	}
 
 	/**
@@ -70,7 +84,10 @@ class TextsiteController extends Controller {
 	 * php textsite -c bb-prosp show config
 	 */
 	function show( $function, $params, $options ) {
-		$this->initialSetupConfig( $options ); //SetupConfig Trait
+		//SetupConfig Trait
+		$this->initIniConfig( $options );
+		$this->initCsvConfig( $options );
+		$this->iniStatConfig( $options );
 		if ( 'config' == $function ) {
 			foreach ( $this->getSiteConfigData() as $config ) {
 				print_r( $config );
@@ -88,15 +105,18 @@ class TextsiteController extends Controller {
 	 * php textsite -c bb-prosp calc bydomains 10
 	 */
 	function calc( $function, $params, $options  ) {
-		$this->initialSetupConfig( $options ); //SetupConfig Trait
+		$this->initIniConfig( $options );//SetupConfig Trait
 		$merchantData = $this->getMerchantData();
 		$model = $this->model( 'textdb/calculateDomainNumber' );
 		if ( 'byproducts' == $function ) $model->calcByProducts( $merchantData, $params['number'] );
 		if ( 'bydomains' == $function ) $model->calcByDomains( $merchantData, $params['number'] );
 	}
 
+	/**
+	 * php textsite -c rexce1 db del
+	 */
 	function DB(  $function, $params, $options  ) {
-		$this->initialSetupConfig( $options );
+		$this->initIniConfig( $options );//SetupConfig Trait
 		$dbs = $this->getDatabaseNames();
 		$model = $this->model( 'textsite' );
 		if ( $function == 'del' ) $model->deleteDatabase( $dbs );

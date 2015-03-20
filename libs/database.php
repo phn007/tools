@@ -4,8 +4,8 @@ class database
 {
    function connectDatabase()
    {
-      //$hostname = 'localhost';
-      $hostname = '127.0.0.1';
+      $hostname = 'localhost';
+      //$hostname = '127.0.0.1';
       $username = 'root';
       $password = 'p2h5a1n1';
 
@@ -54,7 +54,8 @@ class database
       }
       else
       {
-         //die( "Error creating database: " . mysqli_error($conn) );
+         die( "Error creating database: " . mysqli_error($conn) );
+         echo "\n";
          //log
       }
    }

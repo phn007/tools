@@ -11,7 +11,9 @@ class HtmlController extends Controller {
 	use SetupConfig;
 
 	function build( $function, $params, $options ) {
-		$this->initialSetupConfig( $options ); //SetupConfig Trait
+		$this->initIniConfig( $options );
+		$this->initCsvConfig( $options );
+		$this->iniStatConfig( $options );
 		$siteConfigData = $this->getSiteConfigData(); //SetupConfig Trait
 		$model = $this->model('html');
 		foreach ( $siteConfigData as $config ) { 

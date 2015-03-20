@@ -14,13 +14,17 @@ trait SetupConfig {
 	private $csvFilename;
 	private $statTextFilename;
 
-	function initialSetupConfig( $options ) {
+	function initIniConfig( $options ) {
 		$this->iniFilename = $this->getConfigFileName( $options );
 		$this->readConfigFile();
+	}
 
+	function initCsvConfig( $options ) {
 		$this->csvFilename = $this->getCsvFilename( $options );
 		$this->readCsvFile();
+	}
 
+	function iniStatConfig( $options ) {
 		$this->statTextFilename = $this->getStatTextFilename( $options );
 		$this->readStatTextFile();
 	}
