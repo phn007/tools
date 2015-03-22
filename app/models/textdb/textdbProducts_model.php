@@ -33,13 +33,14 @@ class TextdbProductsModel extends Controller {
 	function create( $projectName, $merchantData, $siteNumber, $siteDirNames ) {
 		$this->projectName = $projectName;
 		$this->siteDirNames = $siteDirNames;
+		$merchantData = $this->randomMerchantdata( $merchantData );
 
 		$this->initialMysqlDatabase(); //MySQLDatabase Trait
 		$countProductData = $this->countTotalProducts( $merchantData ); //MySQLDatabase Trait
 		$totalProducts = $countProductData['totalProducts'];
 		$merchantProductNumber = $countProductData['merchantProductNumber'];
 		$this->productNumberPerSite = $this->calculateProductNumberPerSite( $totalProducts, $siteNumber );
-
+		
 		foreach ( $merchantData as $merchant => $data ) {
 			$dbName = $data['db_name'];
 			$this->network = $data['network'];
@@ -69,6 +70,10 @@ class TextdbProductsModel extends Controller {
 		return ceil( $totalProducts / $siteNumber );
 	}
 
+	function randomMerchantdata( $merchantData ) {
+		shuffle( $merchantData );
+		return $merchantData;
+	}
 	
 }
 
