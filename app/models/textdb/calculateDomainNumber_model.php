@@ -2,6 +2,7 @@
 use webtools\controller;
 use webtools\libs\Helper;
 include WT_APP_PATH . 'traits/textdb/mysqldb_trait.php';
+include WT_BASE_PATH . 'libs/TablePrinter.php'; 
 
 class CalculateDomainNumberModel extends Controller {
 	use MySQLDatabase;
@@ -22,11 +23,13 @@ class CalculateDomainNumberModel extends Controller {
 	}
 
 	function printResult( $data, $result, $type ) {
-		echo "\n";
+		$p = new TablePrinter( [ 'No.', 'Merchant', 'Product Number' ] );
+		$i = 1;
 		foreach ( $data['merchantProductNumber'] as $merchant => $number ) {
-			echo $merchant . ': ' . $number;
-			echo "\n"; 
+			$p->addRow( $i, $merchant,  $number );
+			$i++;
 		}
+		$p->output();
 		echo "\n";
 		echo 'Total Products: ' . $data['totalProducts'];
 		echo "\n";
