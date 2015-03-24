@@ -38,7 +38,7 @@ class AccountsModel extends Controller {
 	 * Setup a new account.
 	 */
 	function create( $params , $options ) {
-		if ( array_key_exists( 'csvfile', $options ) )
+		if ( array_key_exists( 'config', $options ) )
 			$this->createAccountFromCsvFile( $options );
 		else 
 			$this->createAccountFromInputParams( $params );
@@ -48,7 +48,7 @@ class AccountsModel extends Controller {
 	 * Terminate and remove an account's hosting service that is setup within your Reseller Central.
 	 */
 	function terminate( $params, $options ) {
-		if ( array_key_exists( 'csvfile', $options ) )
+		if ( array_key_exists( 'config', $options ) )
 			$this->terminateAccountFromCsvFile( $options );
 		else 
 			$this->terminateAccountFromInputParams( $params );	
@@ -61,7 +61,7 @@ class AccountsModel extends Controller {
  */
 trait CreateAccount {
 	function createAccountFromCsvFile( $options ) {
-		$results = $this->getAccountListFromCsvFile( $options['csvfile'] );
+		$results = $this->getAccountListFromCsvFile( $options['config'] );
 		foreach ( $results as $list ) {
 			$apiKey = $this->getApiKey( trim( $list['account'] ) );
 			$this->createAccount( $apiKey, $list );
@@ -75,9 +75,6 @@ trait CreateAccount {
 
 	function createAccount( $apiKey, $list ) {
 		$params = $this->getCreateAccountParams( $apiKey, $list );
-
-		print_r( $params );
-		die();
 		$newAccount = $this->resellercentralQuery( 'createAccount', $params ); //see, resellerCentralQuery_trait
 		$this->printCreateResult( $list['domain'], $newAccount );
 	}
@@ -85,7 +82,7 @@ trait CreateAccount {
 	function getCreateAccountParams( $apiKey, $list ) {
 		return array(
 			'api_key' => $apiKey, 
-			'domain' => 'http://' . trim( $list['domain'] ), 
+			'domain' => trim( $list['domain'] ), 
 			'username' => trim( $list['username'] ),
 			'password' => trim( $list['password'] ), 
 			'location' => trim( $list['location'] ),
@@ -107,7 +104,7 @@ trait CreateAccount {
  */
 trait TerminateAccount {
 	function terminateAccountFromCsvFile( $options  ) {
-		$results = $this->getAccountListFromCsvFile( $options['csvfile'] );
+		$results = $this->getAccountListFromCsvFile( $options['config'] );
 		foreach (  $results as $list ) {
 			$apiKey = $this->getApiKey( trim( $list['account'] ) );
 			$domain = trim( $list['domain'] );

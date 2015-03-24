@@ -63,8 +63,11 @@ trait SelectCategory {
 
 	function getCategoryFilePathBeginFromRootDir( $file ) {
 		$arr = explode( '/', $file );
-		unset( $arr[0], $arr[1], $arr[2], $arr[3] );
-		return implode( '/', $arr );
+		$lastArr = ( count( $arr ) ) - 1;
+		$productNameArr = $lastArr;
+		$productDirArr = $productNameArr - 1;
+		$contentDirArr = $productDirArr - 1;
+		return $arr[$contentDirArr] . '/' . $arr[$productDirArr] . '/' . $arr[$productNameArr];
 	}
 
 	function getProductItemNumber( $productItems ) {

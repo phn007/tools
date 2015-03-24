@@ -43,12 +43,16 @@ class OptionList {
 		$delDbAction = 'db';
 		$delDbFunction['functions'] = array( 'del' => array() );
 
+		$separatorAction = 'separator';
+		$deparatorFunction['functions'] = array( 'check' => array() );
+
 		return array( 
 			$createAction => $createFunction, 
 			$serverAction => $serverFunction,
 			$showAction => $showFunction,
 			$calculateAction => $calculateFunction,
-			$delDbAction  => $delDbFunction
+			$delDbAction  => $delDbFunction,
+			$separatorAction => $deparatorFunction
 		);
 	}
 

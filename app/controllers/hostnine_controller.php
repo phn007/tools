@@ -25,9 +25,6 @@ class HostnineController extends Controller {
 		if ( $function == 'get' ) $model->get( $params, $options );
 		if ( $function == 'create' ) $model->create( $params, $options );
 		if ( $function == 'terminate' ) $model->terminate( $params, $options );
-
-		// if ( $function == 'view' )
-
 	}
 
 	function myAccount( $function, $params, $options ) {

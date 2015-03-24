@@ -7,9 +7,10 @@ include WT_APP_PATH . 'extensions/scraper-class/_simpleHtmlDom.php';
 
 class statcounterModel {
 	function add( $options ) {
-		if ( ! array_key_exists( 'csvfile', $options ) ) die();
+		if ( ! array_key_exists( 'config', $options ) ) die();
 
-		$csvfile = $this->getCsvData( $options['csvfile'] );
+		$filename = $this->getCsvFilename( $options['config'] );
+		$csvfile = $this->getCsvData( $filename );
 		$prevUsername = null;
 		foreach ( $csvfile as $data ) {
 			$data['domain'] = 'http://' . $data['domain']; // add http:// to domain
@@ -58,6 +59,9 @@ class statcounterModel {
 		$csv = new CsvData();
 		return $csv->get( $filename );
 	}
+	function getCsvFilename( $filename ) {
+		return $filename . '.csv';
+	}
 
 	function login( $username, $password ) {
 		$login = new Login( $username, $password );
@@ -82,7 +86,7 @@ class WriteResult {
 	}
 
 	function getFilename( $options ) {
-		return str_replace( '.csv', '', $options['csvfile'] ) . '.txt';
+		return str_replace( '.csv', '', $options['config'] ) . '.txt';
 	}
 }
 

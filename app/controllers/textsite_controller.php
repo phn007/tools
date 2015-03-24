@@ -115,11 +115,21 @@ class TextsiteController extends Controller {
 	/**
 	 * php textsite -c rexce1 db del
 	 */
-	function DB(  $function, $params, $options  ) {
+	function DB( $function, $params, $options ) {
 		$this->initIniConfig( $options );//SetupConfig Trait
 		$dbs = $this->getDatabaseNames();
 		$model = $this->model( 'textsite' );
 		if ( $function == 'del' ) $model->deleteDatabase( $dbs );
+	}
+
+	/**
+	 * php textsite -c rexce1 separator check
+	 */
+	function separator( $function, $params, $options ) {
+		$this->initIniConfig( $options );//SetupConfig Trait
+		$merchants = $this->getMerchants();
+		$model = $this->model( 'textsite' );
+		if ( $function == 'check' ) $model->checkSeparator( $merchants );
 	}
 
 }//class

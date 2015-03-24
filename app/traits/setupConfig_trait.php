@@ -83,11 +83,14 @@ trait ReadStatTextFile {
 		$contents = file( $path );
 		$contents = array_map( 'trim', $contents );
 		foreach ( $contents as $content ) {
-			$arr = explode( '|', $content );
-			$domain = $arr[0];
-			$scCode = $arr[1];
-			$data[$domain] = $scCode;
+			if ( !empty( $content ) ) {
+				$arr = explode( '|', $content );
+				$domain = $arr[0];
+				$scCode = $arr[1];
+				$data[$domain] = $scCode;
+			}
 		}
+		if ( empty( $data ) ) die( "Empty Statcouter code" );
 		return $data;
 	}
 

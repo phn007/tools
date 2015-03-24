@@ -43,6 +43,7 @@ class TextdbProductsModel extends Controller {
 		
 		foreach ( $merchantData as $merchant => $data ) {
 			$dbName = $data['db_name'];
+			$this->dbName = $dbName; //for print out - ( printWriteTotalProduct function )
 			$this->network = $data['network'];
 			$productNumber = $merchantProductNumber[$merchant];
 			$sqls = $this->createSQLString( $productNumber ); //MySQLDatabase Trait			
@@ -235,7 +236,7 @@ trait FilterCategoryName {
 trait PrintTextDbProductResult {
 	function printWriteTotalProduct( $products, $file ) {
 		$num = str_pad( count( $products ), 4, "0", STR_PAD_LEFT );
-		echo $num . ': ' . $file . "\n";
+		echo $num . ': ' . $this->dbName . ' ' . $file . "\n";
 	}
 	
 	function printConclusionTotal( $totalProducts ) {
