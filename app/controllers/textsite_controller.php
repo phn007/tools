@@ -1,8 +1,10 @@
 <?php
 use webtools\controller;
 
-include WT_APP_PATH . 'traits/setupConfig_trait.php';
+//include WT_APP_PATH . 'traits/setupConfig_trait.php';
+include WT_APP_PATH . 'traits/setupConfigV2_trait.php';
 include WT_APP_PATH . 'traits/textsite/siteInfo_trait.php';
+
 
 /**
  * Create Textsite
@@ -40,7 +42,7 @@ class TextsiteController extends Controller {
 		if ( 'textdb' == $function || 'all' == $function ) {
 			$productModel = $this->model( 'textdb/textdbProducts' );
 			$productModel->create( $projectName, $merchantData, $siteNumber, $siteDirNames );
-			
+
 			$categoryModel = $this->model( 'textdb/textdbCategories' );
 			$categoryModel->create( $siteConfigData );
 			$categoryListModel = $this->model( 'textdb/categoryListForHomepage' );

@@ -4,29 +4,34 @@ use webtools\libs\Helper;
 
 include WT_BASE_PATH . 'libs/TablePrinter.php'; 
 include WT_APP_PATH . 'extensions/scraper-class/_simpleHtmlDom.php';
+include WT_APP_PATH . 'traits/getCsvConfigData_trait.php';
+include WT_BASE_PATH . 'libs/csvReaderV2.php';
 
 class statcounterModel {
+	use GetCsvConfigData;
+
 	function add( $options ) {
 		if ( ! array_key_exists( 'config', $options ) ) die();
+		$csvfile = $this->getDataFromCsvFile( $options ); //see, getCsvConfigData Trait
 
-		$filename = $this->getCsvFilename( $options['config'] );
-		$csvfile = $this->getCsvData( $filename );
+		print_r( $csvfile );
+		die();
 		$prevUsername = null;
 		foreach ( $csvfile as $data ) {
 			$data['domain'] = 'http://' . $data['domain']; // add http:// to domain
-			if ( $prevUsername != $data['username'] ) 
-				$loginResult = $this->login( $data['username'], $data['password'] );
+			if ( $prevUsername != $data['stat_user'] ) 
+				$loginResult = $this->login( $data['stat_user'], $data['stat_pass'] );
 
 			$addResult = $this->addNewProject( $loginResult, $data );
 			$securityCode = $this->getSecurityCode( $addResult );
 			$this->writeFile( $options, $data, $securityCode );
 			$this->printResult( $data, $securityCode );
-			$prevUsername = $data['username'];
+			$prevUsername = $data['stat_user'];
 		}	
 	}
 
 	function printResult( $data, $code ) {
-		$content  = $data['username'] . ', ';
+		$content  = $data['stat_user'] . ', ';
 		$content .= $data['group'] . ', ';
 		$content .= $data['project'] . ', ';
 		$content .= $data['domain'] . ', ';
@@ -55,14 +60,6 @@ class statcounterModel {
 				);
 	}
 
-	function getCsvData( $filename ) {
-		$csv = new CsvData();
-		return $csv->get( $filename );
-	}
-	function getCsvFilename( $filename ) {
-		return $filename . '.csv';
-	}
-
 	function login( $username, $password ) {
 		$login = new Login( $username, $password );
 		return $login->runLogin();
@@ -86,25 +83,9 @@ class WriteResult {
 	}
 
 	function getFilename( $options ) {
-		return str_replace( '.csv', '', $options['config'] ) . '.txt';
+		return str_replace( '.csv', '', $options['config'] ) . '-stat.txt';
 	}
 }
-
-class CsvData {
-	function get( $filename ) {
-		$path = $this->getCsvPath( $filename );
-		$csv = new CSVReader();
-		$csv->useHeaderAsIndex();
-		return $csv->data( $path );
-	}
-
-	function getCsvPath( $filename ) {
-		$path = CONFIG_PATH . $filename;;
-		if ( !file_exists( $path ) ) die( $filename . ' not found' );
-		return $path; 
-	}
-}
-
 
 class SecurityCode {
 	function getCode( $addResult ) {
@@ -247,8 +228,6 @@ class Login {
 		# Check to make sure cURL is avaiable
 		if( !function_exists( 'curl_init' ) || ! function_exists( 'curl_exec' ) )
 			echo "cUrl is not available in you PHP server.";
-
-		
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $this->url() );
 		curl_setopt( $ch, CURLOPT_COOKIEJAR, $this->cookieFile() );

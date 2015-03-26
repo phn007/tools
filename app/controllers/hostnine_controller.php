@@ -10,6 +10,7 @@ class HostnineController extends Controller {
 	 *
 	 * options
 	 * -c --csvfile config
+	 * --row row of csv file
 	 * -s --sort domain,rtotal_disk etc...
 	 * -a --ascending
 	 * -d --descending

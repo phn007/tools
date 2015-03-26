@@ -59,6 +59,12 @@ try {
             ),
 
             array(
+               'long' => 'row',
+               'type' => 'mandatory',
+               'desc' => array('row number', '1-3, 3' )
+            ),
+
+            array(
                'short' => 'r',
                'type' => 'noarg',
                'desc' => array('add route: r.php to root' )

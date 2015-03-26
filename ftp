@@ -40,6 +40,11 @@ try {
                'type' => 'mandatory',
                'short' => 'c',
                'desc' => array('path', 'file/configs/filename.csv' )
+            ),
+            array(
+               'long' => 'row',
+               'type' => 'mandatory',
+               'desc' => array('row number', '1-3, 3' )
             )
          ),
 

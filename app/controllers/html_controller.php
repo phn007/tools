@@ -1,6 +1,6 @@
 <?php
 use webtools\controller;
-include WT_APP_PATH . 'traits/setupConfig_trait.php';
+include WT_APP_PATH . 'traits/setupConfigV2_trait.php';
 
 /**
  * Example commandline

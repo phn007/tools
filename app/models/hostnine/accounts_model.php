@@ -3,9 +3,11 @@ use webtools\controller;
 use webtools\libs\Helper;
 
 include WT_BASE_PATH . 'libs/TablePrinter.php'; 
-include WT_BASE_PATH . 'libs/csvReader.php'; 
+//include WT_BASE_PATH . 'libs/csvReader.php';
+include WT_BASE_PATH . 'libs/csvReaderV2.php';
 include WT_APP_PATH . 'traits/hostnine/hostnineInfo_trait.php';
 include WT_APP_PATH . 'traits/hostnine/resellerCentralQuery_trait.php';
+include WT_APP_PATH . 'traits/getCsvConfigData_trait.php';
 
 class AccountsModel extends Controller {
 	use HostnineInfo;
@@ -17,7 +19,7 @@ class AccountsModel extends Controller {
 
 	//termainate account
 	use TerminateAccount;
-	use GetCsvData;
+	use GetCsvConfigData;
 
 	//create account
 	use CreateAccount;
@@ -61,7 +63,7 @@ class AccountsModel extends Controller {
  */
 trait CreateAccount {
 	function createAccountFromCsvFile( $options ) {
-		$results = $this->getAccountListFromCsvFile( $options['config'] );
+		$results = $this->getDataFromCsvFile( $options ); //see, getCsvConfigData Trait
 		foreach ( $results as $list ) {
 			$apiKey = $this->getApiKey( trim( $list['account'] ) );
 			$this->createAccount( $apiKey, $list );
@@ -83,8 +85,8 @@ trait CreateAccount {
 		return array(
 			'api_key' => $apiKey, 
 			'domain' => trim( $list['domain'] ), 
-			'username' => trim( $list['username'] ),
-			'password' => trim( $list['password'] ), 
+			'username' => trim( $list['host_user'] ),
+			'password' => trim( $list['host_pass'] ), 
 			'location' => trim( $list['location'] ),
 			'package' => trim( $list['package'] )
 		);
@@ -104,7 +106,7 @@ trait CreateAccount {
  */
 trait TerminateAccount {
 	function terminateAccountFromCsvFile( $options  ) {
-		$results = $this->getAccountListFromCsvFile( $options['config'] );
+		$results = $this->getDataFromCsvFile( $options ); //see, getCsvConfigData Trait
 		foreach (  $results as $list ) {
 			$apiKey = $this->getApiKey( trim( $list['account'] ) );
 			$domain = trim( $list['domain'] );
@@ -142,20 +144,48 @@ trait TerminateAccount {
  * GET CSVFILE TRAIT SECTION
  * =======================================================================================================================
  */
-trait GetCsvData {
-	function getAccountListFromCsvFile( $filename ) {
-		$path = $this->getCsvPath( $filename );
-		$csv = new CSVReader();
-		$csv->useHeaderAsIndex();
-		return $csv->data( $path );
-	}
+// trait GetCsvData {
+// 	function getAccountListFromCsvFile( $options ) {
+// 		$filename = $this->getFilename( $options );
+// 		$path = $this->getCsvPath( $filename );
+// 		$csv = new CSVReader();
+// 		$csv->useHeaderAsIndex();
+// 		$this->setRow( $csv, $options );
+// 		return $csv->getData( $path );
+// 	}
 
-	function getCsvPath( $filename ) {
-		$path = WT_BASE_PATH . 'configs/' . $filename;
-		if ( !file_exists( $path ) ) die( $filename . ' not found' );
-		return $path; 
-	}
-}
+// 	function setRow( $csv, $options ) {
+// 		if ( !empty( $options['row'] ) ) {
+// 			$start = $this->getStartRow( $options['row'] );
+// 			$limit = $this->getLimitRow( $options['row'] );
+// 			if ( empty( $limit ) ) $limit = $start;
+// 			if ( $start > $limit ) die( 'Start number must be less than limit number');
+// 			$csv->offset = $start - 1;
+// 			$csv->limit = $limit -1 ;
+// 		}
+// 	}
+
+// 	function getStartRow( $row ) {
+// 		$arr = explode( '-', $row );
+// 		return $arr[0];
+// 	}
+
+// 	function getLimitRow( $row ) {
+// 		$arr = explode( '-', $row );
+// 		if ( isset( $arr[1] ) )
+// 			return $arr[1];
+// 	}
+
+// 	function getFilename( $options ) {
+// 		return $options['config'];
+// 	}
+
+// 	function getCsvPath( $filename ) {
+// 		$path = WT_BASE_PATH . 'configs/' . $filename;
+// 		if ( !file_exists( $path ) ) die( $filename . ' not found' );
+// 		return $path; 
+// 	}
+// }
 
 /**
  * GET ACCOUNTS TRAIT SECTION
