@@ -18,6 +18,7 @@ class OptionList {
 		$createAction = 'create';
 		$createFunction['functions'] = array(
 			'textdb'    => array(),
+			'textdbNew' => array(),
 			'code'      => array(),
 			'htaccess'  => array(),
 			'logo'      => array(),

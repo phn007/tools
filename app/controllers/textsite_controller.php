@@ -25,11 +25,22 @@ class TextsiteController extends Controller {
 		$siteNumber     = $this->getSiteNumber();
 		$projectName    = $this->getProjectName();
 		$siteConfigData = $this->getSiteConfigData();
-		$siteDirNames   = $this->getSiteDirNames();		
+		$siteDirNames   = $this->getSiteDirNames();	
+
+		if ( 'textdbNew' == $function ) {
+			$productModel = $this->model( 'textdb/textdbProductsNew' );
+			$productModel->create( $projectName, $merchantData, $siteNumber, $siteDirNames );
+
+			$categoryModel = $this->model( 'textdb/textdbCategories' );
+			$categoryModel->create( $siteConfigData );
+			$categoryListModel = $this->model( 'textdb/categoryListForHomepage' );
+			$categoryListModel->create( $siteConfigData );
+		}	
 
 		if ( 'textdb' == $function || 'all' == $function ) {
 			$productModel = $this->model( 'textdb/textdbProducts' );
 			$productModel->create( $projectName, $merchantData, $siteNumber, $siteDirNames );
+			
 			$categoryModel = $this->model( 'textdb/textdbCategories' );
 			$categoryModel->create( $siteConfigData );
 			$categoryListModel = $this->model( 'textdb/categoryListForHomepage' );

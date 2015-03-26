@@ -1,14 +1,10 @@
 <?php
 namespace webtools\libs;
 
-class Helper
-{
+class Helper {
 
-	public static function make_dir( $path )
-	{
-		if ( ! file_exists( $path ) )
-		{
-			//echo $path . PHP_EOL;
+	public static function make_dir( $path ) {
+		if ( ! file_exists( $path ) ) {
 			mkdir( $path, 0777, true );
 		}
 	}
