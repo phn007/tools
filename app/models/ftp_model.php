@@ -5,41 +5,26 @@ use webtools\libs\Helper;
 include WT_BASE_PATH . 'libs/ftpClient.php';
 
 class FtpModel extends Controller {
-	use HostConfig;
+	//use HostConfig;
 	use UploadSiteZip;
 	use RunUnzip;
 
 	private $root = 'public_html';
 
-	function upload( $options, $siteConfigData ) {
-		$hostData = $this->getHostConfigData ( $options );
-
-		//$end = 2;
-		$i = 1;
-		foreach ( $siteConfigData as $domain => $data ) {
+	function upload( $options, $siteConfigData, $csvData ) {
+		foreach ( $csvData as $hostData ) {
+			$domain = $hostData['domain'];
+			$config = $siteConfigData[$domain];
+			$config['host_user'] = $hostData['host_user'];
+			$config['host_pass'] = $hostData['host_pass'];
 			$ftp = new FTPClient();
-			$this->connectAndLogin( $ftp, $domain, $hostData );
+			$this->connectAndLogin( $ftp, $domain, $config );
 			$this->uploadUnzipScript( $ftp );
-			$this->uploadSiteZipFormat( $ftp, $data );
+			$this->uploadSiteZipFormat( $ftp, $config );
 			$this->displayLogMessage( $ftp, $domain );
-			$result = $this->runUnzip( $data );
-			$this->displayListOfFilesInDirectory( $ftp );
-			echo "\n";
-			
-			$i++;
-			//if ( $i == $end ) break;	
+			$result = $this->runUnzip( $config );
+			$this->displayListOfFilesInDirectory( $ftp );		
 		}
-
-		// $j = 1;
-		// foreach ( $siteConfigData as $data ) {
-		// 	$result = $this->runUnzip( $data );
-		// 	print_r( $result );
-
-		// 	$j++;
-		// 	//if ( $j == $end ) break;
-		// }
-
-
 	}
 
 	function displayLogMessage( $ftp, $domain ) {
@@ -49,14 +34,15 @@ class FtpModel extends Controller {
 		foreach ( $ftp->getMessages() as $line ) {
 			echo $line;
 			echo "\n";
-		}	
+		}
+		echo "\n";	
 	}
 }
 
 trait RunUnzip {
-	function runUnzip( $data ) {
-        $url = $data['domain'] . '/unzip.php';
-        $filename = $data['site_dir'] . '.zip';
+	function runUnzip( $config ) {
+        $url = $config['domain'] . '/unzip.php';
+        $filename = $config['site_dir'] . '.zip';
         $openPath = './' . $filename;
         $targetPath = './';
         $postData[] = array( 'open_path' => $openPath, 'target_path' => $targetPath );
@@ -76,16 +62,16 @@ trait RunUnzip {
 }
 
 trait UploadSiteZip {
-	function connectAndLogin( $ftp, $domain, $hostData ) {
+	function connectAndLogin( $ftp, $domain, $config ) {
 		$ftp->host = 'ftp.' . $domain;
-		$ftp->user = $hostData[$domain]['username'];
-		$ftp->pass = $hostData[$domain]['password'];
-		if ( !$ftp->connect() ) die( 'Failed to connect' );
+		$ftp->user = $config['host_user'];
+		$ftp->pass = $config['host_pass'];
+		if ( !$ftp->connect(true) ) die( 'Failed to connect' );
 	}
 
-	function uploadSiteZipFormat( $ftp, $data ) {
-		$filename = $data['site_dir'] . '.zip';
-		$fileFrom = TEXTSITE_PATH . $data['project'] . '/' . $filename;
+	function uploadSiteZipFormat( $ftp, $config ) {
+		$filename = $config['site_dir'] . '.zip';
+		$fileFrom = TEXTSITE_PATH . $config['project'] . '/' . $filename;
 		$fileTo = $this->root . '/' . $filename;
 		$ftp->uploadFile( $fileFrom, $fileTo );
 	}
@@ -109,26 +95,4 @@ trait UploadSiteZip {
 			echo "\n";
 		}
 	}
-}
-
-trait HostConfig {
-	function getHostConfigData ( $options ) {
-		$hostConfigPath = $this->getHostConfigPath( $options );
-		$hostConfigData = $this->getHostDataFromCsvFile( $hostConfigPath );
-		foreach ( $hostConfigData as $data ) {
-			$hostDataGroup[ $data['domain'] ] = $data;
-		}	
-		return $hostDataGroup;
-	}
-
-	function getHostDataFromCsvFile( $hostConfigPath ) {
-		$csv = new CSVReader();
-		$csv->useHeaderAsIndex();
-		return $csv->data( $hostConfigPath );
-	}
-
-	function getHostConfigPath( $options ) {
-		return CONFIG_PATH . $options['config'] . '-hostnine.csv';
-	}
-
 }

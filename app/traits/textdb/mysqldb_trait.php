@@ -14,7 +14,7 @@ trait MySQLDatabase {
 		foreach ( $merchantData as $merchant => $data ) {;
 			$num = $this->countProducts( $data['db_name'] );
 			$merchantProductNumber[$merchant] = $num; 
-			$total = $total + $num;
+			$total = $total + $num;	
 		}
 		return array( 'totalProducts' => $total, 'merchantProductNumber' => $merchantProductNumber );
 	}
@@ -23,9 +23,9 @@ trait MySQLDatabase {
 		$count = null;
 		if ( $this->db->selectDatabase( $this->conn, $dbName ) ) {
 			$count = mysqli_query( $this->conn, "SELECT COUNT(*) AS total FROM products" );
-			//mysqli_error( $this->conn );
 			$count = mysqli_fetch_object( $count );
 			$count = $count->total;
+			echo $count . ': ' . $dbName . "\n";
 		}
 		else 
 			echo "There is no " . $dbName . ' database' . "\n";
@@ -34,7 +34,7 @@ trait MySQLDatabase {
 	
 	function createSQLString( $productNumber ) {
 		//$cols = "id,catalogId,affiliate_url,image_url,keyword,description,category,price,merchant,brand";
-		$num_limit  = 2000;
+		$num_limit  = 10000;
 		if ( $productNumber > $num_limit ) {
 			$round = ceil( $productNumber / $num_limit );
 			$start = 0;

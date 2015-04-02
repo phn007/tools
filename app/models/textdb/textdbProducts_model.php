@@ -30,16 +30,21 @@ class TextdbProductsModel extends Controller {
 	private $totalCreateProducts = 0;
 
 	//function Main
-	function create( $projectName, $merchantData, $siteNumber, $siteDirNames ) {
+	function create( $projectName, $dotIniFilename, $merchantData, $siteNumber, $siteDirNames ) {
 		$this->projectName = $projectName;
 		$this->siteDirNames = $siteDirNames;
 		$merchantData = $this->randomMerchantdata( $merchantData );
 
+		$this->printHeadline( $dotIniFilename );
 		$this->initialMysqlDatabase(); //MySQLDatabase Trait
+
 		$countProductData = $this->countTotalProducts( $merchantData ); //MySQLDatabase Trait
 		$totalProducts = $countProductData['totalProducts'];
 		$merchantProductNumber = $countProductData['merchantProductNumber'];
+
 		$this->productNumberPerSite = $this->calculateProductNumberPerSite( $totalProducts, $siteNumber );
+		$this->printProductNumberDetail( $totalProducts );
+
 		
 		foreach ( $merchantData as $merchant => $data ) {
 			$dbName = $data['db_name'];
@@ -51,6 +56,15 @@ class TextdbProductsModel extends Controller {
 		}
 		$this->writeTextDbAtRest();
 		$this->printConclusionTotal( $totalProducts ); //PrintTextDbProductResult Trait
+	}
+
+	function printHeadline( $dotIniFilename ) {
+		echo "\nINI Config File: " . $dotIniFilename . '.ini' . "\n";
+		echo "=============================\n\n";
+	}
+	function printProductNumberDetail( $totalProducts ) {
+		echo "\n" .  'Total Products: ' . $totalProducts . "\n";
+		echo 'Product Number / site: ' . $this->productNumberPerSite . "\n\n";
 	}
 
 	function runThroughMysqlStrings( $dbName, $sqls ) {
@@ -72,8 +86,12 @@ class TextdbProductsModel extends Controller {
 	}
 
 	function randomMerchantdata( $merchantData ) {
-		shuffle( $merchantData );
-		return $merchantData;
+		$keys = array_keys( $merchantData );
+		shuffle( $keys );
+		foreach ( $keys as $key ) {
+			$data[$key] = $merchantData[$key];
+		}
+		return $data;
 	}
 	
 }
@@ -89,6 +107,7 @@ trait RunThroughQueryResult {
 			$keywordSlug = $this->getKeywordSlug( $row['keyword'] );
 			$catSlug = $this->getCategorySlug( $row ); //CategorySlug Trait
 			$brandSlug = $this->getBrandSlug( $row );
+
 			$this->initialCategoryIdVariable( $catSlug );
 			$this->parseProductDataGroupByCategory( $catSlug, $keywordSlug, $row ); //ProductDataGroupByCategory
 			$this->writeSpecificNumOfProductPerCategory( $catSlug );
@@ -149,7 +168,8 @@ trait WriteTextDatabase {
 		if ( ++$this->countCategory[$catSlug] >= 1000  ) {
 			$this->filename = $this->getTextDBFilename( $catSlug );
 			$this->writeTextDatabase( $this->productDataGroupByCategory[$catSlug] );
-			$this->categoryId[$catSlug] = $this->categoryId[$catSlug] + 1;
+
+			$this->categoryId[$catSlug]++;
 			$this->countCategory[$catSlug] = null;
 			$this->productDataGroupByCategory[$catSlug] = null;
 			unset( $this->productDataGroupByCategory[$catSlug] );
@@ -159,8 +179,10 @@ trait WriteTextDatabase {
 	function writeSpecificNumOfProductPersite() {
 		if ( $this->countProductNumberPerSite == $this->productNumberPerSite ) {
 			$this->loopThroughProductPerSiteAndWriteTextDB();
+
 			$this->productDataGroupByCategory = null;
 			unset( $this->productDataGroupByCategory );
+			
 			$this->countProductNumberPerSite = 0;
 			$this->countSiteNumber++;
 		}

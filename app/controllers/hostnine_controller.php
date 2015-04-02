@@ -2,8 +2,6 @@
 use webtools\controller;
 
 class HostnineController extends Controller {
-
-
 	/**
 	 *  php hostnine accounts get maxcom all
 	 *  php hostnine accounts get maxcom domain.com

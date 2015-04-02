@@ -1,6 +1,6 @@
 <?php
 use webtools\controller;
-include WT_APP_PATH . 'traits/setupConfigV2_trait.php';
+include WT_APP_PATH . 'traits/setupConfigV3_trait.php';
 
 /**
  * Example commandline
@@ -11,8 +11,7 @@ class ProspApiController extends Controller {
 	use SetupConfig;
 
 	function get( $function, $params, $options ) {
-		$this->initIniConfig( $options );
-		$merchants = $this->getMerchantData();
+		$merchants = $this->getMerchantForProspApi( $options );
 		$model = $this->model( 'prospapi' );
 		$model->connectDatabase();
 

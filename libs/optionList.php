@@ -38,7 +38,10 @@ class OptionList {
 		$showAction = 'show';
 		$showFunction['functions'] = array( 'config' => array() );
 
-		$calculateAction = 'calc';
+		$calcAction = 'calc';
+		$calcFunction['functions'] = array( '*' => array('number') );
+
+		$calculateAction = 'calculate';
 		$calculateFunction['functions'] = array( '*' => array('number') );
 
 		$delDbAction = 'db';
@@ -52,6 +55,7 @@ class OptionList {
 			$serverAction => $serverFunction,
 			$showAction => $showFunction,
 			$calculateAction => $calculateFunction,
+			$calcAction => $calculateFunction,
 			$delDbAction  => $delDbFunction,
 			$separatorAction => $deparatorFunction
 		);

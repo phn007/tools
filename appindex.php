@@ -1,4 +1,5 @@
 <?php
+ini_set('MAX_EXECUTION_TIME', -1);
 //error_reporting(0);
 error_reporting( E_ALL );
 
@@ -34,7 +35,7 @@ class AppIndex
 		include 'libs/router.php';
 		include 'libs/database.php';
 		include 'libs/helper.php';
-		include 'libs/networkSupport.class.php';
+		//include 'libs/networkSupport.class.php';
 		include CONSOLE_PATH . 'Lite.php';
 
 		webtools\libs\Router::dispatch( $options );

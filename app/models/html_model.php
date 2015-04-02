@@ -9,8 +9,7 @@ include WT_APP_PATH . 'traits/html/categorypage_trait.php';
 include WT_APP_PATH . 'traits/html/categoriespage_trait.php';
 include WT_APP_PATH . 'traits/html/staticpage_trait.php';
 
-class HtmlModel extends Controller
-{
+class HtmlModel extends Controller {
 	use HomePage;
 	use ProductPage;
 	use CategoryPage;

@@ -13,9 +13,6 @@ class statcounterModel {
 	function add( $options ) {
 		if ( ! array_key_exists( 'config', $options ) ) die();
 		$csvfile = $this->getDataFromCsvFile( $options ); //see, getCsvConfigData Trait
-
-		print_r( $csvfile );
-		die();
 		$prevUsername = null;
 		foreach ( $csvfile as $data ) {
 			$data['domain'] = 'http://' . $data['domain']; // add http:// to domain
@@ -83,7 +80,7 @@ class WriteResult {
 	}
 
 	function getFilename( $options ) {
-		return str_replace( '.csv', '', $options['config'] ) . '-stat.txt';
+		return $options['config'] . '-stat.txt';
 	}
 }
 
