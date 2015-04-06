@@ -13,6 +13,18 @@ params: 		param1 param2
 */
 
 class OptionList {
+
+	function site() {
+		$textSiteAction = 'create';
+		$textSiteFunction['functions'] = array( 'textdb' => array('csvFilename') );
+		return array( $textSiteAction => $textSiteFunction );
+	}
+
+	function textdb() {
+		$textdbAction = 'create';
+		$textdbFunction['functions'] = array( 'db' => array('csvFilename', 'iniFilename') );
+		return array($textdbAction => $textdbFunction);
+	}
 	
 	function textsite() {
 		$createAction = 'create';

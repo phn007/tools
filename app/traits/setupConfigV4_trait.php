@@ -10,8 +10,8 @@ trait SetupConfig {
 }
 
 trait ConfigDataFromCsvFile {
-	function initialConfigDataFromCsvFile( $options ) {
-		$csvfile = $this->getDataFromCsvFile( $options ); //getCsvConfigData trait
+	function initialConfigDataFromCsvFile( $csvFilename, $options ) {
+		$csvfile = $this->getDataFromCsvFile( $csvFilename, $options ); //getCsvConfigData trait
 		foreach ( $csvfile as $conf ) {
 			if ( !empty( $conf['domain'] ) ) {
 				$initConfigData[$conf['config_file']][] = $conf;
@@ -42,9 +42,9 @@ trait ConfigDataFromCsvFile {
 trait DotINIFile {
 	private $conf;
 
-	function initialDotINIConfigFile( $filename, $options ) {
-		$this->filename = $filename . '.ini';
-		$this->project = $options['config'];
+	function initialDotINIConfigFile( $iniFilename, $csvFilename ) {
+		$this->filename = $iniFilename . '.ini';
+		$this->project = $csvFilename;
 		$this->readDotINIConfigFile();
 	}
 
