@@ -38,14 +38,7 @@ try {
 
          ),
 
-        'options' => array(
-            array(
-               'long' => 'config',
-               'type' => 'mandatory',
-               'short' => 'c',
-               'desc' => array('path', 'configs/filename.ini' )
-            )
-         ),
+        'options' => array(),
 
         'parameters' => array(
             '',

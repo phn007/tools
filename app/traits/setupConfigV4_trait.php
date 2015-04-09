@@ -69,12 +69,12 @@ trait DotINIFile {
 		return $data;
 	}
 
-	function getMerchantForProspApi( $options ) {
-		$this->filename = $options['config'] . '.ini';
+	function getMerchantForProspApi( $iniFilename ) {
+		$this->filename = $iniFilename . '.ini';
 		$this->readDotINIConfigFile();
 		foreach ( $this->getMerchants() as $merchant ) {
 			$data[ $merchant ] = array(
-				'project' => $options['config'],
+				'project' => $iniFilename,
                	'db_name' => $this->convertMerchantToDbName( $merchant ),
                	'clear_db' => $this->getClearDatabaseStatus(),
             );

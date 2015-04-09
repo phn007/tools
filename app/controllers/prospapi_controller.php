@@ -1,17 +1,18 @@
 <?php
 use webtools\controller;
-include WT_APP_PATH . 'traits/setupConfigV3_trait.php';
+include WT_APP_PATH . 'traits/setupConfigV4_trait.php';
 
 /**
  * Example commandline
  * -------------------
- * php prospapi -c bb-prosp get all
+ * php prospapi get all NewApparel1
  */
 class ProspApiController extends Controller {
 	use SetupConfig;
 
 	function get( $function, $params, $options ) {
-		$merchants = $this->getMerchantForProspApi( $options );
+		$iniFilename = $params['iniFilename'];
+		$merchants = $this->getMerchantForProspApi( $iniFilename );
 		$model = $this->model( 'prospapi' );
 		$model->connectDatabase();
 

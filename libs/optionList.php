@@ -117,10 +117,10 @@ class OptionList {
 	function prospapi() {
 		$action = 'get';
 		$functions['functions'] = array( 
-			'category' => array(),
-			'brand' => array(),
-			'product' => array(),
-			'all' => array()
+			'category' => array( 'iniFilename' ),
+			'brand' => array( 'iniFilename' ),
+			'product' => array( 'iniFilename' ),
+			'all' => array( 'iniFilename' )
 		);
 		return array( $action => $functions );
 	}
