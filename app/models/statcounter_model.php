@@ -4,26 +4,30 @@ use webtools\libs\Helper;
 
 include WT_BASE_PATH . 'libs/TablePrinter.php'; 
 include WT_APP_PATH . 'extensions/scraper-class/_simpleHtmlDom.php';
-include WT_APP_PATH . 'traits/getCsvConfigData_trait.php';
+include WT_APP_PATH . 'traits/getCsvConfigDataV2_trait.php';
 include WT_BASE_PATH . 'libs/csvReaderV2.php';
 
 class statcounterModel {
 	use GetCsvConfigData;
 
-	function add( $options ) {
-		if ( ! array_key_exists( 'config', $options ) ) die();
-		$csvfile = $this->getDataFromCsvFile( $options ); //see, getCsvConfigData Trait
+	function add( $params, $options ) {
+		$csvFilename = isset( $params['csvFilename'] ) ? $params['csvFilename'] : null;
+		$row = isset( $options['row'] ) ? $options['row'] : null;
+
+		$csvfile = $this->getDataFromCsvFile( $csvFilename, $row ); //see, getCsvConfigData Trait
 		$prevUsername = null;
 		foreach ( $csvfile as $data ) {
-			$data['domain'] = 'http://' . $data['domain']; // add http:// to domain
-			if ( $prevUsername != $data['stat_user'] ) 
-				$loginResult = $this->login( $data['stat_user'], $data['stat_pass'] );
+			if ( !empty( $data['domain'] ) ) {
+				$data['domain'] = 'http://' . $data['domain']; // add http:// to domain
+				if ( $prevUsername != $data['stat_user'] ) 
+					$loginResult = $this->login( $data['stat_user'], $data['stat_pass'] );
 
-			$addResult = $this->addNewProject( $loginResult, $data );
-			$securityCode = $this->getSecurityCode( $addResult );
-			$this->writeFile( $options, $data, $securityCode );
-			$this->printResult( $data, $securityCode );
-			$prevUsername = $data['stat_user'];
+				$addResult = $this->addNewProject( $loginResult, $data );
+				$securityCode = $this->getSecurityCode( $addResult );
+				$this->writeFile( $csvFilename, $data, $securityCode );
+				$this->printResult( $data, $securityCode );
+				$prevUsername = $data['stat_user'];
+			}
 		}	
 	}
 
@@ -37,9 +41,9 @@ class statcounterModel {
 		echo "\n";
 	}
 
-	function writeFile( $options, $data, $securityCode ) {
+	function writeFile( $csvFilename, $data, $securityCode ) {
 		$w = new WriteResult();
-		$w->write( $options, $data, $securityCode );
+		$w->write( $csvFilename, $data, $securityCode );
 	}
 
 	function getSecurityCode( $addResult ) {
@@ -64,8 +68,8 @@ class statcounterModel {
 }
 
 class WriteResult {
-	function write( $options, $data, $securityCode ) {
-		$filename = $this->getFilename( $options );
+	function write( $csvFilename, $data, $securityCode ) {
+		$filename = $this->getFilename( $csvFilename );
 		$file = $this->getFilePath( $filename );
 		$content = $this->getContent( $data, $securityCode );
 		file_put_contents( $file, $content, FILE_APPEND | LOCK_EX );
@@ -79,8 +83,8 @@ class WriteResult {
 		return FILES_PATH . 'statcounter/' . $filename;
 	}
 
-	function getFilename( $options ) {
-		return $options['config'] . '-stat.txt';
+	function getFilename( $csvFilename ) {
+		return $csvFilename . '-stat.txt';
 	}
 }
 

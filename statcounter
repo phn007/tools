@@ -36,12 +36,6 @@ try {
 
         'options' => array(
             array(
-               'long' => 'config',
-               'type' => 'mandatory',
-               'short' => 'c',
-               'desc' => array('csvfile path', 'configs/filename.csv' )
-            ),
-            array(
                'long' => 'row',
                'type' => 'mandatory',
                'short' => 'r',

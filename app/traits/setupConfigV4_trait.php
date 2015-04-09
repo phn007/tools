@@ -11,13 +11,23 @@ trait SetupConfig {
 
 trait ConfigDataFromCsvFile {
 	function initialConfigDataFromCsvFile( $csvFilename, $options ) {
-		$csvfile = $this->getDataFromCsvFile( $csvFilename, $options ); //getCsvConfigData trait
+		$row = isset( $options['row']) ? $options['row'] : null;
+		$initConfigData = null;
+		$csvfile = $this->getDataFromCsvFile( $csvFilename, $row ); //getCsvConfigData trait
 		foreach ( $csvfile as $conf ) {
 			if ( !empty( $conf['domain'] ) ) {
 				$initConfigData[$conf['config_file']][] = $conf;
 			}
 		}
 		return $initConfigData;
+	}
+
+	function initialConfigDataFromCsvFileForText( $csvFilename, $domain ) {
+		$csvfile = $this->getDataFromCsvFile( $csvFilename, null ); //getCsvConfigData trait
+		foreach ( $csvfile as $conf ) {
+			if ( $conf['domain'] == $domain ) 
+				return $conf;
+		}
 	}
 
 	function getSiteNumber( $csvData ) {
@@ -48,8 +58,8 @@ trait DotINIFile {
 		$this->readDotINIConfigFile();
 	}
 
-	function getMerchantForCalcalate( $options ) {
-		$this->filename = $options['config'] . '.ini';
+	function getMerchantForCalcalate( $iniFilename ) {
+		$this->filename = $iniFilename . '.ini';
 		$this->readDotINIConfigFile();
 		foreach ( $this->getMerchants() as $merchant ) {
 			$data[ $merchant ] = array(
@@ -70,6 +80,12 @@ trait DotINIFile {
             );
 		}
 		return $data;
+	}
+
+	function getMerchantForSeparate( $iniFilename ) {
+		$this->filename = $iniFilename . '.ini';
+		$this->readDotINIConfigFile();
+		return $this->getMerchants();
 	}
 
 	function getMerchantData() {
@@ -147,15 +163,22 @@ trait GetConfigData {
 	/**
 	 * Set SiteConfig Group By DomainName
 	 */
-	function getSiteConfigData( $csvData, $options ) {
-		$statData = $this->readStatTextFile( $options );
+	// function getSiteConfigData( $csvData, $options ) {
+	// 	$statData = $this->readStatTextFile( $options['config'] );
 
-		foreach ( $csvData as $siteConfig ) {
-			$configs = $this->setSiteConfigGroup( $siteConfig );
-			$configs = $this->addStatDataIntoSiteConfig( $configs, $statData );
-			$group[$siteConfig['domain']] = $configs;
-		}
-		return $group;
+	// 	foreach ( $csvData as $siteConfig ) {
+	// 		$configs = $this->setSiteConfigGroup( $siteConfig );
+	// 		$configs = $this->addStatDataIntoSiteConfig( $configs, $statData );
+	// 		$group[$siteConfig['domain']] = $configs;
+	// 	}
+	// 	return $group;
+	// }
+
+	function getSiteConfigDataForText( $csvFilename, $csvData ) {
+		$statData = $this->readStatTextFile( $csvFilename );
+		$config = $this->setSiteConfigGroup( $csvData );
+		$config = $this->addStatDataIntoSiteConfig( $config, $statData );
+		return $config;
 	}
 
 	function addStatDataIntoSiteConfig( $configs, $statData ) {
@@ -192,8 +215,8 @@ trait GetConfigData {
 }
 
 trait ReadStatTextFile {
-	function readStatTextFile( $options ) {
-		$statTextFilename = $options['config'] . '-stat.txt';
+	function readStatTextFile( $filename ) {
+		$statTextFilename = $filename . '-stat.txt';
 		$path = $this->getStatTextFilePath( $statTextFilename );
 
 		$contents = file( $path );

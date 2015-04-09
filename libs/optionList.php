@@ -16,7 +16,11 @@ class OptionList {
 
 	function site() {
 		$textSiteAction = 'create';
-		$textSiteFunction['functions'] = array( 'textdb' => array('csvFilename') );
+		$textSiteFunction['functions'] = array( 
+			'all' => array( 'csvFilename' ),
+			'textdb' => array( 'csvFilename' ),
+			'textsite' => array( 'csvFilename' )
+		);
 		return array( $textSiteAction => $textSiteFunction );
 	}
 
@@ -24,6 +28,27 @@ class OptionList {
 		$textdbAction = 'create';
 		$textdbFunction['functions'] = array( 'db' => array('csvFilename', 'iniFilename') );
 		return array($textdbAction => $textdbFunction);
+	}
+
+	function text() {
+		$action = 'create';
+		$function['functions'] = array( 'site' => array( 'csvFilename', 'domain' ) );
+
+		$calcAction = 'calc';
+		$calcFunction['functions'] = array( '*' => array( 'iniFilename', 'number') );
+
+		$serverAction = 'server';
+		$serverFunction['functions'] = array( 'start' => array( 'csvFilename', 'domain' ) );
+
+		$separatorAction = 'separator';
+		$separatorFunction['functions'] = array( 'check' => array( 'iniFilename' ) );
+
+		return array( 
+			$action => $function, 
+			$calcAction => $calcFunction,
+			$serverAction => $serverFunction,
+			$separatorAction => $separatorFunction
+		);
 	}
 	
 	function textsite() {
@@ -143,13 +168,13 @@ class OptionList {
 
 	function statcounter() {
 		$action = 'project';
-		$functions['functions'] = array( 'add' => array() );
+		$functions['functions'] = array( 'add' => array( 'csvFilename' ) );
 		return array( $action => $functions );
 	}
 
 	function ftp() {
 		$uploadAction = 'action';
-		$uploadFunctions['functions'] = array( 'upload' => array() );
+		$uploadFunctions['functions'] = array( 'upload' => array( 'csvFilename' ) );
 		return array( $uploadAction => $uploadFunctions );
 	}
 }

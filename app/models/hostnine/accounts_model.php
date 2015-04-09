@@ -7,7 +7,7 @@ include WT_BASE_PATH . 'libs/TablePrinter.php';
 include WT_BASE_PATH . 'libs/csvReaderV2.php';
 include WT_APP_PATH . 'traits/hostnine/hostnineInfo_trait.php';
 include WT_APP_PATH . 'traits/hostnine/resellerCentralQuery_trait.php';
-include WT_APP_PATH . 'traits/getCsvConfigData_trait.php';
+include WT_APP_PATH . 'traits/getCsvConfigDataV2_trait.php';
 
 class AccountsModel extends Controller {
 	use HostnineInfo;
@@ -63,10 +63,15 @@ class AccountsModel extends Controller {
  */
 trait CreateAccount {
 	function createAccountFromCsvFile( $options ) {
-		$results = $this->getDataFromCsvFile( $options ); //see, getCsvConfigData Trait
+		$csvFilename = isset( $options['config'] ) ? $options['config'] : null;
+		$row = isset( $options['row']) ? $options['row'] : null;
+
+		$results = $this->getDataFromCsvFile( $csvFilename, $row ); //see, getCsvConfigData Trait
 		foreach ( $results as $list ) {
-			$apiKey = $this->getApiKey( trim( $list['account'] ) );
-			$this->createAccount( $apiKey, $list );
+			if ( !empty( $list['account'] ) ) {
+				$apiKey = $this->getApiKey( trim( $list['account'] ) );
+				$this->createAccount( $apiKey, $list );
+			}
 		}
 	}
 
@@ -106,7 +111,10 @@ trait CreateAccount {
  */
 trait TerminateAccount {
 	function terminateAccountFromCsvFile( $options  ) {
-		$results = $this->getDataFromCsvFile( $options ); //see, getCsvConfigData Trait
+		$csvFilename = isset( $options['config'] ) ? $options['config'] : null;
+		$row = isset( $options['row']) ? $options['row'] : null;
+
+		$results = $this->getDataFromCsvFile( $csvFilename, $row ); //see, getCsvConfigData Trait
 		foreach (  $results as $list ) {
 			$apiKey = $this->getApiKey( trim( $list['account'] ) );
 			$domain = trim( $list['domain'] );

@@ -14,9 +14,9 @@ class HostnineController extends Controller {
 	 * -d --descending
 	 *
 	 * php hostnine accounts terminate maxcom domain.com
-	 * php hostnine -c delete-account.csv accounts terminate
+	 * php hostnine -c delete-account accounts terminate
 	 *
-	 * php hostnine -c create-account.csv accouonts create
+	 * php hostnine -c create-account accouonts create
 	 * php hostnine accounts create maxcom domain.com username password "location" package
 	 */
 	function accounts( $function, $params, $options ) {

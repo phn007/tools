@@ -1,18 +1,18 @@
 <?php
 trait GetCsvConfigData {
-	function getDataFromCsvFile( $csvFilename, $options ) {
+	function getDataFromCsvFile( $csvFilename, $row ) {
 		$filename = $this->getFilename( $csvFilename );
 		$path = $this->getCsvPath( $filename );
 		$csv = new CSVReader();
 		$csv->useHeaderAsIndex();
-		$this->setRow( $csv, $options );
+		$this->setRow( $csv, $row );
 		return $csv->getData( $path );
 	}
 
-	function setRow( $csv, $options ) {
-		if ( !empty( $options['row'] ) ) {
-			$start = $this->getStartRow( $options['row'] );
-			$limit = $this->getLimitRow( $options['row'] );
+	function setRow( $csv, $row ) {
+		if ( !empty( $row ) ) {
+			$start = $this->getStartRow( $row );
+			$limit = $this->getLimitRow( $row );
 			if ( empty( $limit ) ) $limit = $start;
 			if ( $start > $limit ) die( 'Start number must be less than limit number');
 			$csv->offset = $start - 1;

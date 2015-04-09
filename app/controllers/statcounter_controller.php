@@ -7,9 +7,8 @@ class StatcounterController extends Controller {
 	 */
 	function project( $function, $params, $options ) {
 		$model = $this->model( 'statcounter' );
-		if ( $function == 'add' ) $model->add( $options );
+		if ( $function == 'add' ) $model->add( $params, $options );
 	}
-
 }
 
 

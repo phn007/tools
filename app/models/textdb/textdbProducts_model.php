@@ -45,7 +45,6 @@ class TextdbProductsModel extends Controller {
 		$this->productNumberPerSite = $this->calculateProductNumberPerSite( $totalProducts, $siteNumber );
 		$this->printProductNumberDetail( $totalProducts );
 
-		
 		foreach ( $merchantData as $merchant => $data ) {
 			$dbName = $data['db_name'];
 			$this->dbName = $dbName; //for print out - ( printWriteTotalProduct function )

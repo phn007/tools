@@ -11,32 +11,35 @@ class SiteController extends Controller {
 	use SetupConfig;
 	
 	/**
+	 * Create all functions
+	 * php site create all rexce
+	 * ========================================
 	 * Create TextDb
 	 * php site create textdb rexce
-	 * php site create textdb rexce product
-	 * php site create textdb rexce category
-	 * php site create textdb rexce homepagecat
+	 * php site --module=product create textdb rexce
+	 * php site --module=category create textdb rexce
+	 * php site --module=homepagecat create textdb rexce
 	 * ========================================
 	 * Create TextSite
-	 *
+	 * php site create textsite rexce
+	 * php site --row=2-4 --module=code create textsite rexce
+	 * php site --row=2-4 --module=config create textsite rexce
+	 * 
 	 *
 	 */
 	function create( $function, $params, $options ) {
 		$csvFilename = $params['csvFilename'];
-		$module = isset( $options['module'] ) ? $options['module'] : 'allTextDb';
 		$initConfigData = $this->initialConfigDataFromCsvFile( $csvFilename, $options );
 		$model = $this->model( 'site' );
+
 		if ( $function == 'textdb' || $function == 'all' ) {
-			if ( $module == 'product' || $module == 'allTextDb' ) 
-				$model->textDbProduct( $module, $initConfigData, $csvFilename );
-			if ( $module == 'category' || $module == 'allTextDb' ) 
-				$model->textDbCategory( $module, $initConfigData, $csvFilename );
-			if ( $module == 'homepagecat' || $module == 'allTextDb' ) 
-				$model->textDbHomePageCategory( $module, $initConfigData, $csvFilename );
+			$module = isset( $options['module'] ) ? $options['module'] : 'allTextDb';
+			$model->textDb( $module, $initConfigData, $csvFilename );
 		}
 
 		if ( $function == 'textsite' || $function == 'all' ) {
-
+			$module = isset( $options['module'] ) ? $options['module'] : 'siteall';
+			$model->textsite( $module, $initConfigData, $csvFilename );
 		}
 
 		echo "\n";

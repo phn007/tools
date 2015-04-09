@@ -33,7 +33,7 @@ class TextdbController extends Controller {
 			$siteDirNames   = $this->getSiteDirNames( $csvData );	
 
 			$productModel = $this->model( 'textdb/textdbProducts' );
-			$productModel->create( $projectName, $dotIniFilename, $merchantData, $siteNumber, $siteDirNames );
+			$productModel->create( $projectName, $iniFilename, $merchantData, $siteNumber, $siteDirNames );
 		}
 
 		if ( $module == 'category' || $module == 'homepagecat' || $module == 'allTextDb' ) {

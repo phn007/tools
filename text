@@ -31,16 +31,16 @@ try {
 
          'usage' => array(
             '[options] [action] [function] [param 1] [param 2]',
-            '-c filename action upload',
+            '-c filename.ini build all',
          ),
 
         'options' => array(
-            array(
-               'long' => 'row',
+             array(
+               'long' => 'module',
                'type' => 'mandatory',
-               'desc' => array('row number', '1-3, 3' )
+               'desc' => array('module', '' )
             )
-         ),
+        ),
 
         'parameters' => array(
             '<param1>',
@@ -51,7 +51,7 @@ try {
     $options = Console_Getoptplus::getoptplus($config, 'short2long', true);
 
     include 'libs/options.php';
-    $controller = 'ftp';
+    $controller = 'text';
 
     $opt = new Options();
     $options = $opt->verifyOptions( $controller, $options );
