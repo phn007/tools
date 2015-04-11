@@ -8,6 +8,7 @@ include WT_APP_PATH . 'traits/html/copyFiles_trait.php';
 include WT_APP_PATH . 'traits/html/categorypage_trait.php';
 include WT_APP_PATH . 'traits/html/categoriespage_trait.php';
 include WT_APP_PATH . 'traits/html/staticpage_trait.php';
+include WT_APP_PATH . 'traits/html/server_trait.php';
 
 class HtmlModel extends Controller {
 	use HomePage;
@@ -62,5 +63,9 @@ class HtmlModel extends Controller {
 	
 	function staticPage() {
 		$this->buildStaticPage(); //staticpage_trait.php
+	}
+
+	function serverStart( $siteConfigData ) {
+		$this->runServer( $siteConfigData );
 	}
 }

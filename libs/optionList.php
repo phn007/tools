@@ -43,11 +43,15 @@ class OptionList {
 		$separatorAction = 'separator';
 		$separatorFunction['functions'] = array( 'check' => array( 'iniFilename' ) );
 
+		$delDbAction = 'db';
+		$delDbFunction['functions'] = array( 'del' => array( 'iniFilename' ) );
+
 		return array( 
 			$action => $function, 
 			$calcAction => $calcFunction,
 			$serverAction => $serverFunction,
-			$separatorAction => $separatorFunction
+			$separatorAction => $separatorFunction,
+			$delDbAction => $delDbFunction
 		);
 	}
 	
@@ -101,17 +105,21 @@ class OptionList {
 	function html() {
 		$action = 'build';
 		$functions['functions'] = array( 
-			'homepage' => array(),
-			'productpage' => array(),
-			'categorypage' => array(),
-			'brandpage' => array(),
-			'categoriespage' => array(),
-			'brandspage' => array(),
-			'staticpage' => array(),
-			'files' => array(),
-			'all' => array()
+			'homepage' => array( 'csvFilename', 'domain' ),
+			'productpage' => array( 'csvFilename', 'domain' ),
+			'categorypage' => array( 'csvFilename', 'domain' ),
+			'brandpage' => array( 'csvFilename', 'domain' ),
+			'categoriespage' => array( 'csvFilename', 'domain' ),
+			'brandspage' => array( 'csvFilename', 'domain' ),
+			'staticpage' => array( 'csvFilename', 'domain' ),
+			'files' => array( 'csvFilename', 'domain' ),
+			'all' => array( 'csvFilename', 'domain' )
 		);
-		return array( $action => $functions );
+
+		$serverAction = 'server';
+		$serverFunction['functions'] = array( 'start' => array( 'csvFilename', 'domain' ) );
+
+		return array( $action => $functions, $serverAction => $serverFunction);
 	}
 
 	function prospapi() {

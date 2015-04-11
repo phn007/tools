@@ -100,6 +100,17 @@ trait DotINIFile {
 		return $data;
 	}
 
+	function getDatabaseNames( $iniFilename ) {
+		$this->filename = $iniFilename . '.ini';
+		$this->readDotINIConfigFile();
+		$merchants = $this->getMerchants();
+		$dbs = array();
+		foreach ( $merchants as $merchant ) {
+			$dbs[] = $this->convertMerchantToDbName( $merchant );
+		}
+		return $dbs;
+	}
+
 	function readDotINIConfigFile() { 
 		$this->conf = new Config_Lite( CONFIG_PATH . $this->filename ); 
 	}
@@ -160,19 +171,10 @@ trait GetConfigData {
 		}
 		return $group;
 	}
-	/**
-	 * Set SiteConfig Group By DomainName
-	 */
-	// function getSiteConfigData( $csvData, $options ) {
-	// 	$statData = $this->readStatTextFile( $options['config'] );
 
-	// 	foreach ( $csvData as $siteConfig ) {
-	// 		$configs = $this->setSiteConfigGroup( $siteConfig );
-	// 		$configs = $this->addStatDataIntoSiteConfig( $configs, $statData );
-	// 		$group[$siteConfig['domain']] = $configs;
-	// 	}
-	// 	return $group;
-	// }
+	function getSiteConfigDataForHtml( $csvData ) {
+		return $this->setSiteConfigGroup( $csvData );
+	}
 
 	function getSiteConfigDataForText( $csvFilename, $csvData ) {
 		$statData = $this->readStatTextFile( $csvFilename );

@@ -39,7 +39,12 @@ try {
                'long' => 'module',
                'type' => 'mandatory',
                'desc' => array('module', '' )
-            )
+            ),
+            array(
+               'short' => 'r',
+               'type' => 'noarg',
+               'desc' => array('add route: r.php to root' )
+            ),
         ),
 
         'parameters' => array(

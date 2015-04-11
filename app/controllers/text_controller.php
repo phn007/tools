@@ -9,7 +9,16 @@ include WT_APP_PATH . 'traits/textsite/siteInfo_trait.php';
 /**
  * Create Textsite
  * -------------------
- * php text create code rexce domain.com
+ * php text create site demo domain.com
+ * php text --module code create site demo domain.com
+ * php text --module -r code create site demo domain.com
+ * php text --module config create site demo domain.com
+ * php text --module htaccess create site demo domain.com
+ * php text --module sitemap create site demo domain.com
+ * php text --module sitemap_index create site demo domain.com
+ * php text --module robots create site demo domain.com
+ * php text --module theme create site demo domain.com
+ * php text --module zip create site demo domain.com
 */
 class TextController extends Controller {
 	use GetCsvConfigData;
@@ -38,9 +47,9 @@ class TextController extends Controller {
 		if ( $module == 'htaccess') 	$model->htaccess();
 		if ( $module == 'sitemap') 		$model->sitemap();
 		if ( $module == 'sitemapindex') $model->sitemapIndex();
-		if ( $module == 'robots') $model->robots();
-		if ( $module == 'theme') $model->theme();
-		if ( $module == 'zip') $model->zipFiles();	
+		if ( $module == 'robots') 		$model->robots();
+		if ( $module == 'theme') 		$model->theme();
+		if ( $module == 'zip') 			$model->zipFiles();
 	}
 
 	/**
@@ -54,6 +63,7 @@ class TextController extends Controller {
 		$model = $this->model( 'textdb/calculateDomainNumber' );
 		if ( 'byproducts' == $function ) $model->calcByProducts( $merchantData, $params['number'] );
 		if ( 'bydomains' == $function ) $model->calcByDomains( $merchantData, $params['number'] );
+		echo "\n";
 	}
 
 	/**
@@ -67,7 +77,7 @@ class TextController extends Controller {
 		$config = array(
 			'project' => $csvFilename,
 			'siteDir' => $csvData['site_dir'],
-			'hostname'  => 'http://' . $csvData['domain']
+			'hostname'  => $csvData['domain']
 		);
 		$model = $this->model( 'textsite' );
 		if ( 'start' == $function ) $model->serverStart( $config );
@@ -81,5 +91,18 @@ class TextController extends Controller {
 		$merchants = $this->getMerchantForSeparate( $iniFilename );
 		$model = $this->model( 'textsite' );
 		if ( $function == 'check' ) $model->checkSeparator( $merchants );
+	}
+
+	/**
+	 * php text db del demo
+	 */
+	function DB( $function, $params, $options ) {
+		if ( $function == 'del' ) {
+			$iniFilename = $params['iniFilename'];
+			$dbs = $this->getDatabaseNames( $iniFilename );
+			$model = $this->model( 'textsite' );
+			$model->deleteDatabase( $dbs );
+		}
+		echo "\n";
 	}
 }//class

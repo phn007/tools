@@ -71,7 +71,7 @@ trait ProspDatabase {
 			`affiliate_url` varchar(255) NOT NULL default '',
 			`image_url` varchar(255) NOT NULL default '',
 			`keyword` varchar(255) NOT NULL default '',
-			`description` text NOT NULL default '',
+			`description` text,
 			`category` varchar(255) NOT NULL default '',
 			`price` varchar(10) NOT NULL default '',
 			`price_sale` varchar(10) NOT NULL default '',

@@ -5,7 +5,6 @@ include WT_BASE_PATH . 'libs/csvReaderV2.php';
 include WT_APP_PATH . 'traits/getCsvConfigDataV2_trait.php';
 include WT_APP_PATH . 'traits/setupConfigV4_trait.php';
 
-
 class SiteController extends Controller {
 	use GetCsvConfigData;
 	use SetupConfig;
