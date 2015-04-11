@@ -10,6 +10,8 @@ class SiteController extends Controller {
 	use SetupConfig;
 	
 	/**
+	 * -z zip files
+	 *
 	 * Create all functions
 	 * php site create all rexce
 	 * ========================================
@@ -36,9 +38,14 @@ class SiteController extends Controller {
 			$model->textDb( $module, $initConfigData, $csvFilename );
 		}
 
+		if ( array_key_exists('zip', $options ) ) 
+			$zip = 'zip';
+		else
+			$zip = null;
+
 		if ( $function == 'textsite' || $function == 'all' ) {
 			$module = isset( $options['module'] ) ? $options['module'] : 'siteall';
-			$model->textsite( $module, $initConfigData, $csvFilename );
+			$model->textsite( $module, $initConfigData, $csvFilename, $zip );
 		}
 
 		echo "\n";

@@ -10,19 +10,19 @@ class SiteModel {
 		$this->textDbCommandLine( $module, $initConfigData, $csvFilename );
 	}
 
-	function textsite( $module, $initConfigData, $csvFilename ) {
-		$this->textsiteCommandLine( $module, $initConfigData, $csvFilename );
+	function textsite( $module, $initConfigData, $csvFilename, $zip ) {
+		$this->textsiteCommandLine( $module, $initConfigData, $csvFilename, $zip );
 	}
 }
 
 trait TextsiteCommandLine {
-	function textsiteCommandLine( $module, $initConfigData, $csvFilename ) {
+	function textsiteCommandLine( $module, $initConfigData, $csvFilename, $zip ) {
 		foreach ( $initConfigData as $configs ) {
-			$this->loopThroughConfigs( $module, $csvFilename, $configs );
+			$this->loopThroughConfigs( $module, $csvFilename, $configs, $zip );
 		}
 	}
 
-	function loopThroughConfigs( $module, $csvFilename, $configs ) {
+	function loopThroughConfigs( $module, $csvFilename, $configs, $zip ) {
 		$this->printTextsiteHead( $csvFilename );
 		foreach ( $configs as $conf ) {
 			$domain = $conf['domain'];
@@ -45,18 +45,19 @@ trait TextsiteCommandLine {
 			if ( $module == 'robots' || $module == 'siteall' )
 				$this->textsiteCommand( 'robots', $csvFilename, $domain );
 
-			if ( $module == 'zip' || $module == 'siteall' )
-				$this->textsiteCommand( 'zip', $csvFilename, $domain );
-
 			if ( $module == 'theme' )
 				$this->textsiteCommand( 'theme', $csvFilename, $domain );
+
+			if ( $zip == 'zip' )
+				$this->textsiteCommand( 'zip', $csvFilename, $domain );
 			
 		}
 	}
 
 	function textsiteCommand( $module, $csvFilename, $domain ) {
 		echo "\n*** " . ucfirst( $module ) . " Creating... " . $domain. "\n";
-		$cmd = 'php text --module=' . $module . ' create site ' . $csvFilename . ' ' . $domain;
+		//$cmd = 'php text --module=' . $module . ' create site ' . $csvFilename . ' ' . $domain;
+		$cmd = 'php text create ' . $module . ' ' . $csvFilename . ' ' . $domain;
 		echo shell_exec( $cmd );
 	}
 
@@ -87,7 +88,8 @@ trait TextDbCommandLine {
 
 	function textDbCommand( $module, $csvFilename, $iniFilename ) {
 		echo "\n*** " . ucfirst( $module ) . " Creating...\n";
-		$cmd = 'php textdb --module=' . $module . ' create db ' . $csvFilename . ' ' . $iniFilename;
+		//$cmd = 'php textdb --module=' . $module . ' create db ' . $csvFilename . ' ' . $iniFilename;
+		$cmd = 'php textdb create ' . $module .  ' ' . $csvFilename . ' ' . $iniFilename;
 		echo shell_exec( $cmd );
 	}
 

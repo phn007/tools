@@ -44,6 +44,12 @@ try {
                'long' => 'module',
                'type' => 'mandatory',
                'desc' => array('module', '' )
+            ),
+            array(
+               'long' => 'zip',
+               'short' => 'z',
+               'type' => 'noarg',
+               'desc' => array('module', '' )
             )
          ),
 

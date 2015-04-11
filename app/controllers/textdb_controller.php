@@ -15,18 +15,33 @@ class TextdbController extends Controller {
 	 * php textdb --module=product create db rexce group1
 	 * php textdb --module=category create db rexce group1
 	 * php textdb --module=homepagecat create db rexce group1
+	 *
+	 * php controller action function csvFilename configName
+	 * php textdb create all rexce group1
+	 * php textdb create product rexce group1
+	 * php textdb create category rexce group1
+	 * php textdb create homepagecat rexce group1	 
 	 */
 
 	function create($function, $params, $options) {
 		$csvFilename = $params['csvFilename'];
 		$iniFilename = $params['iniFilename'];
-		$module = $options['module'];
+		//$module = $options['module'];
+
+
+		// echo $csvFilename;
+		// echo "\n";
+		// echo $iniFilename;
+		// echo "\n";
+		// echo $function;
+		// echo "\n";
+		// die();
 
 		$initConfigData = $this->initialConfigDataFromCsvFile( $csvFilename, $options );
 		$csvData = $initConfigData[$iniFilename];
 		$this->initialDotINIConfigFile( $iniFilename, $csvFilename );
 
-		if ( $module == 'product' || $module == 'allTextDb' ) {
+		if ( $function == 'product' || $function == 'all' ) {
 			$projectName    = $this->project;
 			$merchantData   = $this->getMerchantData( $csvData );
 			$siteNumber     = $this->getSiteNumber( $csvData );
@@ -36,16 +51,16 @@ class TextdbController extends Controller {
 			$productModel->create( $projectName, $iniFilename, $merchantData, $siteNumber, $siteDirNames );
 		}
 
-		if ( $module == 'category' || $module == 'homepagecat' || $module == 'allTextDb' ) {
+		if ( $function == 'category' || $function == 'homepagecat' || $function == 'all' ) {
 			$configData = $this->getConfigData( $csvData );
 		}
 
-		if ( $module == 'category' | $module == 'allTextDb' ) {
+		if ( $function == 'category' | $function == 'all' ) {
 			$categoryModel = $this->model( 'textdb/textdbCategories' );
 			$categoryModel->create( $configData );
 		}
 
-		if ( $module == 'homepagecat' || $module == 'allTextDb' ) {
+		if ( $function == 'homepagecat' || $function == 'all' ) {
 			$categoryListModel = $this->model( 'textdb/categoryListForHomepage' );
 			$categoryListModel->create( $configData );
 		}

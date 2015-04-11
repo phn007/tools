@@ -26,13 +26,13 @@ class OptionList {
 
 	function textdb() {
 		$textdbAction = 'create';
-		$textdbFunction['functions'] = array( 'db' => array('csvFilename', 'iniFilename') );
+		$textdbFunction['functions'] = array( '*' => array('csvFilename', 'iniFilename') );
 		return array($textdbAction => $textdbFunction);
 	}
 
 	function text() {
 		$action = 'create';
-		$function['functions'] = array( 'site' => array( 'csvFilename', 'domain' ) );
+		$function['functions'] = array( '*' => array( 'csvFilename', 'domain' ) );
 
 		$calcAction = 'calc';
 		$calcFunction['functions'] = array( '*' => array( 'iniFilename', 'number') );

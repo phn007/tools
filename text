@@ -35,13 +35,14 @@ try {
          ),
 
         'options' => array(
-             array(
-               'long' => 'module',
-               'type' => 'mandatory',
-               'desc' => array('module', '' )
-            ),
             array(
                'short' => 'r',
+               'type' => 'noarg',
+               'desc' => array('add route: r.php to root' )
+            ),
+            array(
+               'long' => 'zip',
+               'short' => 'z',
                'type' => 'noarg',
                'desc' => array('add route: r.php to root' )
             ),

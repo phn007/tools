@@ -9,16 +9,18 @@ include WT_APP_PATH . 'traits/textsite/siteInfo_trait.php';
 /**
  * Create Textsite
  * -------------------
- * php text create site demo domain.com
- * php text --module code create site demo domain.com
- * php text --module -r code create site demo domain.com
- * php text --module config create site demo domain.com
- * php text --module htaccess create site demo domain.com
- * php text --module sitemap create site demo domain.com
- * php text --module sitemap_index create site demo domain.com
- * php text --module robots create site demo domain.com
- * php text --module theme create site demo domain.com
- * php text --module zip create site demo domain.com
+ * -r copy route php file
+ * -z zip files
+ *
+ * php text create all demo domain.com
+ * php text create code demo domain.com
+ * php text create config demo domain.com
+ * php text create htaccess demo domain.com
+ * php text create sitemap demo domain.com
+ * php text create sitemap_index demo domain.com
+ * php text create robots demo domain.com
+ * php text create theme demo domain.com
+ *
 */
 class TextController extends Controller {
 	use GetCsvConfigData;
@@ -28,7 +30,10 @@ class TextController extends Controller {
 	function create( $function, $params, $options ) {
 		$csvFilename = $params['csvFilename'];
 		$domain = $params['domain'];
-		$module = $options['module'];
+		if ( array_key_exists( 'zip', $options ) ) 
+			$option = 'zip';
+		else
+			$option = null;
 
 		$csvData = $this->initialConfigDataFromCsvFileForText( $csvFilename, $domain );
 		$iniFilename = $csvData['config_file'];
@@ -42,14 +47,15 @@ class TextController extends Controller {
 		$model = $this->model( 'textsite' );
 		$model->initialTextsite( $config, $options );
 
-		if ( $module == 'code' )  		$model->code();
-		if ( $module == 'config') 		$model->siteConfig();
-		if ( $module == 'htaccess') 	$model->htaccess();
-		if ( $module == 'sitemap') 		$model->sitemap();
-		if ( $module == 'sitemapindex') $model->sitemapIndex();
-		if ( $module == 'robots') 		$model->robots();
-		if ( $module == 'theme') 		$model->theme();
-		if ( $module == 'zip') 			$model->zipFiles();
+		if ( $function == 'code' || $function == 'all' ) $model->code();
+		if ( $function == 'config' || $function == 'all' ) $model->siteConfig();
+		if ( $function == 'htaccess' || $function == 'all' ) $model->htaccess();
+		if ( $function == 'sitemap' || $function == 'all' ) $model->sitemap();
+		if ( $function == 'sitemapindex' || $function == 'all' ) $model->sitemapIndex();
+		if ( $function == 'robots' || $function == 'all' ) $model->robots();
+		if ( $function == 'theme') $model->theme();
+		if ( $function == 'zip') $model->zipFiles();
+		if ( $option == 'zip') $model->zipFiles();
 	}
 
 	/**

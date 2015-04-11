@@ -32,23 +32,9 @@ try {
          'usage' => array(
             '[options] [action] [function] [param 1] [param 2]',
             '-c filename.ini build all',
-            '-c filename.ini build files',
-            '-c filename.ini build homepage',
-            '-c filename.ini build categoriespage',
-            '-c filename.ini build brandspage',
-            '-c filename.ini build staticpage',
-            '-c filename.ini build categorypage',
-            '-c filename.ini build brandpage',
-            '-c filename.ini build productpage',
          ),
 
-        'options' => array(
-            array(
-               'long' => 'module',
-               'type' => 'mandatory',
-               'desc' => array('module', '' )
-            )
-         ),
+        'options' => array(),
 
         'parameters' => array(
             '<param1>',
