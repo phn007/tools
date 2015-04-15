@@ -40,20 +40,14 @@ class AccountsModel extends Controller {
 	 * Setup a new account.
 	 */
 	function create( $params , $options ) {
-		if ( array_key_exists( 'config', $options ) )
-			$this->createAccountFromCsvFile( $options );
-		else 
-			$this->createAccountFromInputParams( $params );
+		$this->createAccountFromInputParams( $params );
 	}
 
 	/**
 	 * Terminate and remove an account's hosting service that is setup within your Reseller Central.
 	 */
 	function terminate( $params, $options ) {
-		if ( array_key_exists( 'config', $options ) )
-			$this->terminateAccountFromCsvFile( $options );
-		else 
-			$this->terminateAccountFromInputParams( $params );	
+		$this->terminateAccountFromInputParams( $params );	
 	}
 }//Model Class
 
@@ -62,44 +56,31 @@ class AccountsModel extends Controller {
  * =======================================================================================================================
  */
 trait CreateAccount {
-	function createAccountFromCsvFile( $options ) {
-		$csvFilename = isset( $options['config'] ) ? $options['config'] : null;
-		$row = isset( $options['row']) ? $options['row'] : null;
-
-		$results = $this->getDataFromCsvFile( $csvFilename, $row ); //see, getCsvConfigData Trait
-		foreach ( $results as $list ) {
-			if ( !empty( $list['account'] ) ) {
-				$apiKey = $this->getApiKey( trim( $list['account'] ) );
-				$this->createAccount( $apiKey, $list );
-			}
-		}
-	}
-
 	function createAccountFromInputParams( $params ) {
 		$apiKey = $this->getApiKey( trim( $params['account'] ) );
 		$this->createAccount( $apiKey, $params );
 	}
 
-	function createAccount( $apiKey, $list ) {
-		$params = $this->getCreateAccountParams( $apiKey, $list );
+	function createAccount( $apiKey, $params ) {
+		$params = $this->getCreateAccountParams( $apiKey, $params );
 		$newAccount = $this->resellercentralQuery( 'createAccount', $params ); //see, resellerCentralQuery_trait
-		$this->printCreateResult( $list['domain'], $newAccount );
+		$this->printCreateResult( $params['domain'], $newAccount );
 	}
 
-	function getCreateAccountParams( $apiKey, $list ) {
+	function getCreateAccountParams( $apiKey, $params ) {
 		return array(
 			'api_key' => $apiKey, 
-			'domain' => trim( $list['domain'] ), 
-			'username' => trim( $list['host_user'] ),
-			'password' => trim( $list['host_pass'] ), 
-			'location' => trim( $list['location'] ),
-			'package' => trim( $list['package'] )
+			'domain' => trim( $params['domain'] ), 
+			'username' => trim( $params['username'] ),
+			'password' => trim( $params['password'] ), 
+			'location' => trim( $params['location'] ),
+			'package' => trim( $params['package'] )
 		);
 	}
 
 	function printCreateResult( $domain, $newAccount ) {
 		if ( $newAccount['success'] == 'true')
-			echo $domain. ': Successfully created account.' . "\n";
+			echo $domain . ': Successfully created account.' . "\n";
 		else 
 			echo 'Error creating account, result: ' . $newAccount['result'] . "\n";
 	}
@@ -110,18 +91,6 @@ trait CreateAccount {
  * =======================================================================================================================
  */
 trait TerminateAccount {
-	function terminateAccountFromCsvFile( $options  ) {
-		$csvFilename = isset( $options['config'] ) ? $options['config'] : null;
-		$row = isset( $options['row']) ? $options['row'] : null;
-
-		$results = $this->getDataFromCsvFile( $csvFilename, $row ); //see, getCsvConfigData Trait
-		foreach (  $results as $list ) {
-			$apiKey = $this->getApiKey( trim( $list['account'] ) );
-			$domain = trim( $list['domain'] );
-			$this->terminateAccount( $apiKey, $domain );
-		}
-	}
-
 	function terminateAccountFromInputParams( $params ) {
 		$apiKey = $this->getApiKey( $params['account'] );
 		$domain = $params['domain'];

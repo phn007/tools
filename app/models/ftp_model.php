@@ -11,21 +11,14 @@ class FtpModel extends Controller {
 
 	private $root = 'public_html';
 
-	function upload( $siteConfigData, $csvData ) {
-		foreach ( $csvData as $hostData ) {
-			$domain = $hostData['domain'];
-			$config = $siteConfigData[$domain];
-			$config['host_user'] = $hostData['host_user'];
-			$config['host_pass'] = $hostData['host_pass'];
-			
-			$ftp = new FTPClient();
-			$this->connectAndLogin( $ftp, $domain, $config );
-			$this->uploadUnzipScript( $ftp );
-			$this->uploadSiteZipFormat( $ftp, $config );
-			$this->displayLogMessage( $ftp, $domain );
-			$result = $this->runUnzip( $config );
-			$this->displayListOfFilesInDirectory( $ftp );		
-		}
+	function upload( $domain, $config ) {
+		$ftp = new FTPClient();
+		$this->connectAndLogin( $ftp, $domain, $config );
+		$this->uploadUnzipScript( $ftp );
+		$this->uploadSiteZipFormat( $ftp, $config );
+		$this->displayLogMessage( $ftp, $domain );
+		$result = $this->runUnzip( $config );
+		$this->displayListOfFilesInDirectory( $ftp );		
 	}
 
 	function displayLogMessage( $ftp, $domain ) {

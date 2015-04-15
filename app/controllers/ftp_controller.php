@@ -9,18 +9,21 @@ class FtpController extends Controller {
 	use SetupConfig;
 
 	/**
-	 * php ftp action upload bb-prosp
-	 * php ftp action --row=2 upload bb-prosp
+	 * php ftp upload csvFilename domain
 	 */
-	function action( $function, $params, $options ) {
-		$csvFilename = $params['csvFilename'];
-		$initConfigData = $this->initialConfigDataFromCsvFile( $csvFilename, $options );
+	function upload( $function, $params, $options ) {
+		$csvFilename = $function;
+		$domain = $params['domain'];
+		$initConfigData = $this->initialConfigDataFromCsvFileForFtp( $csvFilename, null );
+		$csvData = $initConfigData[ $domain ];
+		$iniFilename = $csvData['config_file'];
+
+		$this->initialDotINIConfigFile( $iniFilename, $csvFilename );
+		$config = $this->getConfigDataForFtp( $csvData );
+		$config['host_user'] = $csvData['host_user'];
+		$config['host_pass'] = $csvData['host_pass'];
 
 		$model = $this->model( 'ftp' );
-		foreach ( $initConfigData as $iniFilename => $csvData ) {
-			$this->initialDotINIConfigFile( $iniFilename, $csvFilename );
-			$configData = $this->getConfigData( $csvData );
-			if ( $function == 'upload' ) $model->upload( $configData, $csvData );
-		}	
+		$model->upload( $domain, $config );
 	}
 }

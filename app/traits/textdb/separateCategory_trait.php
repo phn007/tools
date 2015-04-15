@@ -41,9 +41,11 @@ trait SeparateCategoryForProsperentNetwork {
 	}
 
 	function checkMerchantSeparatorExist( $merchant, $separators ) {
+		echo $merchant;
+		echo "\n";
 		//ตรวจสอบว่ามีข้อมูลของ merchant ที่ส่งเข้ามาหรือเปล่า
 		if ( ! array_key_exists( $merchant, $separators ) )
-			die( $merchant . ': There is no separator' );
+			die( $merchant . ': TEST TEST TEST There is no separator' );
 	}
 
 	function separateCategory( $separator, $category ) {

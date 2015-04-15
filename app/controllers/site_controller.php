@@ -10,6 +10,7 @@ class SiteController extends Controller {
 	use SetupConfig;
 	
 	/**
+	 * --row=2-4
 	 * -z zip files
 	 *
 	 * Create all functions
@@ -49,5 +50,23 @@ class SiteController extends Controller {
 		}
 
 		echo "\n";
+	}
+
+	/**
+	 * php site --row=2-4 ftp upload csvFilename
+	 */
+	function ftp( $function, $params, $options ) {
+		if ( $function == 'upload' ) {
+
+			$csvFilename = $params['csvFilename'];
+			$initConfigData = $this->initialConfigDataFromCsvFileForFtp( $csvFilename, $options );
+
+			//php ftp upload csvFilename domain
+			foreach ( $initConfigData as $csvData ) {
+				$domain = $csvData['domain']; 
+				$cmd = 'php ftp upload ' . $csvFilename . ' ' . $domain;
+				echo shell_exec( $cmd );
+			}
+		}
 	}
 }

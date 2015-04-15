@@ -21,37 +21,46 @@ class OptionList {
 			'textdb' => array( 'csvFilename' ),
 			'textsite' => array( 'csvFilename' )
 		);
-		return array( $textSiteAction => $textSiteFunction );
+
+		$uploadAction = 'ftp';
+		$uploadFunction['functions'] = array( 'upload' => array( 'csvFilename' ) );
+		return array( 
+			$textSiteAction => $textSiteFunction,
+			$uploadAction => $uploadFunction
+		);
 	}
 
 	function textdb() {
 		$textdbAction = 'create';
 		$textdbFunction['functions'] = array( '*' => array('csvFilename', 'iniFilename') );
-		return array($textdbAction => $textdbFunction);
+
+		$separatorAction = 'separator';
+		$separatorFunction['functions'] = array( 'add' => array( 'iniFilename') );
+
+		$calcAction = 'calc';
+		$calcFunction['functions'] = array( '*' => array( 'iniFilename', 'number') );
+
+		$delDbAction = 'db';
+		$delDbFunction['functions'] = array( 'del' => array( 'iniFilename' ) );
+
+		return array(
+			$textdbAction => $textdbFunction,
+			$calcAction => $calcFunction,
+			$separatorAction => $separatorFunction,
+			$delDbAction => $delDbFunction
+		);	
 	}
 
 	function text() {
 		$action = 'create';
 		$function['functions'] = array( '*' => array( 'csvFilename', 'domain' ) );
 
-		$calcAction = 'calc';
-		$calcFunction['functions'] = array( '*' => array( 'iniFilename', 'number') );
-
 		$serverAction = 'server';
 		$serverFunction['functions'] = array( 'start' => array( 'csvFilename', 'domain' ) );
 
-		$separatorAction = 'separator';
-		$separatorFunction['functions'] = array( 'check' => array( 'iniFilename' ) );
-
-		$delDbAction = 'db';
-		$delDbFunction['functions'] = array( 'del' => array( 'iniFilename' ) );
-
 		return array( 
 			$action => $function, 
-			$calcAction => $calcFunction,
-			$serverAction => $serverFunction,
-			$separatorAction => $separatorFunction,
-			$delDbAction => $delDbFunction
+			$serverAction => $serverFunction
 		);
 	}
 	
@@ -152,6 +161,15 @@ class OptionList {
 		);
 	}
 
+	function host() {
+		$hostnineAction = 'hostnine';
+		$hostnineFunction['functions'] = array(
+			'terminate' => array( 'csvFilename' ),
+			'create' => array( 'csvFilename' )
+		);
+		return array( $hostnineAction => $hostnineFunction );
+	}
+
 	function hostnine() {
 		$accountAction = 'accounts';
 		$accountFunction['functions'] = array(
@@ -181,8 +199,8 @@ class OptionList {
 	}
 
 	function ftp() {
-		$uploadAction = 'action';
-		$uploadFunctions['functions'] = array( 'upload' => array( 'csvFilename' ) );
+		$uploadAction = 'upload';
+		$uploadFunctions['functions'] = array( '*' => array( 'domain' ) ); //function = csvFilename
 		return array( $uploadAction => $uploadFunctions );
 	}
 }

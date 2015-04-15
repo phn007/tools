@@ -22,6 +22,18 @@ trait ConfigDataFromCsvFile {
 		return $initConfigData;
 	}
 
+	function initialConfigDataFromCsvFileForFtp( $csvFilename, $options ) {
+		$row = isset( $options['row']) ? $options['row'] : null;
+		$initConfigData = null;
+		$csvfile = $this->getDataFromCsvFile( $csvFilename, $row ); //getCsvConfigData trait
+		foreach ( $csvfile as $conf ) {
+			if ( !empty( $conf['domain'] ) ) {
+				$initConfigData[$conf['domain']] = $conf;
+			}
+		}
+		return $initConfigData;
+	}
+
 	function initialConfigDataFromCsvFileForText( $csvFilename, $domain ) {
 		$csvfile = $this->getDataFromCsvFile( $csvFilename, null ); //getCsvConfigData trait
 		foreach ( $csvfile as $conf ) {
@@ -170,6 +182,10 @@ trait GetConfigData {
 			$group[$siteConfig['domain']] = $configs;
 		}
 		return $group;
+	}
+
+	function getConfigDataForFtp( $csvData ) {
+		return $this->setSiteConfigGroup( $csvData );
 	}
 
 	function getSiteConfigDataForHtml( $csvData ) {

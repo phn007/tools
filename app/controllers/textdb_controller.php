@@ -23,19 +23,9 @@ class TextdbController extends Controller {
 	 * php textdb create homepagecat rexce group1	 
 	 */
 
-	function create($function, $params, $options) {
+	function create( $function, $params, $options ) {
 		$csvFilename = $params['csvFilename'];
 		$iniFilename = $params['iniFilename'];
-		//$module = $options['module'];
-
-
-		// echo $csvFilename;
-		// echo "\n";
-		// echo $iniFilename;
-		// echo "\n";
-		// echo $function;
-		// echo "\n";
-		// die();
 
 		$initConfigData = $this->initialConfigDataFromCsvFile( $csvFilename, $options );
 		$csvData = $initConfigData[$iniFilename];
@@ -63,6 +53,46 @@ class TextdbController extends Controller {
 		if ( $function == 'homepagecat' || $function == 'all' ) {
 			$categoryListModel = $this->model( 'textdb/categoryListForHomepage' );
 			$categoryListModel->create( $configData );
+		}
+		echo "\n";
+	}
+
+	/**
+	 * php textdb separator add iniFilename
+	 */
+	function separator( $function, $params, $options ) {
+		if ( $function == 'add' ) {
+			$iniFilename = $params['iniFilename'];
+			$merchants = $this->getMerchantForSeparate( $iniFilename );
+			$model = $this->model('separator');
+			$model->addSeparator( $merchants, $iniFilename );
+		}
+		echo "\n";
+	}
+
+	/**
+	 * php textdb calc type iniFilename number
+	 * php textdb calc byproducts test1 3000
+	 * php textdb calc bydomains test1 5
+	 */
+	function calc( $function, $params, $options ) {
+		$iniFilename = $params['iniFilename'];
+		$merchantData = $this->getMerchantForCalcalate( $iniFilename );
+		$model = $this->model( 'textdb/calculateDomainNumber' );
+		if ( 'byproducts' == $function ) $model->calcByProducts( $merchantData, $params['number'] );
+		if ( 'bydomains' == $function ) $model->calcByDomains( $merchantData, $params['number'] );
+		echo "\n";
+	}
+
+	/**
+	 * php textdb db del demo
+	 */
+	function DB( $function, $params, $options ) {
+		if ( $function == 'del' ) {
+			$iniFilename = $params['iniFilename'];
+			$dbs = $this->getDatabaseNames( $iniFilename );
+			$model = $this->model( 'textdb/textdb' );
+			$model->deleteDatabase( $dbs );
 		}
 		echo "\n";
 	}

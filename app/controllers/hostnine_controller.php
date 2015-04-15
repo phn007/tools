@@ -3,13 +3,22 @@ use webtools\controller;
 
 class HostnineController extends Controller {
 	/**
-	 *  php hostnine accounts get maxcom all
+	 *  php hostnine accounts get maxco -m all
 	 *  php hostnine accounts get maxcom domain.com
 	 *
 	 * options
 	 * -c --csvfile config
 	 * --row row of csv file
-	 * -s --sort domain,rtotal_disk etc...
+	 * -s --sort 
+	 * domain
+	 * username
+	 * ip
+	 * location
+	 * rquota
+	 * rbandwidth
+	 * rtotal_disk
+	 * rtotal_bw
+	 * status
 	 * -a --ascending
 	 * -d --descending
 	 *

@@ -26,7 +26,7 @@ trait TextsiteCommandLine {
 		$this->printTextsiteHead( $csvFilename );
 		foreach ( $configs as $conf ) {
 			$domain = $conf['domain'];
-			
+
 			if ( $module == 'code' || $module == 'siteall' )
 				$this->textsiteCommand( 'code', $csvFilename, $domain );
 

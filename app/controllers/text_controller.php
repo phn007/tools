@@ -30,6 +30,7 @@ class TextController extends Controller {
 	function create( $function, $params, $options ) {
 		$csvFilename = $params['csvFilename'];
 		$domain = $params['domain'];
+
 		if ( array_key_exists( 'zip', $options ) ) 
 			$option = 'zip';
 		else
@@ -40,10 +41,10 @@ class TextController extends Controller {
 
 		$this->initialDotINIConfigFile( $iniFilename, $csvFilename );
 		$config = $this->getSiteConfigDataForText( $csvFilename, $csvData );
-
 		$config['site_desc']   = $this->getSiteDescription( $config['site_category'] ); //SiteInfomation Trait
 		$config['site_author'] = $this->getSiteAuthor();
 		$config['prod_route']  = $this->getProdRoute();
+
 		$model = $this->model( 'textsite' );
 		$model->initialTextsite( $config, $options );
 
@@ -56,20 +57,6 @@ class TextController extends Controller {
 		if ( $function == 'theme') $model->theme();
 		if ( $function == 'zip') $model->zipFiles();
 		if ( $option == 'zip') $model->zipFiles();
-	}
-
-	/**
-	 * php text calc type iniFilename number
-	 * php text calc byproducts test1 3000
-	 * php text calc bydomains test1 5
-	 */
-	function calc( $function, $params, $options ) {
-		$iniFilename = $params['iniFilename'];
-		$merchantData = $this->getMerchantForCalcalate( $iniFilename );
-		$model = $this->model( 'textdb/calculateDomainNumber' );
-		if ( 'byproducts' == $function ) $model->calcByProducts( $merchantData, $params['number'] );
-		if ( 'bydomains' == $function ) $model->calcByDomains( $merchantData, $params['number'] );
-		echo "\n";
 	}
 
 	/**
@@ -87,16 +74,6 @@ class TextController extends Controller {
 		);
 		$model = $this->model( 'textsite' );
 		if ( 'start' == $function ) $model->serverStart( $config );
-	}
-
-	/**
-	 * php text separator check iniFilename
-	 */
-	function separator( $function, $params, $options ) {
-		$iniFilename = $params['iniFilename'];
-		$merchants = $this->getMerchantForSeparate( $iniFilename );
-		$model = $this->model( 'textsite' );
-		if ( $function == 'check' ) $model->checkSeparator( $merchants );
 	}
 
 	/**
