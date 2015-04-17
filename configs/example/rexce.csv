@@ -1,0 +1,68 @@
+DOMAIN,,ACCOUNT,HOST_USER,HOST_PASS,LOCATION,PACKAGE,,STAT_USER,STAT_PASS,PROJECT,GROUP,,SITE_DIR,SITE_NAME,PREFIX_SID,URL_FORMAT,THEME_NAME,CONFIG_FILE
+akalu.rexce.com,,rexce,rexce01,p2h5a1n1,(US) Central,package-01,,bipnt,p2h5a1n1,akalu.rexce.com,H9-Rexce-BB-15-03-16,,rexce1,akalu-rexce,h9-rexce-bb-rexce-akalu,.html,bb,group1
+iss.rexce.com,,rexce,rexce02,p2h5a1n1,(US) West,package-01,,bipnt,p2h5a1n1,iss.rexce.com,H9-Rexce-BB-15-03-16,,rexce2,iss-rexce,h9-rexce-bb-rexce-iss,.html,bb,group1
+tonr.rexce.com,,rexce,rexce03,p2h5a1n1,(US) East,package-01,,bipnt,p2h5a1n1,tonr.rexce.com,H9-Rexce-BB-15-03-16,,rexce3,tonr-rexce,h9-rexce-bb-rexce-tonr,.html,bb,group1
+,,,,,,,,,,,,,,,,,,
+iuske.rexce.com,,rexce,rexce04,p2h5a1n1,(US) Central,package-01,,bipnt,p2h5a1n1,iuske.rexce.com,H9-Rexce-BB-15-03-16,,rexce4,iuske-rexce,h9-rexce-bb-rexce-iuske,.html,bb,group2
+arise.rexce.com,,rexce,rexce05,p2h5a1n1,(US) West,package-01,,bipnt,p2h5a1n1,arise.rexce.com,H9-Rexce-BB-15-03-16,,rexce5,arise-rexce,h9-rexce-bb-rexce-arise,.html,bb,group2
+ibela.rexce.com,,rexce,rexce06,p2h5a1n1,(US) East,package-01,,bipnt,p2h5a1n1,ibela.rexce.com,H9-Rexce-BB-15-03-16,,rexce6,ibela-rexce,h9-rexce-bb-rexce-ibela,.html,bb,group2
+,,,,,,,,,,,,,,,,,,
+smear.rexce.com,,rexce,rexce07,p2h5a1n1,(US) Central,package-01,,bipnt,p2h5a1n1,smear.rexce.com,H9-Rexce-BB-15-03-16,,rexce7,smear-rexce,h9-rexce-bb-rexce-smear,.html,bb,group3
+oshyo.rexce.com,,rexce,rexce08,p2h5a1n1,(US) West,package-01,,bipnt,p2h5a1n1,oshyo.rexce.com,H9-Rexce-BB-15-03-16,,rexce8,oshyo-rexce,h9-rexce-bb-rexce-oshyo,.html,bb,group3
+achae.rexce.com,,rexce,rexce09,p2h5a1n1,(US) Central,package-01,,bipnt,p2h5a1n1,achae.rexce.com,H9-Rexce-BB-15-03-16,,rexce9,achae-rexce,h9-rexce-bb-rexce-achae,.html,bb,group3
+eesty.rexce.com,,rexce,rexce10,p2h5a1n1,(US) West,package-01,,bipnt,p2h5a1n1,eesty.rexce.com,H9-Rexce-BB-15-03-16,,rexce10,eesty-rexce,h9-rexce-bb-rexce-eesty,.html,bb,group3
+yiath.rexce.com,,rexce,rexce11,p2h5a1n1,(US) East,package-01,,bipnt,p2h5a1n1,yiath.rexce.com,H9-Rexce-BB-15-03-16,,rexce11,yiath-rexce,h9-rexce-bb-rexce-yiath,.html,bb,group3
+,,,,,,,,,,,,,,,,,,
+rexce.com,,rexce,rexce12,p2h5a1n1,(US) Central,package-01,,bipnt,p2h5a1n1,rexce.com,H9-Rexce-BB-15-03-16,,rexce12,rexce,h9-rexce-bb-rexce,.html,bb,group4
+taik.rexce.com,,rexce,rexce13,p2h5a1n1,(US) West,package-01,,bipnt,p2h5a1n1,taik.rexce.com,H9-Rexce-BB-15-03-16,,rexce13,taik-rexce,h9-rexce-bb-rexce-taik,.html,bb,group4
+rhoort.rexce.com,,rexce,rexce14,p2h5a1n1,(US) East,package-01,,bipnt,p2h5a1n1,rhoort.rexce.com,H9-Rexce-BB-15-03-16,,rexce14,rhoort-rexce,h9-rexce-bb-rexce-rhoort,.html,bb,group4
+,,,,,,,,,,,,,,,,,,
+aleri.rexce.com,,rexce,rexce15,p2h5a1n1,(US) Central,package-01,,bipnt,p2h5a1n1,aleri.rexce.com,H9-Rexce-BB-15-03-16,,rexce15,aleri-rexce,h9-rexce-bb-rexce-aleri,.html,bb,group5
+oldr.rexce.com,,rexce,rexce16,p2h5a1n1,(US) West,package-01,,bipnt,p2h5a1n1,oldr.rexce.com,H9-Rexce-BB-15-03-16,,rexce16,oldr-rexce,h9-rexce-bb-rexce-oldr,.html,bb,group5
+tanr.rexce.com,,rexce,rexce17,p2h5a1n1,(US) East,package-01,,bipnt,p2h5a1n1,tanr.rexce.com,H9-Rexce-BB-15-03-16,,rexce17,tanr-rexce,h9-rexce-bb-rexce-tanr,.html,bb,group5
+,,,,,,,,,,,,,,,,,,
+gym.rexce.com,,rexce,rexce18,p2h5a1n1,(US) Central,package-01,,bipnt,p2h5a1n1,gym.rexce.com,H9-Rexce-BB-15-03-16,,rexce18,gym-rexce,h9-rexce-bb-rexce-gym,.html,bb,group6
+zaurr.rexce.com,,rexce,rexce19,p2h5a1n1,(US) West,package-01,,bipnt,p2h5a1n1,zaurr.rexce.com,H9-Rexce-BB-15-03-16,,rexce19,zaurr-rexce,h9-rexce-bb-rexce-zaurr,.html,bb,group6
+drall.rexce.com,,rexce,rexce20,p2h5a1n1,(US) East,package-01,,bipnt,p2h5a1n1,drall.rexce.com,H9-Rexce-BB-15-03-16,,rexce20,drall-rexce,h9-rexce-bb-rexce-drall,.html,bb,group6
+lyld.rexce.com,,rexce,rexce21,p2h5a1n1,(US) Central,package-01,,bipnt,p2h5a1n1,lyld.rexce.com,H9-Rexce-BB-15-03-16,,rexce21,lyld-rexce,h9-rexce-bb-rexce-lyld,.html,bb,group6
+,,,,,,,,,,,,,,,,,,
+enth.rexce.com,,rexce,rexce22,p2h5a1n1,(US) West,package-01,,lapc1401,p2h5a1n1,enth.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce22,enth-rexce,h9-rexce-bb-rexce-enth,.html,bb,sale-list
+ting.rexce.com,,rexce,rexce23,p2h5a1n1,(US) East,package-01,,lapc1401,p2h5a1n1,ting.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce23,ting-rexce,h9-rexce-bb-rexce-ting,.html,bb,sale-list
+zeiq.rexce.com,,rexce,rexce24,p2h5a1n1,(US) Central,package-01,,lapc1401,p2h5a1n1,zeiq.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce24,zeiq-rexce,h9-rexce-bb-rexce-zeiq,.html,bb,sale-list
+toug.rexce.com,,rexce,rexce25,p2h5a1n1,(US) West,package-01,,lapc1401,p2h5a1n1,toug.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce25,toug-rexce,h9-rexce-bb-rexce-toug,.html,bb,sale-list
+tail.rexce.com,,rexce,rexce26,p2h5a1n1,(US) East,package-01,,lapc1401,p2h5a1n1,tail.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce26,tail-rexce,h9-rexce-bb-rexce-tail,.html,bb,sale-list
+ings.rexce.com,,rexce,rexce27,p2h5a1n1,(US) Central,package-01,,lapc1401,p2h5a1n1,ings.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce27,ings-rexce,h9-rexce-bb-rexce-ings,.html,bb,sale-list
+poir.rexce.com,,rexce,rexce28,p2h5a1n1,(US) West,package-01,,lapc1401,p2h5a1n1,poir.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce28,poir-rexce,h9-rexce-bb-rexce-poir,.html,bb,sale-list
+dreygh.rexce.com,,rexce,rexce29,p2h5a1n1,(US) East,package-01,,lapc1401,p2h5a1n1,dreygh.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce29,dreygh-rexce,h9-rexce-bb-rexce-dreygh,.html,bb,sale-list
+aemu.rexce.com,,rexce,rexce30,p2h5a1n1,(US) Central,package-01,,lapc1401,p2h5a1n1,aemu.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce30,aemu-rexce,h9-rexce-bb-rexce-aemu,.html,bb,sale-list
+aete.rexce.com,,rexce,rexce31,p2h5a1n1,(US) West,package-01,,lapc1401,p2h5a1n1,aete.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce31,aete-rexce,h9-rexce-bb-rexce-aete,.html,bb,sale-list
+anld.rexce.com,,rexce,rexce32,p2h5a1n1,(US) East,package-01,,lapc1401,p2h5a1n1,anld.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce32,anld-rexce,h9-rexce-bb-rexce-anld,.html,bb,sale-list
+eendy.rexce.com,,rexce,rexce33,p2h5a1n1,(US) Central,package-01,,lapc1401,p2h5a1n1,eendy.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce33,eendy-rexce,h9-rexce-bb-rexce-eendy,.html,bb,sale-list
+hief.rexce.com,,rexce,rexce34,p2h5a1n1,(US) West,package-01,,lapc1401,p2h5a1n1,hief.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce34,hief-rexce,h9-rexce-bb-rexce-hief,.html,bb,sale-list
+inge.rexce.com,,rexce,rexce35,p2h5a1n1,(US) East,package-01,,lapc1401,p2h5a1n1,inge.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce35,inge-rexce,h9-rexce-bb-rexce-inge,.html,bb,sale-list
+issh.rexce.com,,rexce,rexce36,p2h5a1n1,(US) Central,package-01,,lapc1401,p2h5a1n1,issh.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce36,issh-rexce,h9-rexce-bb-rexce-issh,.html,bb,sale-list
+lear.rexce.com,,rexce,rexce37,p2h5a1n1,(US) West,package-01,,lapc1401,p2h5a1n1,lear.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce37,lear-rexce,h9-rexce-bb-rexce-lear,.html,bb,sale-list
+naiy.rexce.com,,rexce,rexce38,p2h5a1n1,(US) East,package-01,,lapc1401,p2h5a1n1,naiy.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce38,naiy-rexce,h9-rexce-bb-rexce-naiy,.html,bb,sale-list
+nur.rexce.com,,rexce,rexce39,p2h5a1n1,(US) Central,package-01,,lapc1401,p2h5a1n1,nur.rexce.com,H9-Rexce-Rexce.com-BB-Sale-List,,rexce39,nur-rexce,h9-rexce-bb-rexce-nur,.html,bb,sale-list
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+aldnn.rexce.com,,rexce,rexce40,p2h5a1n1,(US) East,package-01,,lapc1401,p2h5a1n1,aldnn.rexce.com,H9-Rexce-Rexce.com-BB-NoList,,rexce40,aldnn-rexce,h9-rexce-bb-rexce-aldnn,.html,bb,SaleNoList1
+fouq.rexce.com,,rexce,rexce41,p2h5a1n1,(US) West,package-01,,lapc1401,p2h5a1n1,fouq.rexce.com,H9-Rexce-Rexce.com-BB-NoList,,rexce41,fouq-rexce,h9-rexce-bb-rexce-fouq,.html,bb,SaleNoList1
+ingd.rexce.com,,rexce,rexce42,p2h5a1n1,(US) Central,package-01,,lapc1401,p2h5a1n1,ingd.rexce.com,H9-Rexce-Rexce.com-BB-NoList,,rexce42,ingd-rexce,h9-rexce-bb-rexce-ingd,.html,bb,SaleNoList1
+lyew.rexce.com,,rexce,rexce43,p2h5a1n1,(US) East,package-01,,lapc1401,p2h5a1n1,lyew.rexce.com,H9-Rexce-Rexce.com-BB-NoList,,rexce43,lyew-rexce,h9-rexce-bb-rexce-lyew,.html,bb,SaleNoList1
+quarr.rexce.com,,rexce,rexce44,p2h5a1n1,(US) West,package-01,,lapc1401,p2h5a1n1,quarr.rexce.com,H9-Rexce-Rexce.com-BB-NoList,,rexce44,quarr-rexce,h9-rexce-bb-rexce-quarr,.html,bb,SaleNoList1
+,,,,,,,,,,,,,,,,,,
+urns.rexce.com,,rexce,rexce45,p2h5a1n1,(US) East,package-01,,lapc1401,p2h5a1n1,urns.rexce.com,H9-Rexce-Rexce.com-BB-NoList,,rexce45,urns-rexce,h9-rexce-bb-rexce-urns,.html,bb,SaleNoList2
+tonrt.rexce.com,,rexce,rexce46,p2h5a1n1,(US) West,package-01,,lapc1401,p2h5a1n1,tonrt.rexce.com,H9-Rexce-Rexce.com-BB-NoList,,rexce46,tonrt-rexce,h9-rexce-bb-rexce-tonrt,.html,bb,SaleNoList2
+iessu.rexce.com,,rexce,rexce47,p2h5a1n1,(US) Central,package-01,,lapc1401,p2h5a1n1,iessu.rexce.com,H9-Rexce-Rexce.com-BB-NoList,,rexce47,iessu-rexce,h9-rexce-bb-rexce-iessu,.html,bb,SaleNoList2
+,,,,,,,,,,,,,,,,,,
+abanu.rexce.com,,rexce,rexce48,p2h5a1n1,(US) West,package-01,,lapc1401,p2h5a1n1,abanu.rexce.com,H9-Rexce-Rexce.com-BB-NewList1,,rexce48,abanu-rexce,h9-rexce-bb-newlist1-rexce-abanu,.html,bb,NewAll
+iageu.rexce.com,,rexce,rexce49,p2h5a1n1,(US) East,package-01,,lapc1401,p2h5a1n1,iageu.rexce.com,H9-Rexce-Rexce.com-BB-NewList1,,rexce49,iageu-rexce,h9-rexce-bb-newlist1-rexce-iageu,.html,bb,NewAll
+iormy.rexce.com,,rexce,rexce50,p2h5a1n1,(US) Central,package-01,,lapc1401,p2h5a1n1,iormy.rexce.com,H9-Rexce-Rexce.com-BB-NewList1,,rexce50,iormy-rexce,h9-rexce-bb-newlist1-rexce-iormy,.html,bb,NewAll
+oengo.rexce.com,,rexce,rexce51,p2h5a1n1,(US) West,package-01,,lapc1401,p2h5a1n1,oengo.rexce.com,H9-Rexce-Rexce.com-BB-NewList1,,rexce51,oengo-rexce,h9-rexce-bb-newlist1-rexce-oengo,.html,bb,NewApparel
+pyv.rexce.com,,rexce,rexce52,p2h5a1n1,(US) East,package-01,,lapc1401,p2h5a1n1,pyv.rexce.com,H9-Rexce-Rexce.com-BB-NewList1,,rexce52,pyv-rexce,h9-rexce-bb-newlist1-rexce-pyv,.html,bb,NewApparel
+nauq.rexce.com,,rexce,rexce53,p2h5a1n1,(US) Central,package-01,,lapc1401,p2h5a1n1,nauq.rexce.com,H9-Rexce-Rexce.com-BB-NewList1,,rexce53,nauq-rexce,h9-rexce-bb-newlist1-rexce-nauq,.html,bb,NewApparel
+tasgh.rexce.com,,rexce,rexce54,p2h5a1n1,(US) West,package-01,,lapc1401,p2h5a1n1,tasgh.rexce.com,H9-Rexce-Rexce.com-BB-NewList1,,rexce54,tasgh-rexce,h9-rexce-bb-newlist1-rexce-tasgh,.html,bb,NewApparel
+tornd.rexce.com,,rexce,rexce55,p2h5a1n1,(US) East,package-01,,lapc1401,p2h5a1n1,tornd.rexce.com,H9-Rexce-Rexce.com-BB-NewList1,,rexce55,tornd-rexce,h9-rexce-bb-newlist1-rexce-tornd,.html,bb,NewApparel
+troigh.rexce.com,,rexce,rexce56,p2h5a1n1,(US) Central,package-01,,lapc1401,p2h5a1n1,troigh.rexce.com,H9-Rexce-Rexce.com-BB-NewList1,,rexce56,troigh-rexce,h9-rexce-bb-newlist1-rexce-troigh,.html,bb,NewApparel
+udelo.rexce.com,,rexce,rexce57,p2h5a1n1,(US) West,package-01,,lapc1401,p2h5a1n1,udelo.rexce.com,H9-Rexce-Rexce.com-BB-NewList1,,rexce57,udelo-rexce,h9-rexce-bb-newlist1-rexce-udelo,.html,bb,NewApparel

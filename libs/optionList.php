@@ -165,7 +165,8 @@ class OptionList {
 		$hostnineAction = 'hostnine';
 		$hostnineFunction['functions'] = array(
 			'terminate' => array( 'csvFilename' ),
-			'create' => array( 'csvFilename' )
+			'create' => array( 'csvFilename' ),
+			'modify' => array( 'csvFilename' )
 		);
 		return array( $hostnineAction => $hostnineFunction );
 	}
@@ -176,7 +177,8 @@ class OptionList {
 			'get' => array( 'account', 'domain' ),
 			'create' => array( 'account', 'domain', 'username', 'password', 'location', 'package' ),
 			'view' => array(),
-			'terminate' => array( 'account', 'domain' )
+			'terminate' => array( 'account', 'domain' ),
+			'modify' => array( 'account', 'domain' )
 		);
 
 		$locationAction = 'locations';

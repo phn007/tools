@@ -3,12 +3,14 @@ use webtools\controller;
 
 class HostnineController extends Controller {
 	/**
+	* options
+	 * --row row of csv file
+	 *
 	 *  php hostnine accounts get maxco -m all
 	 *  php hostnine accounts get maxcom domain.com
 	 *
-	 * options
-	 * -c --csvfile config
-	 * --row row of csv file
+	 * Get Options
+	 * -----------
 	 * -s --sort 
 	 * domain
 	 * username
@@ -27,12 +29,18 @@ class HostnineController extends Controller {
 	 *
 	 * php hostnine -c create-account accouonts create
 	 * php hostnine accounts create maxcom domain.com username password "location" package
+	 *
+	 *
+	 * php hostnine accounts modify maxcom domain.com
+	 * --quota int
+	 * --bandwidth int
 	 */
 	function accounts( $function, $params, $options ) {
 		$model = $this->model( 'hostnine/accounts' );
 		if ( $function == 'get' ) $model->get( $params, $options );
 		if ( $function == 'create' ) $model->create( $params, $options );
 		if ( $function == 'terminate' ) $model->terminate( $params, $options );
+		if ( $function == 'modify' ) $model->modify( $params, $options );
 	}
 
 	function myAccount( $function, $params, $options ) {

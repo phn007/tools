@@ -72,6 +72,18 @@ try {
                'short' => 'd',
                'desc' => array('descending sorting' )
             ),
+            array(
+               'long' => 'quota',
+               'type' => 'mandatory',
+               'short' => 'q',
+               'desc' => array('quota int', '2000' )
+            ),
+            array(
+               'long' => 'bandwidth',
+               'type' => 'mandatory',
+               'short' => 'b',
+               'desc' => array('bandwidth', '15000' )
+            )
             
          ),
 

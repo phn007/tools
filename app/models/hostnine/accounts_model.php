@@ -21,8 +21,8 @@ class AccountsModel extends Controller {
 	use TerminateAccount;
 	use GetCsvConfigData;
 
-	//create account
 	use CreateAccount;
+	use ModifyAccount;
 
 	/**
 	 * Retrieve a list of accounts.
@@ -49,7 +49,43 @@ class AccountsModel extends Controller {
 	function terminate( $params, $options ) {
 		$this->terminateAccountFromInputParams( $params );	
 	}
+
+	/**
+	 * Modify the hosting options of an account within your Reseller Central.
+	 */
+	function modify( $params, $options ) {
+		$this->modifyAccountFromInputParams( $params, $options );
+	}
 }//Model Class
+
+
+trait ModifyAccount {
+	function modifyAccountFromInputParams( $params, $options ) {
+		$apiKey = $this->getApiKey( trim( $params['account'] ) );
+		$params = $this->getModifyParams( $apiKey, $params, $options );
+		$modifyAccount = $this->resellercentralQuery( 'modifyAccount', $params ); //see, resellerCentralQuery_trait
+		$this->printModifyResult( $params['domain'], $modifyAccount );
+	}
+
+	function getModifyParams( $apiKey, $params, $options ) {
+		$arr['api_key'] = $apiKey;
+		$arr['domain'] = trim( $params['domain'] );
+
+		if ( isset( $options['quota'] ) )
+			$arr['quota'] = $options['quota'];
+
+		if ( isset( $options['bandwidth'] ) )
+			$arr['bandwidth'] = $options['bandwidth'];
+		return $arr;
+	}
+
+	function printModifyResult( $domain, $modifyAccount ) {
+		if ( $modifyAccount['success'] == 'true')
+			echo $modifyAccount['result'] . "\n";
+		else 
+			echo 'Error creating account, result: ' . $modifyAccount['result'] . "\n";
+	}
+}
 
 /**
  * CREATE ACCOUNT TRAIT SECTION

@@ -8,6 +8,29 @@ include WT_BASE_PATH . 'libs/csvReaderV2.php';
 class HostModel {
 	use GetCsvConfigData;
 
+	//php hostnine accounts modify maxcom domain.com
+	/*
+		Options
+			--quota
+			-- bandwidth
+	*/
+	function hostnineModifyAccounts( $csvFilename, $options ) {
+		$row = isset( $options['row']) ? $options['row'] : null;
+		$results = $this->getDataFromCsvFile( $csvFilename, $row ); //see, getCsvConfigData Trait
+
+		$quota = isset( $options['quota'] ) ? '--quota=' . $options['quota'] : null;
+		$bandwidth = isset( $options['bandwidth'] ) ? '--bandwidth=' . $options['bandwidth'] : null;
+		$modifyOption = $quota . ' ' . $bandwidth;
+
+		foreach ( $results as $row ) {
+			$domain = $row['domain'];
+			$account = $row['account'];
+			
+			$cmd = 'php hostnine ' . $modifyOption . ' accounts modify ' . $account . ' ' . $domain;
+			echo shell_exec( $cmd );
+		}
+	}
+
 	//php hostnine accounts terminate maxcom domain.com
 	function hostnineTerminateAccounts( $csvFilename, $options ) {
 		$row = isset( $options['row']) ? $options['row'] : null;
@@ -16,9 +39,6 @@ class HostModel {
 		foreach ( $results as $row ) {
 			$domain = $row['domain'];
 			$account = $row['account'];
-			// echo $account . ' ' . $domain;
-			// echo "\n";
-
 			$cmd = 'php hostnine accounts terminate ' . $account . ' ' . $domain;
 			echo shell_exec( $cmd );
 		}
