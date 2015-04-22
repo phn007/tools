@@ -50,6 +50,11 @@ try {
                'short' => 'z',
                'type' => 'noarg',
                'desc' => array('module', '' )
+            ),
+            array(
+               'long' => 'method',
+               'type' => 'mandatory',
+               'desc' => array('zip type', 'shell, php' )
             )
          ),
 

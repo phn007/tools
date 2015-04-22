@@ -19,7 +19,8 @@ class OptionList {
 		$textSiteFunction['functions'] = array( 
 			'all' => array( 'csvFilename' ),
 			'textdb' => array( 'csvFilename' ),
-			'textsite' => array( 'csvFilename' )
+			'textsite' => array( 'csvFilename' ),
+			'zip' => array( 'csvFilename' )
 		);
 
 		$uploadAction = 'ftp';

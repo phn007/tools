@@ -27,7 +27,10 @@ class SiteController extends Controller {
 	 * php site --row=2-4 --module=code create textsite rexce
 	 * php site --row=2-4 --module=config create textsite rexce
 	 * 
-	 *
+	 * Create Zip File
+	 * default method option = php
+	 * php site --row=2-4 create zip csvfilename 
+	 * php site --row=2-4 --method=shell zip csvfilename
 	 */
 	function create( $function, $params, $options ) {
 		$csvFilename = $params['csvFilename'];
@@ -36,17 +39,20 @@ class SiteController extends Controller {
 
 		if ( $function == 'textdb' || $function == 'all' ) {
 			$module = isset( $options['module'] ) ? $options['module'] : 'allTextDb';
-			$model->textDb( $module, $initConfigData, $csvFilename );
+			$row = isset( $options['row'] ) ? $options['row'] : null;
+			$model->textDb( $module, $initConfigData, $csvFilename, $row );
 		}
 
-		if ( array_key_exists('zip', $options ) ) 
-			$zip = 'zip';
-		else
-			$zip = null;
-
 		if ( $function == 'textsite' || $function == 'all' ) {
+			$zip = null;
+			if ( array_key_exists('zip', $options ) ) $zip = 'zip';
+				
 			$module = isset( $options['module'] ) ? $options['module'] : 'siteall';
 			$model->textsite( $module, $initConfigData, $csvFilename, $zip );
+		}
+
+		if ( $function == 'zip' ) {
+			$model->zipTextsite( $initConfigData, $csvFilename, $options );
 		}
 
 		echo "\n";

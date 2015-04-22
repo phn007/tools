@@ -21,6 +21,8 @@ include WT_APP_PATH . 'traits/textsite/siteInfo_trait.php';
  * php text create robots demo domain.com
  * php text create theme demo domain.com
  *
+ * php text create zip demo domain.com
+ * php text --method=shell zip demo domain.com
 */
 class TextController extends Controller {
 	use GetCsvConfigData;
@@ -55,8 +57,8 @@ class TextController extends Controller {
 		if ( $function == 'sitemapindex' || $function == 'all' ) $model->sitemapIndex();
 		if ( $function == 'robots' || $function == 'all' ) $model->robots();
 		if ( $function == 'theme') $model->theme();
-		if ( $function == 'zip') $model->zipFiles();
-		if ( $option == 'zip') $model->zipFiles();
+		if ( $function == 'zip') $model->zipFiles( $options );
+		if ( $option == 'zip') $model->zipFiles( $options );
 	}
 
 	/**

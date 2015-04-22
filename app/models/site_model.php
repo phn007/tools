@@ -5,13 +5,39 @@ use webtools\libs\Helper;
 class SiteModel {
 	use TextDbCommandLine;
 	use TextsiteCommandLine;
+	use ZipTextsiteCommandLine;
 
-	function textDb( $module, $initConfigData, $csvFilename ) {
-		$this->textDbCommandLine( $module, $initConfigData, $csvFilename );
+	function textDb( $module, $initConfigData, $csvFilename, $row ) {
+		$this->textDbCommandLine( $module, $initConfigData, $csvFilename, $row );
 	}
 
 	function textsite( $module, $initConfigData, $csvFilename, $zip ) {
 		$this->textsiteCommandLine( $module, $initConfigData, $csvFilename, $zip );
+	}
+
+	function zipTextsite( $initConfigData, $csvFilename, $options ) {
+		$this->zipTextsiteCommandLine( $initConfigData, $csvFilename, $options );
+	}
+}
+
+trait ZipTextsiteCommandLine {
+	function zipTextsiteCommandLine( $initConfigData, $csvFilename, $options ) {
+		$method = '--method=php';
+		if ( isset( $options['method'] ) ) {
+			if ( $options['method'] == 'shell' ) $method = '--method=shell';
+		}
+
+		foreach ( $initConfigData as $configs ) {
+			$this->loopThroughConfigsForZip( $csvFilename, $configs, $method );
+		}
+	}
+
+	function loopThroughConfigsForZip( $csvFilename, $configs, $method ) {
+		foreach ( $configs as $conf ) {
+			//php text create zip demo domain.com
+			$cmd = 'php text ' . $method . ' create zip ' . $csvFilename . ' ' . $conf['domain'];
+			echo shell_exec( $cmd );
+		}
 	}
 }
 
@@ -69,27 +95,31 @@ trait TextsiteCommandLine {
 }
 
 trait TextDbCommandLine {
-	function textDbCommandLine( $module, $initConfigData, $csvFilename ) {
+	function textDbCommandLine( $module, $initConfigData, $csvFilename, $row ) {
 		$groups = array_keys( $initConfigData );
 		
 		foreach ( $groups as $iniFilename) {
 			$this->TextDbPrintHead( $iniFilename );
 
 			if ( $module == 'product' || $module == 'allTextDb' ) 
-				$this->textDbCommand( 'product', $csvFilename, $iniFilename );
+				$this->textDbCommand( 'product', $csvFilename, $iniFilename, $row );
 
 			if ( $module == 'category' || $module == 'allTextDb' ) 
-				$this->textDbCommand( 'category', $csvFilename, $iniFilename );
+				$this->textDbCommand( 'category', $csvFilename, $iniFilename, $row );
 
 			if ( $module == 'homepagecat' || $module == 'allTextDb' ) 
-				$this->textDbCommand( 'homepagecat', $csvFilename, $iniFilename );
+				$this->textDbCommand( 'homepagecat', $csvFilename, $iniFilename, $row );
 		}
 	}
 
-	function textDbCommand( $module, $csvFilename, $iniFilename ) {
+	function textDbCommand( $module, $csvFilename, $iniFilename, $row ) {
+		$optRow = null;
+		if ( !empty( $row ) ) $optRow = '--row=' . $row;
+
+		$cmd = 'php textdb ' . $optRow . ' create ' . $module .  ' ' . $csvFilename . ' ' . $iniFilename;
 		echo "\n*** " . ucfirst( $module ) . " Creating...\n";
-		//$cmd = 'php textdb --module=' . $module . ' create db ' . $csvFilename . ' ' . $iniFilename;
-		$cmd = 'php textdb create ' . $module .  ' ' . $csvFilename . ' ' . $iniFilename;
+		echo $cmd . "\n";
+
 		echo shell_exec( $cmd );
 	}
 

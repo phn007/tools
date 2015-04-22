@@ -46,6 +46,11 @@ try {
                'type' => 'noarg',
                'desc' => array('add route: r.php to root' )
             ),
+            array(
+               'long' => 'method',
+               'type' => 'mandatory',
+               'desc' => array('zip type', 'shell, php' )
+            )
         ),
 
         'parameters' => array(

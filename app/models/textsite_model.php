@@ -77,8 +77,11 @@ class TextsiteModel extends Controller {
 		$this->runServer( $siteConfigData );
 	}
 
-	function zipFiles() {
-		$this->runZipFiles();
+	function zipFiles( $options ) {
+		$metod = 'php';
+		if ( isset( $options['method'] ) )
+			$method = $options['method'];
+		$this->runZipFiles( $method );
 	}
 
 }
