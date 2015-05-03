@@ -11,11 +11,6 @@ class TextdbController extends Controller {
 
 	/**
 	 * Create TextDb
-	 * php textdb create db rexce group1
-	 * php textdb --module=product create db rexce group1
-	 * php textdb --module=category create db rexce group1
-	 * php textdb --module=homepagecat create db rexce group1
-	 *
 	 * php controller action function csvFilename configName
 	 * php textdb create all rexce group1
 	 * php textdb create product rexce group1

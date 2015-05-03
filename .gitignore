@@ -2,3 +2,4 @@ configs/*
 !configs/example/
 files/statcounter/*
 !files/statcounter/_backup/
+.DS_Store
