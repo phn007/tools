@@ -6,8 +6,8 @@ class HostnineController extends Controller {
 	* options
 	 * --row row of csv file
 	 *
-	 *  php hostnine accounts get maxco -m all
-	 *  php hostnine accounts get maxcom domain.com
+	 *  php hostnine accounts get accountName all
+	 *  php hostnine accounts get accountName domain.com
 	 *
 	 * Get Options
 	 * -----------
@@ -25,11 +25,7 @@ class HostnineController extends Controller {
 	 * -d --descending
 	 *
 	 * php hostnine accounts terminate maxcom domain.com
-	 * php hostnine -c delete-account accounts terminate
-	 *
-	 * php hostnine -c create-account accouonts create
 	 * php hostnine accounts create maxcom domain.com username password "location" package
-	 *
 	 *
 	 * php hostnine accounts modify maxcom domain.com
 	 * --quota int

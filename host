@@ -30,15 +30,14 @@ try {
          ),
 
          'usage' => array(
-            '[options] [action] [function] [param 1] [param 2]',
-            'accounts get accountname domain.com',
-            '-s rtotal_disk -d accounts get accountname all',
-            '-c create-account.csv accouonts create',
-            'accounts create accountname domain.com username password "location" package',
-            'accounts terminate accountname domain.com',
-            '-c termainate-domain-list.csv accounts terminate',
-            'locations get',
-            'packages get maxcom'
+            '*** Create Account ****',
+            'hostnine create csvFilename',
+            '',
+            '*** Terminate Account ***',
+            'hostnine terminate csvFilename',
+            '',
+            '*** Modify Account ***',
+            'hostnine modify csvFilename'
          ),
 
         'options' => array(
@@ -62,10 +61,7 @@ try {
             ) 
          ),
 
-        'parameters' => array(
-            '<get param1> account',
-            '<get param2> domain'
-         ),
+        'parameters' => array(),
         );
 
     $options = Console_Getoptplus::getoptplus($config, 'short2long', true);

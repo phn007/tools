@@ -9,7 +9,7 @@ include WT_APP_PATH . 'traits/textsite/sitemap_trait.php';
 include WT_APP_PATH . 'traits/textsite/sitemapIndex_trait.php';
 include WT_APP_PATH . 'traits/textsite/robots_trait.php';
 include WT_APP_PATH . 'traits/textsite/logo_trait.php';
-//include WT_APP_PATH . 'traits/textsite/server_trait.php';
+include WT_APP_PATH . 'traits/textsite/server_trait.php';
 include WT_APP_PATH . 'traits/textsite/zip_trait.php';
 //include WT_APP_PATH . 'traits/textsite/deleteDatabase_trait.php';
 //include WT_APP_PATH . 'traits/textsite/checkSeparator_trait.php';
@@ -22,7 +22,7 @@ class TextsiteModel extends Controller {
 	use SitemapIndex;
 	use Robots;
 	use Logo;
-	//use Server;
+	use Server;
 	use ZipFiles;
 	//use DeleteDatabase;
 	//use CheckSeparator;

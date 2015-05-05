@@ -30,21 +30,33 @@ try {
          ),
 
          'usage' => array(
-            '[options] [action] [function] [param 1] [param 2]',
-            '-c filename.ini build all',
+            '*** Create TextSite ***',
+            'create all csvFilename domain.com',
+            'create code csvFilename domain.com',
+            'create config csvFilename domain.com',
+            'create htaccess csvFilename domain.com',
+            'create sitemap csvFilename domain.com',
+            'create sitemap_index csvFilename domain.com',
+            'create robots csvFilename domain.com',
+            'create theme csvFilename domain.com',
+            'create zip csvFilename domain.com',
+            '',
+            '*** Zip Files ***',
+            '--method=shell zip csvFilename domain.com',
+            'server start csvFilename domain.com'
          ),
 
         'options' => array(
             array(
                'short' => 'r',
                'type' => 'noarg',
-               'desc' => array('add route: r.php to root' )
+               'desc' => array('copy route php file: r.php to root' )
             ),
             array(
                'long' => 'zip',
                'short' => 'z',
                'type' => 'noarg',
-               'desc' => array('add route: r.php to root' )
+               'desc' => array('zip files' )
             ),
             array(
                'long' => 'method',

@@ -14,17 +14,17 @@ class HostController extends Controller {
 		$csvFilename = $params['csvFilename'];
 		$model = $this->model( 'host' );
 
-		//php host hostnine terminate delete-accounts
+		//php host hostnine terminate csvFilename
 		if ( $function == 'terminate' ) {
 			$model->hostnineTerminateAccounts( $csvFilename, $options );
 		}
 
-		//php host hostnine create AllNew
+		//php host hostnine create csvFilename
 		if ( $function == 'create' ) {
 			$model->hostnineCreateAccounts( $csvFilename, $options );
 		}
 
-		//php host hostnine modify liverev
+		//php host hostnine modify csvFilename
 		// --quota=2000
 		// -- bandwidth=15000
 		if ( $function == 'modify' ) {

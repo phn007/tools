@@ -30,22 +30,12 @@ try {
          ),
 
          'usage' => array(
-            '[options] [action] [function] [param 1] [param 2]',
-            '-c filename action upload',
+            '*** Upload Files ***',
+            'upload csvFilename domain',
          ),
 
-        'options' => array(
-            array(
-               'long' => 'row',
-               'type' => 'mandatory',
-               'desc' => array('row number', '1-3, 3' )
-            )
-         ),
-
-        'parameters' => array(
-            '<param1>',
-            '<param2>'
-         ),
+        'options' => array(),
+        'parameters' => array(),
         );
 
     $options = Console_Getoptplus::getoptplus($config, 'short2long', true);

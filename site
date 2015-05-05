@@ -30,8 +30,31 @@ try {
          ),
 
          'usage' => array(
-            '[options] [action] [function] [param 1] [param 2]',
-            '-c filename.ini build all',
+            '*** Create All  ***',
+            'create all csvFilename',
+            '',
+            '*** Create TextDatabase ***',
+            'create textdb csvFilename',
+            '--module=product create textdb csvFilename',
+            '--module=category create textdb csvFilename',
+            '--module=homepagecat create textdb csvFilename',
+            '',
+            '*** Create TextSite ***',
+            'create textsite csvFilename',
+            '--row=2-4 --module=code create textsite csvFilename',
+            '--row=2-4 --module=config create textsite csvFilename',
+            '--row=2-4 --module=chtaccess create textsite csvFilename',
+            '--row=2-4 --module=sitemap create textsite csvFilename',
+            '--row=2-4 --module=sitemap_index create textsite csvFilename',
+            '--row=2-4 --module=robots create textsite csvFilename',
+            '--row=2-4 --module=theme create textsite csvFilename',
+            '',
+            '*** Create Zip file ( Default method=php )***',
+            '--row=2-4 create zip csvfilename',
+            '--row=2-4 --method=shell zip csvfilename',
+            '',
+            '*** Upload Files ***',
+            '--row=2-4 ftp upload csvFilename',
          ),
 
         'options' => array(
@@ -43,13 +66,13 @@ try {
             array(
                'long' => 'module',
                'type' => 'mandatory',
-               'desc' => array('module', '' )
+               'desc' => array('module', 'code, config, etc...' )
             ),
             array(
                'long' => 'zip',
                'short' => 'z',
                'type' => 'noarg',
-               'desc' => array('module', '' )
+               'desc' => array('zip files', '' )
             ),
             array(
                'long' => 'method',
@@ -58,10 +81,7 @@ try {
             )
          ),
 
-        'parameters' => array(
-            '<param1>',
-            '<param2>'
-         ),
+        'parameters' => array(),
         );
 
     $options = Console_Getoptplus::getoptplus($config, 'short2long', true);

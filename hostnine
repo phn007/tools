@@ -30,24 +30,21 @@ try {
          ),
 
          'usage' => array(
-            '[options] [action] [function] [param 1] [param 2]',
-            'accounts get accountname domain.com',
-            '-s rtotal_disk -d accounts get accountname all',
-            '-c create-account.csv accouonts create',
-            'accounts create accountname domain.com username password "location" package',
-            'accounts terminate accountname domain.com',
-            '-c termainate-domain-list.csv accounts terminate',
-            'locations get',
-            'packages get maxcom'
+            '*** Get Account Infomation ***',
+            'accounts get accountName all ( all accounts )',
+            'accounts get accountName domain.com',
+            '',
+            '*** Termainate Accounts ***',
+            'accounts terminate accountName domain.com',
+            '',
+            '*** Create Account ***',
+            'accounts create accountName domain.com username password "location" package',
+            '',
+            '*** Modify Account ***',
+            '--quota=2000 --bandwidth=15000 accounts modify accountName domain.com',
          ),
 
         'options' => array(
-            array(
-               'long' => 'config',
-               'type' => 'mandatory',
-               'short' => 'c',
-               'desc' => array('Domain list', 'configs/filename.csv' )
-            ),
             array(
                'long' => 'row',
                'type' => 'mandatory',
@@ -58,7 +55,18 @@ try {
                'long' => 'sort',
                'type' => 'mandatory',
                'short' => 's',
-               'desc' => array('sort by column', 'domain', 'location', 'username', 'rquota', 'rbandwidth', 'rtotal_disk', 'rtotal_bw' )
+               'desc' => array('sort by column', 
+                  'domain', 
+                  
+                  'username',
+                  'ip', 
+                  'location',
+                  'rquota', 
+                  'rbandwidth', 
+                  'rtotal_disk', 
+                  'rtotal_bw',
+                  'status'
+                  )
             ),
             array(
                'long' => 'ascending',

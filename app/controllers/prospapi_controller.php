@@ -5,7 +5,10 @@ include WT_APP_PATH . 'traits/setupConfigV4_trait.php';
 /**
  * Example commandline
  * -------------------
- * php prospapi get all NewApparel1
+ * php prospapi get all iniFilename
+ * php prospapi get category iniFilename
+ * php prospapi get brand iniFilename
+ * php prospapi get product iniFilename
  */
 class ProspApiController extends Controller {
 	use SetupConfig;

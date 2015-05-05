@@ -7,14 +7,14 @@ include WT_APP_PATH . 'traits/setupConfigV4_trait.php';
 /**
  * Example commandline
  * -------------------
- * php html build all demo localhost:8001
+ * php html build all csvFilename localhost:8001
  */
 class HtmlController extends Controller {
 	use GetCsvConfigData;
 	use SetupConfig;
 
 	/**
-	 * php html build all demo domain.com
+	 * php html build all csvFilename domain.com
 	 */
 	function build( $function, $params, $options ) {
 		$csvFilename = $params['csvFilename'];

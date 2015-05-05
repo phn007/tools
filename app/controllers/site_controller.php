@@ -14,18 +14,18 @@ class SiteController extends Controller {
 	 * -z zip files
 	 *
 	 * Create all functions
-	 * php site create all rexce
+	 * php site create all csvFilename
 	 * ========================================
 	 * Create TextDb
-	 * php site create textdb rexce
-	 * php site --module=product create textdb rexce
-	 * php site --module=category create textdb rexce
-	 * php site --module=homepagecat create textdb rexce
+	 * php site create textdb csvFilename
+	 * php site --module=product create textdb csvFilename
+	 * php site --module=category create textdb csvFilename
+	 * php site --module=homepagecat create textdb csvFilename
 	 * ========================================
 	 * Create TextSite
-	 * php site create textsite rexce
-	 * php site --row=2-4 --module=code create textsite rexce
-	 * php site --row=2-4 --module=config create textsite rexce
+	 * php site create textsite csvFilename
+	 * php site --row=2-4 --module=code create textsite csvFilename
+	 * php site --row=2-4 --module=config create textsite csvFilename
 	 * 
 	 * Create Zip File
 	 * default method option = php

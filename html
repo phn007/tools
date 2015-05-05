@@ -25,29 +25,19 @@ try {
             '----------------------------',
             '*** Webtools Development ***',
             '----------------------------',
-            'Define variables in config.ini file before run a script',
             ''
          ),
 
          'usage' => array(
-            '[options] [action] [function] [param 1] [param 2]',
-            '-c filename.ini build all',
-            '-c filename.ini build files',
-            '-c filename.ini build homepage',
-            '-c filename.ini build categoriespage',
-            '-c filename.ini build brandspage',
-            '-c filename.ini build staticpage',
-            '-c filename.ini build categorypage',
-            '-c filename.ini build brandpage',
-            '-c filename.ini build productpage',
+            '*** Build Html Files ***',
+            'php html build all demo domainName',
+            '',
+            '*** Run Server ***',
+            'server start csvFilename domainName',
          ),
 
         'options' => array(),
-
-        'parameters' => array(
-            '<param1>',
-            '<param2>'
-         ),
+        'parameters' => array( ),
         );
 
     $options = Console_Getoptplus::getoptplus($config, 'short2long', true);

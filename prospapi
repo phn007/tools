@@ -25,40 +25,31 @@ try {
             '----------------------------',
             '*** Webtools Development ***',
             '----------------------------',
-            'Define variables in config.ini file before run a script',
             ''
          ),
 
          'usage' => array(
-            '[options] [action] [function] [param 1] [param 2]',
-            '-c filename get all',
-            '-c filename get category',
-            '-c filename get brand',
-            '-c filename get product',
-
+            'get all iniFilename',
+            'get category iniFilename',
+            'get brand iniFilename',
+            'get product iniFilename',
          ),
 
         'options' => array(),
 
-        'parameters' => array(
-            '',
-            ''
-         ),
-        );
+        'parameters' => array(),
+    );
 
     $options = Console_Getoptplus::getoptplus($config, 'short2long', true);
-
     include 'libs/options.php';
     $controller = 'prospapi';
 
     $opt = new Options();
     $options = $opt->verifyOptions( $controller, $options );
-
     include 'appindex.php';
 }
 catch(Console_GetoptPlus_Exception $e) {
     $error = array($e->getCode(), $e->getMessage());
     print_r($error);
 }
-
 ?>
