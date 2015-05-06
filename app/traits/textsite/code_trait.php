@@ -3,7 +3,10 @@ trait Code {
 	function getAllExceptViews() {
 		$source = $this->getSourcePath() . 'textsite';
 		$destination = $this->getDestinationPath();
-		$excludeFiles = array( $source . '/app/views' , $source . '/r.php' );
+		$excludeFiles = array( 
+			$source . '/app/views' , 
+			$source . '/r.php' 
+		);
 		$this->cloneCom->runClone( $source, $destination, $excludeFiles, 'excludeMode' );
 	}
 

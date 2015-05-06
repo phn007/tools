@@ -3,3 +3,4 @@ configs/*
 files/statcounter/*
 !files/statcounter/_backup/
 .DS_Store
+sitecreator/textsite/app/views/bb1-1/assets/.sass-cache/*
