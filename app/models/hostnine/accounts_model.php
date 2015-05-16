@@ -115,10 +115,14 @@ trait CreateAccount {
 	}
 
 	function printCreateResult( $domain, $newAccount ) {
-		if ( $newAccount['success'] == 'true')
-			echo $domain . ': Successfully created account.' . "\n";
-		else 
-			echo 'Error creating account, result: ' . $newAccount['result'] . "\n";
+		if ( $newAccount['success'] == 'true') {
+			$dom = $newAccount['account']['domain'];
+			$ip = $newAccount['account']['ip'];
+			$server = $newAccount['account']['servername'];
+			echo $dom . ', ' . $ip . ', ' . $server . ': Successfully created account.' . "\n";
+		} else  {
+			echo $domain . ': Error creating account, result: ' . $newAccount['result'] . "\n";
+		}
 	}
 }
 
