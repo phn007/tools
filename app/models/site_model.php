@@ -22,20 +22,15 @@ class SiteModel {
 
 trait ZipTextsiteCommandLine {
 	function zipTextsiteCommandLine( $initConfigData, $csvFilename, $options ) {
-		$method = '--method=php';
-		if ( isset( $options['method'] ) ) {
-			if ( $options['method'] == 'shell' ) $method = '--method=shell';
-		}
-
 		foreach ( $initConfigData as $configs ) {
-			$this->loopThroughConfigsForZip( $csvFilename, $configs, $method );
+			$this->loopThroughConfigsForZip( $csvFilename, $configs );
 		}
 	}
 
-	function loopThroughConfigsForZip( $csvFilename, $configs, $method ) {
+	function loopThroughConfigsForZip( $csvFilename, $configs ) {
 		foreach ( $configs as $conf ) {
 			//php text create zip demo domain.com
-			$cmd = 'php text ' . $method . ' create zip ' . $csvFilename . ' ' . $conf['domain'];
+			$cmd = 'php text create zip ' . $csvFilename . ' ' . $conf['domain'];
 			echo shell_exec( $cmd );
 		}
 	}

@@ -2,24 +2,11 @@
 include WT_BASE_PATH . 'libs/zip.php';
 
 trait ZipFiles {
-	function runZipFiles( $method ) {
+	function runZipFiles() {
 		$source = $this->getZipSourcePath();
 		$destination = $this->getZipDestinationPath();
 		chdir( $source );
-		if ( $method == 'php' )
-			zipData( '.', $destination );
-
-		if ( $method == 'shell' )
-			$this->zipDataByShellCommand( $destination );
-
-		// echo $source . "\n";
-		// echo $destination . "\n";
-	}
-
-	function zipDataByShellCommand( $destination ) {
-		$command = 'zip -r ' . $destination . ' ' . './*';
-		echo shell_exec( $command );
-		
+		zipData( '.', $destination );
 	}
 
 	function getZipSourcePath() {

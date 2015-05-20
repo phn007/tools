@@ -51,7 +51,6 @@ try {
             '',
             '*** Create Zip file ( Default method=php )***',
             '--row=2-4 create zip csvfilename',
-            '--row=2-4 --method=shell zip csvfilename',
             '',
             '*** Upload Files ***',
             '--row=2-4 ftp upload csvFilename',
@@ -73,11 +72,6 @@ try {
                'short' => 'z',
                'type' => 'noarg',
                'desc' => array('zip files', '' )
-            ),
-            array(
-               'long' => 'method',
-               'type' => 'mandatory',
-               'desc' => array('zip type', 'shell, php' )
             )
          ),
 

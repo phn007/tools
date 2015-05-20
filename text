@@ -42,7 +42,9 @@ try {
             'create zip csvFilename domain.com',
             '',
             '*** Zip Files ***',
-            '--method=shell zip csvFilename domain.com',
+            'zip csvFilename domain.com',
+            '',
+            '*** Server ***',
             'server start csvFilename domain.com'
          ),
 
@@ -57,11 +59,6 @@ try {
                'short' => 'z',
                'type' => 'noarg',
                'desc' => array('zip files' )
-            ),
-            array(
-               'long' => 'method',
-               'type' => 'mandatory',
-               'desc' => array('zip type', 'shell, php' )
             )
         ),
 

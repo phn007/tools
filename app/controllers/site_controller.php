@@ -28,9 +28,7 @@ class SiteController extends Controller {
 	 * php site --row=2-4 --module=config create textsite csvFilename
 	 * 
 	 * Create Zip File
-	 * default method option = php
 	 * php site --row=2-4 create zip csvfilename 
-	 * php site --row=2-4 --method=shell zip csvfilename
 	 */
 	function create( $function, $params, $options ) {
 		$csvFilename = $params['csvFilename'];

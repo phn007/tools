@@ -14,7 +14,7 @@ ini_set('memory_limit','1024M');
 // echo 'Finished.';
 
 // Here the magic happens :)
-function zipData($source, $destination) {
+function zipData1($source, $destination) {
 	if (extension_loaded('zip')) {
 		if (file_exists($source)) {
 			$zip = new ZipArchive();
@@ -43,4 +43,39 @@ function zipData($source, $destination) {
 		}
 	}
 	return false;
+}
+
+function zipData( $source, $destination ) {
+	if (!extension_loaded('zip') || !file_exists($source)) {
+        return false;
+    }
+
+	// Get real path for our folder
+	$rootPath = realpath( $source );
+
+	// Initialize archive object
+	$zip = new ZipArchive();
+	$zip->open( $destination, ZipArchive::CREATE | ZipArchive::OVERWRITE );
+
+	// Create recursive directory iterator
+	/** @var SplFileInfo[] $files */
+	$files = new RecursiveIteratorIterator(
+	    new RecursiveDirectoryIterator( $rootPath ),
+	    RecursiveIteratorIterator::LEAVES_ONLY
+	);
+
+	foreach ( $files as $name => $file ) {
+	    // Skip directories (they would be added automatically)
+	    if (!$file->isDir()) {
+	        // Get real and relative path for current file
+	        $filePath = $file->getRealPath();
+	        $relativePath = substr( $filePath, strlen( $rootPath ) + 1);
+
+	        // Add current file to archive
+	        $zip->addFile( $filePath, $relativePath );
+	    }
+	}
+	// Zip archive will be created only after closing object
+	$zip->close();
+
 }
