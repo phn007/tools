@@ -14,7 +14,7 @@ ini_set('memory_limit','1024M');
 // echo 'Finished.';
 
 // Here the magic happens :)
-function zipData1($source, $destination) {
+function zipData($source, $destination) {
 	if (extension_loaded('zip')) {
 		if (file_exists($source)) {
 			$zip = new ZipArchive();
@@ -45,7 +45,7 @@ function zipData1($source, $destination) {
 	return false;
 }
 
-function zipData( $source, $destination ) {
+function zipData1( $source, $destination ) {
 	if (!extension_loaded('zip') || !file_exists($source)) {
         return false;
     }
