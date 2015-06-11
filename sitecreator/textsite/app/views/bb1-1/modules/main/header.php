@@ -34,8 +34,6 @@ class Header {
 		<div class="site-info">
 			<div class="site-info-wrappe">
 				<a href="<?php echo HOME_LINK?>"><?php echo strtoupper( SITE_NAME )?></a>
-				<div class="prosperent-pa" style="width:728px;height:90px;" pa_sid="my-sid" pa_topics="My Topics"></div>
-				<div>Test Ads</div>
 			</div>	
 		</div>
 	<?php

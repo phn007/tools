@@ -9,15 +9,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<?php echo $seoTags?>
 	<link rel="stylesheet" href="<?php echo CSS_PATH?>application.css">
-
-	<script type="text/javascript">
-  		var _prosperent = {campaign_id: 'af5fc8835f20248e6ad252026349b505'};
-	</script>
-	<script type="text/javascript" src="//prosperent.com/js/prosperent.js"></script>
 </head>
 <body>
 	<div class="page-wrap">
-		<header role="banner">
+		<header>
 			<?php if ( isset( $header ) ) echo $header; ?>
 		</header>
 		<div id="main-content">
