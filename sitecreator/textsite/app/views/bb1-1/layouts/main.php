@@ -8,24 +8,22 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<?php echo $seoTags?>
-	<link rel="stylesheet" href="<?php echo CSS_PATH?>application.css">
+	<link rel="stylesheet" href="<?php echo CSS_PATH?>app.css">
 </head>
 <body>
-	<div class="page-wrap">
+	<div class="wrapper">
 		<header>
-			<?php if ( isset( $header ) ) echo $header; ?>
+            <?php if ( isset( $header ) ) echo $header; ?>
 		</header>
-		<div id="main-content">
-			[%LAYOUT_CONTENT%]
-		</div>
+		<div class="main">[%LAYOUT_CONTENT%]</div>
 	</div>
-	<footer class="site-footer">
-		<?php if ( isset( $footer ) ) echo $footer; ?>
+	<footer class="footer">
+        <?php if ( isset( $footer ) ) echo $footer; ?>
 	</footer>
 	<script src="<?php echo JS_PATH?>plugins.js"></script>
-	<script src="<?php echo JS_PATH?>main.js"></script>
-
-	<!-- Start of StatCounter -->
+    <script src="<?php echo JS_PATH?>main.js"></script>
+    
+    <!-- Start of StatCounter -->
     <script type="text/javascript">
       var sc_project=<?php echo SC_PROJECT ?>;
       var sc_invisible=1;
@@ -43,6 +41,5 @@
       </div>
     </noscript>
     <!-- End of StatCounter -->
-    
 </body>
 </html>

@@ -3,7 +3,7 @@ class RelatedProductItems {
 
 	function createHtml( $relatedProducts ) {
 	?>
-		<h2>Related Products</h2>
+		<h2><span id="relate-title">You May Also Like</span></h2>
 		<div class="related-products-content">
 			<?php $this->items( $relatedProducts )?>
 		</div>
@@ -21,9 +21,6 @@ class RelatedProductItems {
 				<a title="<?php echo $brand?>" rel="nofollow" href="<?php $this->getBrandLink( $brand) ?>"><?php echo $brand?></a>
 			</div>
 			<div class="price">$<?php echo $price?></div>
-			<div class="button">
-				<a title="<?php $this->titleForTag( $keyword )?>" rel="nofollow" href="<?php echo $goto?>">Visit Store</a>
-			</div>
 		</div>
 	<?php
 		endforeach;

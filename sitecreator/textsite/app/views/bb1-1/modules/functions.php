@@ -1,14 +1,14 @@
 <?php
 include_once 'html.php';
 
-$footerData['current-page'] = $currentPage;
+$data['current-page'] = $currentPage;
 if ( $currentPage == 'product-page' ) {
-	$footerData['product-detail'] = $productDetail;
-	$footerData['spin-content'] = $spinContent;
+	$data['product-detail'] = $productDetail;
+	$data['spin-content'] = $spinContent;
 }
 
-$header = Html::get( 'main', 'header' );
-$footer = Html::get( 'main', 'footer', $footerData );
+$header = Html::get( 'main', 'header', $data );
+$footer = Html::get( 'main', 'footer', $data );
 
 switch ( $currentPage ) {
 	case 'home-page':
@@ -39,11 +39,15 @@ function homePage( $productItems=null, $categoryList=null, $brandList=null ) {
 	if ( isset( $productItems ) ) {
 		$topProductList = Html::get( 'homepage', 'topProductList', $productItems );
 		$productList = Html::get( 'homepage', 'productList', $productItems );
+		$cycleProducts = Html::get( 'homepage', 'cycleList', $productItems );
 	}	
+
 	if ( isset( $categoryList ) && isset( $brandList ) ) {
 		$categoryLinkList = Html::get( 'homepage', 'categoryLinkList', array( $categoryList, $brandList ) );
 	}
+	
 	return array(
+		'cycleProductList' => $cycleProducts,
 		'topProductList' => $topProductList,
 		'productList' => $productList,
 		'categoryLinkList' => $categoryLinkList

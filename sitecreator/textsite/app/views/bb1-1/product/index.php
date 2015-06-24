@@ -1,14 +1,15 @@
-<section class="container">
+<div class="main-container">
+<section>
 	<div class="breadcrumb">
 		<?php if ( isset( $product['breadcrumb'] ) ) echo $product['breadcrumb']?>
 	</div>
 </section>
 
-<section class="product-detail container">
+<section class="prod-detail">
 	<?php if ( isset( $product['productDetail'] ) ) echo $product['productDetail'] ?>
 </section>
 
-<section class="related-products container">
+<section class="related-prod">
 	<?php if ( isset( $product['relatedProducts'] ) ) echo $product['relatedProducts'] ?>
 </section>
 
@@ -22,3 +23,4 @@
 	<?php if ( isset( $product['seo-data'] ) ) echo $product['seo-data'] ?>
 </section>
 
+</div>

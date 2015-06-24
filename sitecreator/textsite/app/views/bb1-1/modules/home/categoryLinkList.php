@@ -4,11 +4,11 @@ class CategoryLinkList {
 	?>
 		<section class="category-link-list">
 			<div class="link-head">
-				<div class="container">
+				<div class="main-container">
 					CATEGORIES / BRANDS
 				</div>
 			</div>
-			<div class="link-content container">
+			<div class="link-content main-container">
 				<div class="head-title">
 					<h3><a href="<?php echo HOME_URL?>categories<?php echo FORMAT?>">Categories</a></h3>
 				</div>

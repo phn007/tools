@@ -1,99 +1,108 @@
-.product-detail {
-	margin-bottom: 1.5em;
-	a {
-		text-decoration: none;
-		color: palette(bg, xx-dark);
-		&:hover {
-			color: darken(palette(primary-red, light), 10%);
+$red-color: #F23434;
+$green-color: #6DBE14;
+
+hr {
+	@include span-columns(12);
+	border: none;
+	height: 1px;
+	//color: transparentize( black, 0.9 );
+	background-color: transparentize( black, 0.94);
+	margin: 20px 0;
+}
+
+.prod-detail {
+	@include span-columns(12);
+	margin-bottom: 30px;
+	.image {
+		img {
+			width: 100%;
 		}
 	}
-	&-content {
-		color: palette(bg, xx-dark);
-		background: white;
-		border-radius: 2px;
-		border: 1px solid darken(palette(bg, base), 8%);
-		.info {
-			font-size: em(14px);
-			.brand {
-				margin-bottom: 10px;
-			}
-			.price {
-				font-size: em(28px);
-				font-weight: 600;
-				padding-bottom: 5px;
-				margin-bottom: 10px;
-				border-bottom: 5px double darken(palette(bg, base), 5%);
-			}
-			p {
-				line-height: em( 22px);
-				margin-bottom: 10px;
-			}
-			.button {
-				display: block;
-				background: lighten(palette(primary-red, base),10%);
-				width: 200px;
-				text-align: center;
-				padding: 10px;
-				border-radius: 3px;
-				@include transition (all 0.2s ease-in-out);
-				a {
-					font-size: em(24px);
-					color: white;
-					font-weight: 600;
-				}
+	.info {
+		a {
+			text-decoration: none;
+		}
+
+		h1 {
+			padding: 0;
+			margin: 0;
+			a {
+				color: transparentize( black, 0.3 );
 				&:hover {
-					background: palette(primary-red, base);
+					color: transparentize( black, 0.1 );
 				}
 			}
 		}
-	}
-	
-	//Phone View
-	@media screen and (max-width: $max-phone) {
-		&-content {
-			.image {
-				margin: auto;
-				padding: 5%;
-				max-height: 250px;
-				max-width: 250px;
-				img {
-					width: 100%;
+
+		.brand {
+			a {
+				color: transparentize( black, 0.45 );
+				&:hover {
+					color: transparentize( black, 0.2 );
 				}
 			}
-			.info {
-				padding: 5%;
-			}
 		}
-	}
-	
-	//Tablet to Desktop
-	@include media($min-tablet) {
-		&-content {
-			@include clearfix;
-			.image {
-				@include span-columns(4);
-				max-height: 250px;
-				max-width: 250px;	
+
+		.price {
+			color: $red-color;
+			font-size: 22px;
+			font-weight: bold;
+		}
+		.button {
+			#butt {
+				display: block;
+				width: 120px;
+				background: $green-color;
 				text-align: center;
-				padding: 2%;
-				img {
-					width: 100%;
+				padding: 5px 0;
+				a {
+					color: transparentize( white, 0.2 );
+					&:hover {
+						color: white;
+					}
 				}
 			}
-			.info {
-				@include span-columns(8);
-				padding-right: 10px;
-				padding-bottom: 20px;
-				
-				h1 {
-					margin: 0;
-					padding-top: 2%;
-					padding-bottom: 6px;
-				}
-			}
+
+		}
+		.desc {
+			@include span-columns(12);
+			color: transparentize( black, 0.45 );
+		}
+
+		.product-social {
+			@include span-columns(12);
 		}
 	}
 }
+
+//Desktop View
+//@include media($min-desktop) {
+@include media($min-tablet) {
+	.prod-detail {
+		.image {
+			@include span-columns(3 of 12);
+		}
+
+		.info {
+			@include span-columns(9 of 12);
+
+			.brand {
+				@include span-columns( 12 );
+			}
+
+			.price {
+				@include span-columns( 2 of 9 );
+				//border: 1px solid #333;
+			}
+			.button {
+				@include span-columns( 7 of 9 );
+				//border: 1px solid #333;
+				@include omega();
+			}	
+		}
+	}
+}
+
 
 
 ul.product-social {

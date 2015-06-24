@@ -4,7 +4,7 @@ class CategoryLinks {
 		$catItems = $categories['categoryItems'];
 		$catType = $categories['catType'];
 	?>
-		<section class="categories container">
+		<section class="categories main-container">
 			<h2><?php echo $catType?></h2>
 			<div class="link-content">
 				<?php $this->items( $catItems )?>

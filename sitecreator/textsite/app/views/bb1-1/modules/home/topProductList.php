@@ -1,6 +1,11 @@
 <?php
 class TopProductList {
+
 	function createHtml( $productItems ) {
+		echo '<div id="test">Top Products</div>';
+	}
+
+	function createHtml_1( $productItems ) {
 	?>
 		<section class="top-product-list container">
 			<div class="bestsell">

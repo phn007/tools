@@ -10,8 +10,7 @@ class Map extends Object {
 		Sammy::process( $route, 'GET' );
 	}
 
-	public static function pre_dispatch( $uri )
-	{
+	public static function pre_dispatch( $uri ) {
 		/*
 		 * Define Variable for product detail page
 		 * ----------------------------------------------------------------------
@@ -30,8 +29,7 @@ class Map extends Object {
 		self::dispatch( $params );
 	}
 
-	public static function dispatch( $params = false ) 
-	{
+	public static function dispatch( $params = false ) {
 		//run when find a matching route
 		$path = explode( '#', self::$path );
 		$controller = $path[0];
@@ -44,8 +42,7 @@ class Map extends Object {
 		$controller = str_replace( '-', '', $controller );
 		$class_name = ucfirst( $controller ) . 'Controller';
 		
-		if ( ! class_exists( $class_name ) )
-		{
+		if ( ! class_exists( $class_name ) ) {
 			$msg  = '<span style="color:red">The class <strong> ';
 			$msg .=  $class_name . '</strong> could not be found in <pre>';
 			$msg .= APP_PATH . 'controllers/' . $controller . '_controller.php</pre></span>';
@@ -55,8 +52,7 @@ class Map extends Object {
 		$tmp_class = new $class_name();
 			
 		//run the matching action
-		if ( ! is_callable( array( $tmp_class, $action ) ) )
-		{
+		if ( ! is_callable( array( $tmp_class, $action ) ) ) {
 			$msg  = '<span style="color:red">The action <strong>';
 			$msg .= $action . '</strong> could not be called from the controller <strong>';
 			$msg .= $class_name . '</strong></span>';
@@ -72,8 +68,7 @@ class Map extends Object {
 		self::render( $controller, $action );
 	}
 
-	public static function load_controller( $name ) 
-	{
+	public static function load_controller( $name ) {
 		$controller_path = APP_PATH . 'controllers/' . $name . '_controller.php';
 		if ( ! file_exists(  $controller_path ) ) 
 		{
@@ -91,8 +86,7 @@ class Map extends Object {
 	 * Helper function
 	 * -----------------------------------------------------------------------
 	*/
-	public static function render( $controller, $action )
-	{
+	public static function render( $controller, $action ) {
 		$view_path   = self::view_path( $controller, $action );
 		$layout_path = self::get_layout( $controller, $action );
 		$main_path   = APP_PATH  . 'views/' . THEME_NAME . '/layouts/main.php';
@@ -109,6 +103,9 @@ class Map extends Object {
 
 		//Extract Global Variables
 		extract( self::$user_vars );
+
+		//Plugins
+		include APP_PATH . 'views/' . THEME_NAME . '/plugins/plugins.php';
 		
 		//Functions
 		include APP_PATH  . 'views/' . THEME_NAME . '/modules/functions.php';
@@ -120,40 +117,35 @@ class Map extends Object {
 		unlink( $file_main );
 	}
 	
-	private static function getViewContent( $view_path )
-	{
+	private static function getViewContent( $view_path ) {
 		//get view content
 		$view = self::get_content( $view_path  );
 		if ( $view == null ) die( '<span style="color:red">View file not found</span>' );
 		return $view;
 	}
 	
-	private static function getLayoutContent( $layout_path )
-	{
+	private static function getLayoutContent( $layout_path ) {
 		//get layout content
 		$layout = self::get_content( $layout_path );
 		if ( $layout == null ) die( '<span style="color:red">Layout file not found</span>' );
 		return $layout;
 	}
 	
-	private static function combineViewLayout( $view, $layout )
-	{
+	private static function combineViewLayout( $view, $layout ) {
 		//combine - view + layout
 		$view_layout = str_replace( '[%CONTENT%]', $view, $layout );
 		unset( $view, $layout );
 		return $view_layout;
 	}
 	
-	private static function getMainContent( $main_path )
-	{
+	private static function getMainContent( $main_path ) {
 		//get main content
 		$main = file_get_contents( $main_path );
 		if ( $main == null ) die( '<span style="color:red">Main file not found</span>' );
 		return $main;
 	}
 	
-	private static function combineViewLayoutMain( $view_layout, $main )
-	{
+	private static function combineViewLayoutMain( $view_layout, $main ) {
 		//combine - view + layout + main
 		$view_layout_main = str_replace( '[%LAYOUT_CONTENT%]', $view_layout, $main );
 		return $view_layout_main;
@@ -178,8 +170,7 @@ class Map extends Object {
 		return $view_path;
 	}
 
-	public static function get_layout( $controller, $action )
-	{
+	public static function get_layout( $controller, $action ) {
 		$layout = ( isset( self::$user_vars['layout'] ) ) ? self::$user_vars['layout'] . '.php' : 'layout.php';
 		$path = APP_PATH . 'views/' . THEME_NAME . '/layouts/' . $layout;
 
@@ -188,8 +179,7 @@ class Map extends Object {
 		return $path;
 	}
 
-	public static function get_content( $path )
-	{
+	public static function get_content( $path ) {
 		if ( ! file_exists( $path ) )
 			$content = null;
 		else
@@ -197,8 +187,7 @@ class Map extends Object {
 		return $content;
 	}
 
-	public static function write_file( $filename, $layout_content )
-	{
+	public static function write_file( $filename, $layout_content ) {
 		if ( ! file_exists( BASE_PATH . 'tmp' ) )
         	mkdir( BASE_PATH . 'tmp', 0777, true );
 

@@ -7,10 +7,12 @@
 //main
 @import 'main/header';
 @import 'main/footer';
+@import 'main/main';
 
 //home
+//@import 'home/top-product-list';
+@import 'home/cycle-product-list';
 @import 'home/product-list';
-@import 'home/top-product-list';
 @import 'home/link-list-home';
 
 //product

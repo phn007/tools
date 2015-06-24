@@ -13,8 +13,8 @@ class CreateHtml {
 	use ClassFile;
 	use Components;
 
-	private $name;
-	private $id;
+	private $name; //Component Function Name
+	private $id; //Component id key
 	private $classname;
 	private $params;
 
@@ -93,7 +93,8 @@ trait Components {
 			'id' => array(
 				'topProductList' => 'topProductList',
 				'productList' => 'productList',
-				'categoryLinkList' => 'categoryLinkList'
+				'categoryLinkList' => 'categoryLinkList',
+				'cycleList' => 'cycleProductList'
 			)
 		);
 	}

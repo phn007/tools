@@ -3,42 +3,34 @@ class SeoData {
 	function createHtml( $content ) {
 		extract( $content['product-detail'] );
 	?>
-	<div class="product-head">
-		<div class="container"><h2><?php echo $keyword ?></h2></div>
-	</div>
-	<div class="info-content container">
-		<div class="vertical-tabs-container">
-			<div class="vertical-tabs">
-				<a href="javascript:void(0)" class="js-vertical-tab vertical-tab is-active" rel="tab1">Lastest Search</a>
-				<a href="javascript:void(0)" class="js-vertical-tab vertical-tab" rel="tab2">Ads1</a>
-				<a href="javascript:void(0)" class="js-vertical-tab vertical-tab" rel="tab3">Ads2</a>
-				<a href="javascript:void(0)" class="js-vertical-tab vertical-tab" rel="tab4">video</a>
-			</div>
+		<h2><?php echo $keyword?></h2>
+		<ul class="accordion-tabs-minimal">
+		  <li class="tab-header-and-content">
+		    <a href="#" class="tab-link is-active">Keywords</a>
+		    <div class="tab-content">
+		      <p><?php echo $content['lastestSearch']?></p>
+		    </div>
+		  </li>
+		  <li class="tab-header-and-content">
+		    <a href="#" class="tab-link">Spons1</a>
+		    <div class="tab-content">
+		      <p><?php $this->ads1( $content )?></p>
+		    </div>
+		  </li>
+		  <li class="tab-header-and-content">
+		    <a href="#" class="tab-link">Spons2</a>
+		    <div class="tab-content">
+		      <p><?php $this->ads2( $content )?></p>    
+		    </div>
+		  </li>
+		  <li class="tab-header-and-content">
+		    <a href="#" class="tab-link">Video</a>
+		    <div class="tab-content">
+		      <p><?php $this->video( $keyword )?></p>
+		    </div>
+		  </li>
+		</ul>
 
-			<div class="vertical-tab-content-container">
-				<a href="" class="js-vertical-tab-accordion-heading vertical-tab-accordion-heading is-active" rel="tab1">Lastest Search</a>
-				<div id="tab1" class="js-vertical-tab-content vertical-tab-content">
-					<p><?php echo $content['lastestSearch']?></p>
-				</div>
-
-				<a href="" class="js-vertical-tab-accordion-heading vertical-tab-accordion-heading" rel="tab2">Ads1</a>
-				<div id="tab2" class="js-vertical-tab-content vertical-tab-content">
-					<?php $this->ads1( $content )?>
-				</div>
-
-				<a href="" class="js-vertical-tab-accordion-heading vertical-tab-accordion-heading" rel="tab3">Ads2</a>
-				<div id="tab3" class="js-vertical-tab-content vertical-tab-content">
-					<?php $this->ads2( $content )?>
-				</div>
-
-				<a href="" class="js-vertical-tab-accordion-heading vertical-tab-accordion-heading" rel="tab4">Video</a>
-				<div id="tab4" class="js-vertical-tab-content vertical-tab-content">
-					<p><?php $this->video( $keyword )?></p>
-				</div>
-			</div>
-		</div>
-	</div>
-	
 	<?php
 	}
 
@@ -49,8 +41,6 @@ class SeoData {
       	$iframe .= '</iframe>';
       	echo $iframe;
 	}
-
-	
 
 	function ads1( $content ) {
 		extract( $content['spin-content'] );

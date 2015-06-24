@@ -2,21 +2,26 @@
 class ProductList {
 	function createHtml( $products ) {
 	?>
-		<section class="container">
+		<section id="cat-list">
 	<?php
 		$productItems = $products['category-group'];
+		$i = 0;
 		foreach ( $productItems as $productFile => $items ):
 			$key = key( $items );
 			$catName = $items[$key]['category'];
 	?>
-			<div class="category-list-head-title">
+			<div class="category-title">
 				<h2 class="linetext">
 					<span><a href="<?php echo $this->getCategoryLink( $catName )?>"><?php echo $catName?></a></span>
 				</h2>
 				<a href="<?php echo $this->getCategoryLink( $catName )?>">Shop All</a>
 			</div>
-			<div class="category-list-items"><?php $this->displayItems( $items )?></div>	
-	<?php endforeach; ?>
+			<div class="category-items"><?php $this->displayItems( $items )?></div>	
+	<?php 
+			$i++;
+			if ( $i > 3 ) break;
+		endforeach; 
+	?>
 		</section>
 	<?php
 	}
@@ -24,7 +29,7 @@ class ProductList {
 	function displayItems( $items ) {
 		$count = 0;
 		foreach ( $items as $item ):
-			if ( ++$count > 6 ) break;
+			if ( ++$count > 3 ) break;
 			$keywordForTag = $this->cleanDoubleQuote( $item['keyword'] );
 	?>
 		<div class="item">
@@ -39,7 +44,7 @@ class ProductList {
 					<a href="<?php echo $this->getBrandLink( $item['brand'])?>"><?php echo $item['brand']?></a>
 				</div>
 				<div class="price">$<?php echo $item['price']?></div>
-				<a title="<?php echo $keywordForTag?>" class="button" href="<?php echo $item['permalink']?>">More Detail</a>
+				
 			</div>
 		</div>
 	<?php

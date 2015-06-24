@@ -1,10 +1,14 @@
+.container {
+
+}
+
 //Element
 // =============================================================================
 .category-link-list {
-	background: palette(dark-gray, base);
-	color: palette(dark-gray, x-light);
+	background: #DCE3E9;
+	color: transparentize( black, 0.3);
 	.link-head {
-		background: darken(palette(dark-gray, base), 10%);
+		background: darken(#DCE3E9, 10%);
 		padding-top: 10px;
 		padding-bottom: 10px;
 		margin-bottom: 10px;
@@ -14,7 +18,7 @@
 		padding-bottom: 10px;
 		a {
 			text-decoration: none;
-			color: palette(dark-gray, x-light);
+			color: transparentize( black, 0.3);;
 			&:hover {
 				color: lighten(palette(primary-red, base), 10%);
 			}
@@ -22,7 +26,7 @@
 		.head-title {
 			padding-top: 10px;
 			padding-bottom: 8px;
-			border-bottom: 1px solid darken(palette(dark-gray, light), 10%);
+			border-bottom: 1px solid transparentize(black, 0.9);
 			h3 {
 				margin: 0;
 			}

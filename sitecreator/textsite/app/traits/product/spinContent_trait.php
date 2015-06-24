@@ -8,7 +8,6 @@ trait SpinContent {
 		$cacheFile = $this->productFile;
 		$cacheKey = $this->productKey;
 		$cache = $c->get_cache( $path, $cacheFile, $cacheKey ); //Retrieve data from cache
-
 		if ( $cache == null ){
 			$this->spinCom = $this->component( 'textspinner' );
 			$this->wordlib_path = TEXTSPIN_PATH . 'WordLibrary.csv';
@@ -16,7 +15,6 @@ trait SpinContent {
 			$cache = $this->spin();		
 			$c->set_cache( $path, $cacheFile, array( $cacheKey => $cache ) ); //Save data to cache
 		}
-
 		return $this->keywordReplacing( $cache, $this->productDetail['keyword'] );
 	}
 

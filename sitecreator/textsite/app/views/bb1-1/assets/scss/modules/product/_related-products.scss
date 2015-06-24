@@ -1,8 +1,15 @@
 $desktop: new-breakpoint(min-width $min-desktop 15);
 
-.related-products {
+.related-prod {
 	h2 {
-		margin-bottom: 10px;
+		margin-bottom: 20px;
+		border-bottom: 4px solid darken( #E5E5E5, 6% );
+	}
+	#relate-title {
+		//display: block;
+		color: transparentize( white, 0.1 );
+		padding: 5px;
+		background: transparentize( red, 0.3 );
 	}
 	.related-products-content {
 		@include clearfix;
@@ -30,7 +37,7 @@ $desktop: new-breakpoint(min-width $min-desktop 15);
 }
 
 
-.related-products {
+.related-prod {
 	.related-products-content {
 		a {
 			text-decoration: none;
@@ -63,10 +70,11 @@ $desktop: new-breakpoint(min-width $min-desktop 15);
 			.price {
 				padding-top: 5px;
 				padding-bottom: 10px;
-				border-bottom: 1px solid darken(palette(bg, base), 15%);
+				//border-bottom: 1px solid darken(palette(bg, base), 15%);
 				margin-bottom: 15px;
 				font-size: em(13px);
 				font-weight: 600;
+				color: #F23534;
 			}
 			
 			.button {

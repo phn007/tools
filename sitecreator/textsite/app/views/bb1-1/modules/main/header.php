@@ -1,13 +1,54 @@
 <?php
 class Header {
-	use HeaderSocialShare;
-	function createHtml() {
+	function createHtml( $data ) {
+		$cat = new CatMenuList_Plugin();
+		$mnList = $cat->menuList();
+	?>
+		<div id="top-h">
+			<div id="top-h-container">
+				<ul id="top-h-l">
+					<li><a href="<?php echo HOME_URL?>categories<?php echo FORMAT?>">All Categories</a></li>
+					<li><a href="<?php echo HOME_URL?>brands<?php echo FORMAT?>">All Brands</a></li>
+				</ul>
+	            <ul id="top-h-r">
+	                <li><a href="<?php echo HOME_URL?>contact<?php echo FORMAT?>">Contact</a></li>
+	                <li><a href="<?php echo HOME_URL?>about<?php echo FORMAT?>">About</a></li>
+	                <li><a href="<?php echo HOME_URL?>privacy-policy<?php echo FORMAT?>">Privacy Policy</a></li>
+	            </ul>
+			</div>
+        </div>
+        <div id="mid-h">
+            <div id="sitename">
+            	<a href="<?php echo HOME_LINK?>"><?php echo strtoupper( SITE_NAME )?></a>
+            </div>
+            <div id="desc">
+            	<?php if ( $data['current-page'] == 'home-page' ) echo SITE_DESC ?>
+            	<?php if ( $data['current-page'] == 'product-page' ) echo $data['product-detail']['keyword'] ?>
+            </div>
+        </div>
+        <div class="navigation">
+            <div class="navigation-wrapper">
+                <a href="<?php echo HOME_LINK?>" class="logo"><span id="home-icon" class="icon fa fa-home"></span></a>
+                <a href="javascript:void(0)" class="navigation-menu-button" id="js-mobile-menu"><span class="icon fa fa-navicon"></span></a>
+                <nav role="navigation">
+                    <ul id="js-navigation-menu" class="navigation-menu show">
+                        <?php foreach ( $mnList as $name => $link ): ?>
+							<li class="nav-link"><a href="<?php echo $link?>"><?php echo ucwords( $name )?></a></li>
+                        <?php endforeach ?>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+	<?php
+	}
+
+	function createHtml_1() {
 		$this->topHeader();
 		$this->siteInfo();
 		$this->navigation();
 	}
 
-	function topHeader() {
+	function topHeader_1() {
 	?>
 		<div class="top-header">
 			<div class="header-container">

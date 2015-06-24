@@ -19,7 +19,7 @@
   }
 }
 
-.category-list-head-title {
+.category-title {
 	margin-top:em(20px);
 	margin-bottom: em( 20px );
 	padding: 0;
@@ -51,8 +51,12 @@
 	}
 }
 
+section#cat-list {
+	@include span-columns(12);
+}
+
 // H2 Wide
-.category-list-head-title {
+.category-title {
 	h2 {
 		//Mobile view
 		@include media(min-width $min-phone max-width $max-phone, 12) {
@@ -72,7 +76,7 @@
 
 // Category List Item - Visual Grid Color
 // ======================================================================
-.category-list-items {
+.category-items {
 	//background: $ltblue;;
 	.item {
 		//background: $midblue;
@@ -81,7 +85,7 @@
 
 // Category List Item - Main Layout
 // ======================================================================
-.category-list-items {
+.category-items {
 	@include clearfix;
 	.item {
 		@include clearfix;
@@ -118,7 +122,7 @@
 
 // Category List Item - Element
 // ======================================================================
-.category-list-items {
+.category-items {
 	.item {
 		.image {
 			img {
