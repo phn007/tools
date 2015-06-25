@@ -3,6 +3,7 @@ use webtools\libs\Helper;
 
 trait SeparateCategoryForProsperentNetwork {
 	function getSeparatedCategory( $merchant, $category ) {
+		/*
 		$path =  FILES_PATH . 'separator_category.txt';
 		$this->checkSeparatorCategoryFileExist( $path );
 		$files = $this->readSeparatorCategoryFile( $path );
@@ -10,12 +11,16 @@ trait SeparateCategoryForProsperentNetwork {
 		
 		$this->checkMerchantSeparatorExist( $merchant, $separators );
 		$separator = $separators[ $merchant ];
+		*/
+		$separator = '>';
+		$catName = $this->separateCategory( $separator, $category );
 
 		//แยก category
-		if ( ! empty( $separator ) )
+		/*if ( ! empty( $separator ) )
 			$catName = $this->separateCategory( $separator, $category );
 		else
 			$catName = $category;
+		*/
 		return $catName;
 	}
 
