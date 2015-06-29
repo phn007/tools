@@ -11,7 +11,7 @@ class CycleProductList {
 			<div class="cycle-slideshow" 
 					data-cycle-loader=true
 					data-cycle-fx="flipHorz" 
-					data-cycle-timeout="1000" 
+					data-cycle-timeout="3000" 
 					data-cycle-pause-on-hover="true"
 					data-cycle-slides="> div">
 			<?php
