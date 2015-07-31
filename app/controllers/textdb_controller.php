@@ -31,7 +31,6 @@ class TextdbController extends Controller {
 			$merchantData   = $this->getMerchantData( $csvData );
 			$siteNumber     = $this->getSiteNumber( $csvData );
 			$siteDirNames   = $this->getSiteDirNames( $csvData );	
-
 			$productModel = $this->model( 'textdb/textdbProducts' );
 			$productModel->create( $projectName, $iniFilename, $merchantData, $siteNumber, $siteDirNames );
 		}
@@ -48,6 +47,13 @@ class TextdbController extends Controller {
 		if ( $function == 'homepagecat' || $function == 'all' ) {
 			$categoryListModel = $this->model( 'textdb/categoryListForHomepage' );
 			$categoryListModel->create( $configData );
+		}
+
+		if ( $function == 'merchants' || $function == 'all' ) {
+			$configData = $this->getConfigData( $csvData );
+			$merchantData = $this->getMerchantData( $csvData );
+			$model = $this->model( 'textdb/merchantList' );
+			$model->create( $configData, $merchantData );
 		}
 		echo "\n";
 	}

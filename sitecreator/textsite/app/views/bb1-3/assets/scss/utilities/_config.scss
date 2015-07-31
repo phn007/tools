@@ -1,0 +1,92 @@
+// ==========================================================================
+// Global Config
+// ==========================================================================
+
+////Font Stacks
+//$font-url--google        : 'http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900';
+//$font-family--primary    : 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+//$font-family--secondary  : 'Helvetica Neue', Helvetica, Arial, sans-serif;
+//
+////Font Weights
+//$font-weight--thin       : 100;
+//$font-weight--light      : 300;
+//$font-weight--medium     : 400;
+//$font-weight--bold       : 700;
+//$font-weight--ultra-bold : 900;
+//
+////Path to Assets
+//$path--rel      : "../img";
+
+
+
+//Media Screen
+$min-phone: 1px;
+$max-phone: 480px;
+$min-tablet: 481px;
+$max-tablet: 768px;
+$min-desktop: 769px;
+
+
+
+//Visual Grid Color
+//==================
+$ltblue: #D5EEFB;
+$midblue: #AADBF5;
+
+//Base Color: Our Little Projects and State of the Owner
+$dark: #354458;
+$skyblue1: #3A9AD9;
+$skyblue2: #4298B5;
+$green1: #29ABA4;
+$green2: #92B06A;
+$red1: #DF6C5B;
+$red2: #D15A2F;
+$yellow1: #D59426;
+
+
+
+//*** Color 7 ***
+
+
+//*** Color 6 ***
+
+
+//*** Color 5 ***
+
+
+//*** Color 4 ***
+
+
+//*** Color 3 ***
+
+
+//*** Color 2 ***
+
+
+//*** Color 1 ***
+
+
+
+$base-color: $skyblue1;
+
+
+//$visit-store-color: #6DBE14;
+$visit-store-color: $red1;
+
+//Header Color
+$header-color: #FFFFFF;
+$nav-bg: $base-color;
+
+//Footer Color
+$footer-bg: $base-color;
+
+
+$price-color: red ;
+$button-bg: $base-color;
+$hover-color: $base-color;
+$tab-color: $base-color;
+
+//Cycle Slide Show
+$cycle-bg: #DAE1E7;
+
+

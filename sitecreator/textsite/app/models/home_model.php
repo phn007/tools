@@ -3,8 +3,7 @@ include APP_PATH . 'traits/home/productItems_trait.php';
 include APP_PATH . 'traits/home/categoryList_trait.php';
 include APP_PATH . 'traits/link_trait.php';
 
-class HomeModel extends AppComponent
-{
+class HomeModel extends AppComponent {
 	use ProductItems;
 	use CategoryList;
 	use Permalink, CategoryLink;

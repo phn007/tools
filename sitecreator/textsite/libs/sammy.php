@@ -9,7 +9,6 @@
  */
 
 class Sammy {
-
 	public static $route_found = false;
 	public $uri = '';
 	public $segments = '';
@@ -17,8 +16,7 @@ class Sammy {
 	public $format = '';
 
 
-	public function __construct()
-	{
+	public function __construct() {
 		ob_start();
 		$this->uri = $this->get_uri();
 		$this->segments = explode('/', trim($this->uri, '/'));
@@ -32,8 +30,7 @@ class Sammy {
 		return $instance;
 	}
 	
-	public static function process( $route, $type )
-	{
+	public static function process( $route, $type ) {
 		$sammy = static::instance();
 
 		// Check for ajax
@@ -56,57 +53,31 @@ class Sammy {
 		Map::dispatch( $params );
 	}
 
-	public static function run()
-	{
-		if( !static::$route_found )
-		{
+	public static function run() {
+		if( !static::$route_found ) {
 			$sammy = Sammy::instance();
 			Map::pre_dispatch($sammy->get_uri(false));
 		}
 		ob_end_flush();
 	}
 
-	protected function get_method()
-	{
+	protected function get_method() {
 		return isset( $_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
 	}
 
-	protected function get_uri($prefix_slash = true)
-	{
-		/*
-		$uri = $_SERVER['REQUEST_URI'];
-		echo "Script Name: " . $_SERVER['SCRIPT_NAME'];
-		echo "<br>";
-		echo "uri: " . $uri;
-		echo "<br>";
-		echo "dirmname: " . dirname( $_SERVER['SCRIPT_NAME'] );
-		echo "<br>";
-		echo "PHP URL PATH: " . PHP_URL_PATH;
-		echo "<br>";
-		*/
-		
-		
-	    if ( isset( $_SERVER['PATH_INFO'] ) ) 
-		{
+	protected function get_uri($prefix_slash = true) {
+		if( isset($_SERVER['PATH_INFO']) ) {
 	        $uri = $_SERVER['PATH_INFO'];
-	    } 
-		elseif( isset( $_SERVER['REQUEST_URI'] ) ) 
-		{
+	    } elseif( isset($_SERVER['REQUEST_URI']) ) {
 	        $uri = $_SERVER['REQUEST_URI'];
-			
-			/*
-	        if( strpos( $uri, $_SERVER['SCRIPT_NAME'] ) === 0 )
-			{ 
-	            $uri = substr($uri, strlen($_SERVER['SCRIPT_NAME']));
-	        }
-			elseif( strpos($uri, dirname($_SERVER['SCRIPT_NAME'])) === 0 )
-			{
-	            $uri = substr($uri, strlen(dirname($_SERVER['SCRIPT_NAME'])));
-	        }
-			*/
-			
-	        // This section ensures that even on servers 
-			//that require the URI to be in the query string (Nginx) a correct
+
+	        // if( strpos($uri, $_SERVER['SCRIPT_NAME']) === 0 ) {
+	        //     $uri = substr($uri, strlen($_SERVER['SCRIPT_NAME']));
+	        // }elseif( strpos($uri, dirname($_SERVER['SCRIPT_NAME'])) === 0 ) {
+	        //     $uri = substr($uri, strlen(dirname($_SERVER['SCRIPT_NAME'])));
+	        // }
+
+	        // This section ensures that even on servers that require the URI to be in the query string (Nginx) a correct
 	        // URI is found, and also fixes the QUERY_STRING server var and $_GET array.
 	        if( strncmp($uri, '?/', 2) === 0 ) {
 	            $uri = substr($uri, 2);
@@ -127,16 +98,10 @@ class Sammy {
 	        // Couldn't determine the URI, so just return false
 	        return false;
 	    }
-		
-		/*
-		echo "result uri: " . $uri;
-		echo "<br>";
-		echo "return: " .  ( $prefix_slash ? '/' : '') . str_replace( array( '//', '../' ), '/', trim( $uri, '/' ) );
-		die();
-		*/
 
 	    // Do some final cleaning of the URI and return it
-	    return ( $prefix_slash ? '/' : '') . str_replace( array( '//', '../' ), '/', trim( $uri, '/' ) );
+	    return ($prefix_slash ? '/' : '').str_replace(array('//', '../'), '/', trim($uri, '/'));
+	       
 	}
 }
 

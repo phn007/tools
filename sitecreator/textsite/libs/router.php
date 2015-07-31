@@ -4,11 +4,31 @@ class Map extends Object {
 
 	public static $path = null;
 
-	public static function get( $route, $path )
-	{
+	public static function get($route, $path) {
 		self::$path = $path;
-		Sammy::process( $route, 'GET' );
+		Sammy::process($route, 'GET');
 	}
+
+	public static function post($route, $path) {
+		self::$path = $path;
+		Sammy::process($route, 'POST');
+	}
+
+	public static function put($route, $path) {
+		self::$path = $path;
+		Sammy::process($route, 'PUT');
+	}
+
+	public static function delete($route, $path) {
+		self::$path = $path;
+		Sammy::process($route, 'DELETE');
+	}
+
+	public static function ajax($route, $path) {
+		self::$path = $path;
+		Sammy::process($route, 'XMLHttpRequest');
+	}
+
 
 	public static function pre_dispatch( $uri ) {
 		/*
