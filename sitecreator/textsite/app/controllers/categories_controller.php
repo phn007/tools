@@ -2,7 +2,7 @@
 class CategoriesController extends Controller {
 	function categories( $params ) {
 		$this->currentPage = 'categories-page';
-		$this->layout = 'layout';
+		$this->layout = CATEGORIES_LAYOUT;
       	$this->view = 'index';
       	$model = $this->model( 'categories' );
       	$this->categories = $model->getCategoryList( $params );
@@ -13,7 +13,7 @@ class CategoriesController extends Controller {
 
 	function brands( $params ) {
 		$this->currentPage = 'brands-page';
-		$this->layout = 'layout';
+		$this->layout = BRANDS_LAYOUT;
       	$this->view = 'index';
       	$model = $this->model( 'categories' );
       	$this->categories = $model->getBrandList( $params );

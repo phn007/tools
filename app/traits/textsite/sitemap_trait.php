@@ -115,7 +115,7 @@ trait XmlFileAndDirectory {
 	}
 
 	function sitemapDestination() {
-		return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir'] . '/sitemap/';
+		return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir'] . '/xml/';
 	} 
 }
 

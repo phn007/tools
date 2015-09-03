@@ -2,7 +2,7 @@
 
 class StaticPageController extends controller {
 	function about() {
-		$this->layout = 'layout';
+		$this->layout = ABOUT_LAYOUT;
 		$this->view = 'about';
 		$this->currentPage = 'about-page';
 		$model = $this->model( 'staticpage' );
@@ -11,7 +11,7 @@ class StaticPageController extends controller {
 	}
 
 	function contact() {
-		$this->layout = 'layout';
+		$this->layout = CONTACT_LAYOUT;
 		$this->view = 'contact';
 		$this->currentPage = 'contact-page';
 		$model = $this->model( 'staticpage' );
@@ -20,7 +20,7 @@ class StaticPageController extends controller {
 	}
 
 	function privacy() {
-		$this->layout = 'layout';
+		$this->layout = PRIVACY_LAYOUT;
 		$this->view = 'privacy';
 		$this->currentPage = 'privacy-page';
 		$model = $this->model( 'staticpage' );

@@ -45,8 +45,11 @@ class ProductModel extends AppComponent {
    	}
 
    	function defineParameter( $params ) {
-		if ( isset( $params[0] ) ) $this->productFile = $params[0];
-		if ( isset( $params[1] ) ) $this->productKey = str_replace( FORMAT, '', $params[1] );
+		//if ( isset( $params[0] ) ) $this->productFile = $params[0];
+		//if ( isset( $params[1] ) ) $this->productKey = str_replace( FORMAT, '', $params[1] );
+
+		if ( isset( $params[1] ) ) $this->productFile = $params[1];
+		if ( isset( $params[2] ) ) $this->productKey = str_replace( FORMAT, '', $params[2] );
    	}
 
 	function getProductDetail() {

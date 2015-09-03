@@ -12,7 +12,7 @@ class SearchModel extends AppComponent {
 	private $products;
 
 	function searchProducts( $page ) {
-		$this->keyword =  urlencode( $_GET['name'] );
+		$this->keyword =  urlencode( $_GET['q'] );
 		$this->currentPage = $page;
 
 		$prosp = new ProsperentAPI();
@@ -40,6 +40,7 @@ class SearchModel extends AppComponent {
 			$key = $product['keyword'];
 			$result[$key]['affiliate_url'] = $product['affiliate_url'] . '&sid=search_' . SID . '_' . $this->keyword;
 			$result[$key]['image_url'] = $product['image_url'];
+			$result[$key]['description'] = $product['description'];
 			$result[$key]['category'] = $product['category'];
 			$result[$key]['price'] = $product['price'];
 			$result[$key]['merchant'] = $product['merchant'];
@@ -67,7 +68,7 @@ trait SearchPagination {
 			else
 				$status = true;
 
-			$pagination[$i]['link'] = $link = HOME_URL . 'search/' . $i . '/?name=' . $this->keyword;
+			$pagination[$i]['link'] = $link = HOME_URL . 'search/' . $i . '/?q=' . $this->keyword;
 			$pagination[$i]['status'] = $status;
 		}
 		return $pagination;

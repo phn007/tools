@@ -2,7 +2,7 @@
 class SearchController extends Controller {
 	function index( $params ) {
 		$this->view = 'index';
-		$this->layout = 'search';
+		$this->layout = SEARCH_LAYOUT;
 		$this->currentPage = 'search-page';
 
 		$model = $this->model( 'search' );

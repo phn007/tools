@@ -1,7 +1,7 @@
 <?php
 class HtmlSitemapController extends Controller {
 	function index() {
-		$this->layout = 'layout';
+		$this->layout = HTMLSITEMAP_LAYOUT;
 		$this->view = 'index';
 		$this->currentPage = 'html-sitemap-page';
 		$this->homeMenuState = true;

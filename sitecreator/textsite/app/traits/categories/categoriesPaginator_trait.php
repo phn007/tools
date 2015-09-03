@@ -88,6 +88,12 @@ trait PageUrl {
 	}
 
 	function createCategoriesUrl() {
-		return HOME_URL . $this->pathType;
+		if ( $this->pathType == 'categories' )
+			$catname = 'category-list';
+		if ( $this->pathType == 'brands' )
+			$catname = 'brand-list';
+
+		//return HOME_URL . $this->pathType;
+		return HOME_URL . $catname;
 	}
 }

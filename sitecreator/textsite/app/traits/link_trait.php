@@ -3,6 +3,7 @@ trait Permalink {
 	function getPermalink( $productFile, $productKey ) {
 		$url = array(
 			'homeUrl' => rtrim( HOME_URL, '/' ),
+			'free' => 'p',
 			'productFile' => $productFile,
 			'productKey' => $productKey . FORMAT,
 		);
@@ -12,11 +13,20 @@ trait Permalink {
 
 trait CategoryLink {	
 	function getCategoryLink( $typeName, $filename ) {
+		if ( $typeName == 'category' )
+			$typeName = 'cat';
+
+		if ( $typeName == 'brand' )
+			$typeName = 'bnd';
+
+
 		$url = array(
 			'homeUrl' => rtrim( HOME_URL, '/' ),
 			'categoryTypeName' => $typeName,
 			'categoryFilename' => $filename,
 		);
+
+
 		return implode( '/', $url );
 	}	
 }

@@ -30,7 +30,7 @@ trait SitemapIndex {
 	function setSitemapIndexUrl( $file ) {
 		$arr = explode( '/', $file );
 		$filename = end( $arr );
-		return $this->homeUrl() . '/sitemap/' . $filename;
+		return $this->homeUrl() . '/xml/' . $filename;
 	}
 }
 
@@ -48,7 +48,7 @@ trait SitemapIndexFileAndDirectory {
     }
 
     function sitemapDir() {
-    	return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir'] . '/sitemap/';
+    	return TEXTSITE_PATH . $this->config['project'] . '/' . $this->config['site_dir'] . '/xml/';
     }
 }
 

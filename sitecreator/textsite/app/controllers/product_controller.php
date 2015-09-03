@@ -5,7 +5,7 @@
 class ProductController extends Controller {
 	function index( $params ) {
 		$this->currentPage = 'product-page';
-		$this->layout = 'layout';
+		$this->layout = PRODUCT_LAYOUT;
 		$this->view = 'index';
 		
 		$model = $this->model( 'product' );
