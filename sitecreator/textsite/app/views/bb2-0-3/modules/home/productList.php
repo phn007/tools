@@ -57,12 +57,12 @@ class ProductList {
 
 	function getBrandLink( $brandName ) {
 		$brandName = Helper::clean_string( $brandName );
-		return HOME_URL . 'brand/' . $brandName . FORMAT;
+		return HOME_URL . 'bnd/' . $brandName . FORMAT;
 	}
 
 	function getCategoryLink( $catName ) {
 		$catName = Helper::clean_string( $catName );
-		return HOME_URL . 'category/' . $catName . FORMAT;
+		return HOME_URL . 'cat/' . $catName . FORMAT;
 	}
 
 	function cleanDoubleQuote( $str ) {
