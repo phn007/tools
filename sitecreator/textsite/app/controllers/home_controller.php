@@ -12,5 +12,8 @@ class HomeController extends Controller {
 		$this->categoryList = $model->homeCategoryList();		
 		$this->brandList = $model-> homeBrandList();
 		$this->seoTags = $model->homeSeoTags();
+
+
+		
 	}
 }

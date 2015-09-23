@@ -76,7 +76,7 @@ trait CatNameAndUrl {
 	}
 
 	function createUrl( $typeName, $filename ) {
-		return $this->getCategoryLink( $typeName, $filename ) . FORMAT;
+		return $this->getCategoryLink( $typeName, $filename );
 	}
 
 	function readContentFromFile( $path ) {

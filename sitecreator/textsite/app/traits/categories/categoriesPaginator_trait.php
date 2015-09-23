@@ -89,9 +89,9 @@ trait PageUrl {
 
 	function createCategoriesUrl() {
 		if ( $this->pathType == 'categories' )
-			$catname = 'category-list';
+			$catname = 'categories';
 		if ( $this->pathType == 'brands' )
-			$catname = 'brand-list';
+			$catname = 'brands';
 
 		//return HOME_URL . $this->pathType;
 		return HOME_URL . $catname;

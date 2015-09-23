@@ -20,13 +20,13 @@ trait ProductDetail {
 
 	function addCategoryLinkIntoProductItem( $productItem ) {
 		$filename = Helper::clean_string( $productItem['category'] );
-		$productItem['categoryLink'] = $this->getCategoryLink( 'category', $filename ) . FORMAT; //permalink trait
+		$productItem['categoryLink'] = $this->getCategoryLink( 'category', $filename ); //permalink trait
 		return $productItem;
 	}
 
 	function addBrandLinkIntoProductItem( $productItem ) {
 		$filename = Helper::clean_string( $productItem['brand'] );
-		$productItem['brandLink'] = $this->getCategoryLink( 'brand', $filename ) . FORMAT; //permalink trait
+		$productItem['brandLink'] = $this->getCategoryLink( 'brand', $filename ); //permalink trait
 		return $productItem;
 	}
 
